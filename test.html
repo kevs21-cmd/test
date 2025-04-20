@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Padre Garcia Polytechnic College - Student Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Aileron&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Aileron', sans-serif;
+        }
+
+        body {
+            color: white;
+            min-height: 100vh;
+        }
+
+        .content {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .sidebar {
+            width: 280px;
+            background-color: #172554;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .student-profile {
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #3b4c75;
+        }
+
+        .student-photo {
+            width: 80px;
+            height: 80px;
+            background-color: #ccc;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            margin-right: 15px;
+        }
+
+        .student-info {
+            margin-left: 15px;
+        }
+
+        .student-info p:first-child {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .student-info p:last-child {
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .menu {
+            background-color: #1e3a8a;
+            color: white;
+            padding: 20px;
+            border-radius: 0 0 10px 10px;
+            transition: background-color 0.3s;
+        }
+
+        .menu ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .menu li {
+            text-align: center;
+            font-weight: 500;
+            margin-bottom: 24px;
+            transition: color 0.3s;
+        }
+
+        .menu li:last-child {
+            margin-bottom: 0;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .menu li:hover {
+            color: #ffd700;
+        }
+
+        .menu a:hover {
+            color: #ffd700;
+        }
+
+        .main-content {
+            flex: 1;
+            background: rgba(10, 33, 88, 0.8);
+            border-radius: 10px;
+            padding: 24px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .content-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .small-logo {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .content-college-name {
+            margin-left: 15px;
+        }
+
+        .content-college-name h2 {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .content-college-name p {
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .announcements {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 16px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .announcements-content {
+            height: 320px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            color: #fff;
+        }
+
+        .announcement-item {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+
+        .announcement-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .main-content {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Left Sidebar -->
+        <div class="sidebar">
+            <!-- Student Profile -->
+            {% if student %}
+                <div class="student-profile">
+                    <img src="{{ student[2] }}" alt="Student Photo" class="student-photo">
+                    <div class="student-info">
+                        <p>{{ student[0] }}</p>
+                        <p>{{ student[1] }}</p>
+                    </div>
+                </div>
+            {% else %}
+            <div class="student-profile">
+                <img src="{{ student[2] }}" alt="Student Photo" class="student-photo">
+                <div class="student-info">
+                    <p>{{ student[0] }}</p>
+                    <p>{{ student[1] }}</p>
+                </div>
+            {% endif %}
+        
+            <!-- Menu Items -->
+            <div class="menu">
+                <ul>
+                    <li><a href="#">Registrar</a></li>
+                    <li><a href="#">Balance</a></li>
+                    <li><a href="#">Grades</a></li>
+                    <li><a href="#">Records</a></li>
+                    <li><a href="#">Library</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <div class="content-header">
+                <img src="https://th.bing.com/th/id/OIP.G9tiHX0CXFcsfhYojwSsRAHaHa?rs=1&pid=ImgDetMain" alt="College Logo" class="small-logo">
+                <div class="content-college-name">
+                    <h2>PADRE GARCIA</h2>
+                    <p>POLYTECHNIC COLLEGE</p>
+                </div>
+            </div>
+
+            <h2 class="announcements">Announcements</h2>
+
+            <div class="announcements-content">
+                <div class="announcement-item">New semester starts on Monday, April 7th.</div>
+                <div class="announcement-item">Library will be closed for maintenance this weekend.</div>
+                <div class="announcement-item">Student IDs are available for pickup in the Registrar’s office.</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+{% endblock %}

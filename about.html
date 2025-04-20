@@ -1,0 +1,735 @@
+{% extends "base.html" %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>University Website</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#29006f',secondary:'#29006f'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+html {
+scroll-behavior: smooth;
+}
+body {
+font-family: 'Inter', sans-serif;
+}
+.nav-dropdown {
+display: none;
+position: absolute;
+top: 100%;
+left: 0;
+z-index: 50;
+}
+.nav-item:hover .nav-dropdown {
+display: block;
+}
+.section-indicator {
+position: fixed;
+right: 20px;
+top: 50%;
+transform: translateY(-50%);
+z-index: 40;
+}
+.section-indicator a {
+display: block;
+width: 10px;
+height: 10px;
+border-radius: 50%;
+background-color: #d1d5db;
+margin: 10px 0;
+transition: all 0.3s ease;
+}
+.section-indicator a.active {
+background-color: #4f0e9e;
+transform: scale(1.3);
+}
+</style>
+</head>
+<body class="bg-white">
+    <div class="invisible h-8"></div>
+    <div class="invisible h-8"></div>
+
+<main>
+<!-- Hero Section -->
+<section class="bg-gradient-to-r from-primary to-secondary text-white py-20">
+<div class="container mx-auto px-4">
+<div class="max-w-3xl">
+<h1 class="text-4xl md:text-5xl font-bold mb-6">About Our University</h1>
+<p class="text-xl mb-8">Discover our rich history, mission, values, and the people who make our institution exceptional. Learn about our global campuses and leadership team.</p>
+<div class="flex space-x-4">
+<a href="#university-history" class="bg-white text-primary px-6 py-3 rounded-button font-medium hover:bg-gray-100 transition-colors whitespace-nowrap !rounded-button">Explore Our History</a>
+<a href="#campus-locations" class="bg-transparent border-2 border-white px-6 py-3 rounded-button font-medium hover:bg-white hover:bg-opacity-10 transition-colors whitespace-nowrap !rounded-button">View Our Campuses</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Page Navigation -->
+<section class="bg-gray-50 border-b">
+<div class="container mx-auto px-4">
+<div class="flex overflow-x-auto py-4 space-x-6">
+<a href="#university-history" class="text-gray-600 hover:text-primary whitespace-nowrap pb-2 border-b-2 border-transparent hover:border-primary transition-colors">University History</a>
+<a href="#mission-vision" class="text-gray-600 hover:text-primary whitespace-nowrap pb-2 border-b-2 border-transparent hover:border-primary transition-colors">Mission and Vision</a>
+<a href="#campus-locations" class="text-gray-600 hover:text-primary whitespace-nowrap pb-2 border-b-2 border-transparent hover:border-primary transition-colors">Campus Locations</a>
+<a href="#administration" class="text-gray-600 hover:text-primary whitespace-nowrap pb-2 border-b-2 border-transparent hover:border-primary transition-colors">Administration</a>
+</div>
+</div>
+</section>
+<!-- University History Section -->
+<section id="university-history" class="py-16">
+<div class="container mx-auto px-4">
+<div class="max-w-4xl mx-auto">
+<h2 class="text-3xl font-bold mb-8 text-gray-800">University History</h2>
+<div class="flex flex-col md:flex-row gap-8 mb-12">
+<div class="md:w-1/2">
+<img src="https://readdy.ai/api/search-image?query=historic%20university%20campus%20building%20with%20gothic%20architecture%2C%20beautiful%20stone%20facade%2C%20ivy%20covered%20walls%2C%20surrounded%20by%20mature%20trees%2C%20students%20walking%20on%20paths%2C%20sunny%20day%2C%20clear%20blue%20sky&width=600&height=400&seq=1&orientation=landscape" alt="Historic University Building" class="rounded-lg shadow-lg w-full h-64 object-cover object-top">
+</div>
+<div class="md:w-1/2">
+<h3 class="text-xl font-semibold mb-4 text-gray-800">Founded in 1876</h3>
+<p class="text-gray-600 mb-4">Our university was established in 1876 with a vision to provide accessible education to all. What began as a small college with just 35 students and 7 faculty members has grown into a world-renowned institution with over 40,000 students and 2,500 faculty members across multiple campuses.</p>
+<p class="text-gray-600">The original campus was built on donated land from the Westfield family, with the iconic Westfield Hall being the first building constructed. This historic building still stands today as a testament to our enduring legacy.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Mission and Vision Section -->
+<section id="mission-vision" class="py-16 bg-gray-50">
+<div class="container mx-auto px-4">
+<div class="max-w-4xl mx-auto">
+<h2 class="text-3xl font-bold mb-8 text-gray-800">Mission and Vision</h2>
+<div class="bg-white p-8 rounded-lg shadow-sm mb-12">
+<h3 class="text-xl font-semibold mb-4 text-primary">Our Mission</h3>
+<p class="text-gray-600 mb-6">To advance knowledge through innovative research and scholarship, to transform lives through exceptional teaching and learning experiences, and to serve society by fostering an inclusive environment where diverse perspectives thrive. We are committed to creating opportunities for intellectual growth, creative expression, and personal development while promoting ethical leadership and social responsibility. Through our dedication to academic excellence and community engagement, we aim to empower individuals to become thoughtful, informed citizens who contribute meaningfully to their local and global communities.</p>
+<h3 class="text-xl font-semibold mb-4 text-primary">Our Vision</h3>
+<p class="text-gray-600">To be a global leader in education, research, and innovation that addresses the world's most pressing challenges and prepares students to lead with integrity in an interconnected world. We envision a future where our institution serves as a catalyst for positive change, fostering breakthrough discoveries, nurturing creative talent, and developing solutions to complex global issues. Through interdisciplinary collaboration, technological advancement, and cultural exchange, we strive to create an educational environment that inspires excellence, promotes sustainability, and cultivates leadership for generations to come.</p>
+</div>
+<div class="bg-primary bg-opacity-5 p-8 rounded-lg">
+<h3 class="text-xl font-semibold mb-6 text-gray-800">Strategic Plan 2025-2030</h3>
+<div class="space-y-4">
+<div class="flex items-start">
+<div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+<span class="text-white font-medium">1</span>
+</div>
+<div>
+<h4 class="font-medium text-gray-800 mb-1">Expand Global Partnerships</h4>
+<p class="text-gray-600">Develop strategic partnerships with leading institutions worldwide to enhance research collaboration and student exchange opportunities.</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+<span class="text-white font-medium">2</span>
+</div>
+<div>
+<h4 class="font-medium text-gray-800 mb-1">Advance Interdisciplinary Research</h4>
+<p class="text-gray-600">Foster collaboration across disciplines to address complex societal challenges and create new knowledge.</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+<span class="text-white font-medium">3</span>
+</div>
+<div>
+<h4 class="font-medium text-gray-800 mb-1">Enhance Student Experience</h4>
+<p class="text-gray-600">Implement innovative teaching methods and provide comprehensive support services to ensure student success.</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0">
+<span class="text-white font-medium">4</span>
+</div>
+<div>
+<h4 class="font-medium text-gray-800 mb-1">Strengthen Community Engagement</h4>
+<p class="text-gray-600">Deepen our commitment to serving local and global communities through outreach programs and public service initiatives.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Campus Locations Section -->
+<section id="campus-locations" class="py-16">
+<div class="container mx-auto px-4">
+<div class="max-w-4xl mx-auto">
+<h2 class="text-3xl font-bold mb-8 text-gray-800">Campus Locations</h2>
+<div class="mb-12">
+<div class="bg-white p-6 rounded-lg shadow-sm mb-8">
+<div class="h-64 mb-6 rounded-lg overflow-hidden">
+<div class="w-full h-full bg-cover bg-center" style="background-image: url('https://public.readdy.ai/gen_page/map_placeholder_1280x720.png');"></div>
+</div>
+<p class="text-gray-600 mb-4">Our university has a global presence with campuses across 3 continents, providing students with diverse learning environments and international perspectives. Each campus offers unique academic programs while maintaining our commitment to excellence.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+<div class="bg-white rounded-lg shadow-sm overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=beautiful%20university%20main%20campus%20with%20modern%20and%20historic%20buildings%2C%20green%20spaces%2C%20students%20walking%20between%20classes%2C%20sunny%20day%20with%20blue%20sky%2C%20campus%20quad%20with%20fountain&width=600&height=350&seq=2&orientation=landscape" alt="Main Campus" class="w-full h-48 object-cover object-top">
+<div class="p-6">
+<h3 class="text-lg font-semibold mb-2 text-gray-800">Main Campus</h3>
+<p class="text-gray-500 mb-3">Westfield, California, USA</p>
+<p class="text-gray-600 mb-4">Our flagship campus spans 500 acres with state-of-the-art facilities, historic buildings, and beautiful green spaces. Home to all undergraduate programs and most graduate schools.</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">15,000+ Students</span>
+<span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">120+ Buildings</span>
+<span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">All Faculties</span>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=modern%20urban%20university%20campus%20in%20singapore%20with%20sleek%20glass%20buildings%2C%20tropical%20landscaping%2C%20students%20from%20diverse%20backgrounds%2C%20city%20skyline%20visible%20in%20background&width=600&height=350&seq=3&orientation=landscape" alt="Singapore Campus" class="w-full h-48 object-cover object-top">
+<div class="p-6">
+<h3 class="text-lg font-semibold mb-2 text-gray-800">Singapore Campus</h3>
+<p class="text-gray-500 mb-3">Downtown Core, Singapore</p>
+<p class="text-gray-600 mb-4">Our Asia hub features modern facilities in the heart of Singapore's business district. Specializes in business, technology, and international relations programs.</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">5,000+ Students</span>
+<span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">Business Focus</span>
+<span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">Tech Hub</span>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=historic%20european%20university%20campus%20in%20london%20with%20classic%20architecture%2C%20cobblestone%20paths%2C%20students%20sitting%20on%20benches%20studying%2C%20autumn%20leaves%2C%20cloudy%20sky&width=600&height=350&seq=4&orientation=landscape" alt="London Campus" class="w-full h-48 object-cover object-top">
+<div class="p-6">
+<h3 class="text-lg font-semibold mb-2 text-gray-800">London Campus</h3>
+<p class="text-gray-500 mb-3">Kensington, London, UK</p>
+<p class="text-gray-600 mb-4">Located in historic buildings in central London, this campus focuses on arts, humanities, and social sciences with strong connections to cultural institutions.</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">3,500+ Students</span>
+<span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">Arts & Humanities</span>
+<span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">Cultural Programs</span>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-sm overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=modern%20research%20campus%20with%20cutting-edge%20laboratory%20buildings%2C%20sustainable%20architecture%2C%20solar%20panels%2C%20researchers%20in%20white%20coats%20walking%20between%20buildings%2C%20desert%20landscape%20with%20mountains%20in%20background&width=600&height=350&seq=5&orientation=landscape" alt="Research Campus" class="w-full h-48 object-cover object-top">
+<div class="p-6">
+<h3 class="text-lg font-semibold mb-2 text-gray-800">Research Campus</h3>
+<p class="text-gray-500 mb-3">Phoenix, Arizona, USA</p>
+<p class="text-gray-600 mb-4">Our newest campus dedicated to advanced research in sustainable technologies, medicine, and space sciences. Features cutting-edge laboratories and research facilities.</p>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">2,000+ Researchers</span>
+<span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">PhD Programs</span>
+<span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">Industry Partnerships</span>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-primary bg-opacity-5 p-8 rounded-lg">
+<h3 class="text-xl font-semibold mb-6 text-gray-800">Campus Facilities</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+<div class="flex flex-col items-center text-center">
+<div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mb-3">
+<i class="ri-book-line text-white ri-lg"></i>
+</div>
+<h4 class="font-medium text-gray-800 mb-1">Libraries</h4>
+<p class="text-gray-600 text-sm">World-class collections with over 8 million volumes</p>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mb-3">
+<i class="ri-test-tube-line text-white ri-lg"></i>
+</div>
+<h4 class="font-medium text-gray-800 mb-1">Laboratories</h4>
+<p class="text-gray-600 text-sm">State-of-the-art research facilities</p>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mb-3">
+<i class="ri-home-4-line text-white ri-lg"></i>
+</div>
+<h4 class="font-medium text-gray-800 mb-1">Housing</h4>
+<p class="text-gray-600 text-sm">Modern residence halls for 12,000+ students</p>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mb-3">
+<i class="ri-basketball-line text-white ri-lg"></i>
+</div>
+<h4 class="font-medium text-gray-800 mb-1">Sports Facilities</h4>
+<p class="text-gray-600 text-sm">Olympic-standard facilities for 30+ sports</p>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mb-3">
+<i class="ri-restaurant-line text-white ri-lg"></i>
+</div>
+<h4 class="font-medium text-gray-800 mb-1">Dining</h4>
+<p class="text-gray-600 text-sm">Multiple dining options with diverse cuisines</p>
+</div>
+<div class="flex flex-col items-center text-center">
+<div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mb-3">
+<i class="ri-hospital-line text-white ri-lg"></i>
+</div>
+<h4 class="font-medium text-gray-800 mb-1">Health Services</h4>
+<p class="text-gray-600 text-sm">Comprehensive healthcare for all students</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Administration Section -->
+<section id="administration" class="py-16 bg-gray-50">
+<div class="container mx-auto px-4">
+<div class="max-w-4xl mx-auto">
+<h2 class="text-3xl font-bold mb-8 text-gray-800">Administration</h2>
+<div class="mb-12">
+<div class="bg-white p-8 rounded-lg shadow-sm mb-8">
+<div class="flex flex-col md:flex-row gap-8 items-center">
+<div class="md:w-1/3">
+<img src="https://readdy.ai/api/search-image?query=professional%20portrait%20of%20university%20president%2C%20distinguished%20older%20man%20with%20gray%20hair%20and%20glasses%20wearing%20formal%20suit%2C%20confident%20expression%2C%20neutral%20background%2C%20professional%20lighting&width=300&height=400&seq=6&orientation=portrait" alt="University President" class="rounded-lg shadow-sm w-full object-cover object-top">
+</div>
+<div class="md:w-2/3">
+<h3 class="text-xl font-semibold mb-2 text-gray-800">Dr. Jonathan Blackwell</h3>
+<p class="text-primary font-medium mb-4">President</p>
+<p class="text-gray-600 mb-4">Dr. Blackwell has served as President since 2018. With over 30 years of experience in higher education leadership, he previously held positions as Dean of the College of Arts and Sciences and Vice President for Academic Affairs. He holds a Ph.D. in Economics from Harvard University.</p>
+<p class="text-gray-600">Under his leadership, the university has expanded its global presence, strengthened research initiatives, and enhanced student success programs. Dr. Blackwell is committed to advancing the university's mission of excellence in education, research, and service.</p>
+</div>
+</div>
+</div>
+</div>
+<h3 class="text-xl font-semibold mb-6 text-gray-800">Leadership Team</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+<div class="bg-white p-6 rounded-lg shadow-sm flex items-start">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20female%20academic%20administrator%2C%20middle-aged%20woman%20with%20short%20dark%20hair%2C%20professional%20attire%2C%20neutral%20background%2C%20confident%20expression&width=100&height=100&seq=7&orientation=squarish" alt="Dr. Sarah Chen" class="w-16 h-16 rounded-full object-cover object-top mr-4">
+<div>
+<h4 class="font-medium text-gray-800 mb-1">Dr. Sarah Chen</h4>
+<p class="text-primary text-sm mb-2">Provost & Executive Vice President</p>
+<p class="text-gray-600 text-sm">Oversees all academic programs and faculty affairs across the university.</p>
+</div>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm flex items-start">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20male%20university%20administrator%2C%20african%20american%20man%20in%20his%2050s%20wearing%20business%20suit%2C%20neutral%20background%2C%20professional%20lighting&width=100&height=100&seq=8&orientation=squarish" alt="Dr. Marcus Johnson" class="w-16 h-16 rounded-full object-cover object-top mr-4">
+<div>
+<h4 class="font-medium text-gray-800 mb-1">Dr. Marcus Johnson</h4>
+<p class="text-primary text-sm mb-2">Vice President for Research</p>
+<p class="text-gray-600 text-sm">Leads the university's research enterprise and innovation initiatives.</p>
+</div>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm flex items-start">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20female%20university%20administrator%2C%20middle-aged%20woman%20with%20blonde%20hair%2C%20business%20attire%2C%20neutral%20background%2C%20professional%20lighting&width=100&height=100&seq=9&orientation=squarish" alt="Elizabeth Winters" class="w-16 h-16 rounded-full object-cover object-top mr-4">
+<div>
+<h4 class="font-medium text-gray-800 mb-1">Elizabeth Winters</h4>
+<p class="text-primary text-sm mb-2">Chief Financial Officer</p>
+<p class="text-gray-600 text-sm">Manages the university's financial operations and strategic planning.</p>
+</div>
+</div>
+<div class="bg-white p-6 rounded-lg shadow-sm flex items-start">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20male%20university%20administrator%2C%20asian%20man%20in%20his%2040s%20wearing%20business%20casual%20attire%2C%20neutral%20background%2C%20professional%20lighting&width=100&height=100&seq=10&orientation=squarish" alt="Dr. David Kim" class="w-16 h-16 rounded-full object-cover object-top mr-4">
+<div>
+<h4 class="font-medium text-gray-800 mb-1">Dr. David Kim</h4>
+<p class="text-primary text-sm mb-2">Vice President for Student Affairs</p>
+<p class="text-gray-600 text-sm">Leads programs and services that enhance student experience and success.</p>
+</div>
+</div>
+</div>
+<h3 class="text-xl font-semibold mb-6 text-gray-800">Academic Deans</h3>
+<div class="bg-white p-6 rounded-lg shadow-sm mb-12">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex items-center">
+<div class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+<i class="ri-book-open-line text-primary"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-800">Dr. Rebecca Martinez</h4>
+<p class="text-gray-600 text-sm">Dean, College of Arts & Sciences</p>
+</div>
+</div>
+<div class="flex items-center">
+<div class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+<i class="ri-building-line text-primary"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-800">Dr. James Wilson</h4>
+<p class="text-gray-600 text-sm">Dean, School of Business</p>
+</div>
+</div>
+<div class="flex items-center">
+<div class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+<i class="ri-scales-3-line text-primary"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-800">Dr. Olivia Thompson</h4>
+<p class="text-gray-600 text-sm">Dean, School of Law</p>
+</div>
+</div>
+<div class="flex items-center">
+<div class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+<i class="ri-heart-pulse-line text-primary"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-800">Dr. Robert Garcia</h4>
+<p class="text-gray-600 text-sm">Dean, School of Medicine</p>
+</div>
+</div>
+<div class="flex items-center">
+<div class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+<i class="ri-code-box-line text-primary"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-800">Dr. Amelia Patel</h4>
+<p class="text-gray-600 text-sm">Dean, School of Engineering</p>
+</div>
+</div>
+<div class="flex items-center">
+<div class="w-10 h-10 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mr-4">
+<i class="ri-graduation-cap-line text-primary"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-800">Dr. Thomas Wright</h4>
+<p class="text-gray-600 text-sm">Dean, Graduate School</p>
+</div>
+</div>
+</div>
+</div>
+<h3 class="text-xl font-semibold mb-6 text-gray-800">Governance Structure</h3>
+<div class="bg-white p-6 rounded-lg shadow-sm">
+<div class="space-y-6">
+<div>
+<div class="flex items-center justify-between cursor-pointer" onclick="toggleSection('board-members')">
+<h4 class="font-medium text-gray-800 mb-2">Board of Trustees</h4>
+<i class="ri-arrow-down-s-line text-gray-600 transform transition-transform" id="board-members-icon"></i>
+</div>
+<p class="text-gray-600 mb-2">The Board of Trustees is the university's governing body, responsible for establishing policies, strategic direction, and ensuring financial sustainability. The board consists of 24 members who serve four-year terms.</p>
+<div id="board-members" class="hidden mt-4 bg-gray-50 p-4 rounded-lg">
+<h5 class="font-medium text-gray-800 mb-3">Board Members</h5>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20senior%20executive%20board%20member%2C%20distinguished%20older%20man%20in%20business%20suit&width=48&height=48&seq=20&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Board Member">
+<div>
+<p class="font-medium text-gray-800">Richard Anderson</p>
+<p class="text-sm text-gray-600">Board Chair</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20female%20executive%20board%20member%2C%20middle%20aged%20woman%20in%20business%20attire&width=48&height=48&seq=21&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Board Member">
+<div>
+<p class="font-medium text-gray-800">Patricia Hughes</p>
+<p class="text-sm text-gray-600">Vice Chair</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20asian%20executive%20board%20member%2C%20middle%20aged%20man%20in%20business%20suit&width=48&height=48&seq=24&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Board Member">
+<div>
+<p class="font-medium text-gray-800">William Chen</p>
+<p class="text-sm text-gray-600">Secretary</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20african%20american%20executive%20board%20member%2C%20distinguished%20woman%20in%20business%20attire&width=48&height=48&seq=25&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Board Member">
+<div>
+<p class="font-medium text-gray-800">Michelle Thompson</p>
+<p class="text-sm text-gray-600">Treasurer</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20latino%20executive%20board%20member%2C%20middle%20aged%20man%20in%20business%20suit&width=48&height=48&seq=26&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Board Member">
+<div>
+<p class="font-medium text-gray-800">Carlos Rodriguez</p>
+<p class="text-sm text-gray-600">Member</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20middle%20eastern%20executive%20board%20member%2C%20woman%20in%20professional%20attire&width=48&height=48&seq=27&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Board Member">
+<div>
+<p class="font-medium text-gray-800">Amira Hassan</p>
+<p class="text-sm text-gray-600">Member</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-6">
+<div class="flex items-center justify-between cursor-pointer" onclick="toggleSection('faculty-senate')">
+<h4 class="font-medium text-gray-800 mb-2">Faculty Senate</h4>
+<i class="ri-arrow-down-s-line text-gray-600 transform transition-transform" id="faculty-senate-icon"></i>
+</div>
+<p class="text-gray-600 mb-2">The Faculty Senate represents the faculty in university governance and advises administration on academic matters. It consists of elected representatives from each academic department.</p>
+<div id="faculty-senate" class="hidden mt-4 bg-gray-50 p-4 rounded-lg">
+<h5 class="font-medium text-gray-800 mb-3">Faculty Senate Leadership</h5>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20university%20professor%2C%20middle%20aged%20woman%20with%20glasses&width=48&height=48&seq=22&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Faculty Senate">
+<div>
+<p class="font-medium text-gray-800">Dr. Emily Richardson</p>
+<p class="text-sm text-gray-600">Senate President</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20senior%20male%20professor%2C%20distinguished%20man%20with%20beard&width=48&height=48&seq=28&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Faculty Senate">
+<div>
+<p class="font-medium text-gray-800">Dr. Alexander Murray</p>
+<p class="text-sm text-gray-600">Vice President</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20asian%20female%20professor%2C%20middle%20aged%20woman%20in%20professional%20attire&width=48&height=48&seq=29&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Faculty Senate">
+<div>
+<p class="font-medium text-gray-800">Dr. Jennifer Liu</p>
+<p class="text-sm text-gray-600">Secretary</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20african%20american%20male%20professor%2C%20middle%20aged%20man%20in%20academic%20attire&width=48&height=48&seq=30&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Faculty Senate">
+<div>
+<p class="font-medium text-gray-800">Dr. Marcus Williams</p>
+<p class="text-sm text-gray-600">Treasurer</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20latino%20professor%2C%20middle%20aged%20man%20with%20glasses&width=48&height=48&seq=31&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Faculty Senate">
+<div>
+<p class="font-medium text-gray-800">Dr. Rafael Morales</p>
+<p class="text-sm text-gray-600">Committee Chair</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20middle%20eastern%20female%20professor%2C%20woman%20with%20hijab%20in%20academic%20attire&width=48&height=48&seq=32&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Faculty Senate">
+<div>
+<p class="font-medium text-gray-800">Dr. Fatima Al-Said</p>
+<p class="text-sm text-gray-600">Committee Chair</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20indian%20professor%2C%20middle%20aged%20man%20in%20formal%20attire&width=48&height=48&seq=33&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Faculty Senate">
+<div>
+<p class="font-medium text-gray-800">Dr. Rajesh Patel</p>
+<p class="text-sm text-gray-600">Committee Chair</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-6">
+<div class="flex items-center justify-between cursor-pointer" onclick="toggleSection('student-government')">
+<h4 class="font-medium text-gray-800 mb-2">Student Government</h4>
+<i class="ri-arrow-down-s-line text-gray-600 transform transition-transform" id="student-government-icon"></i>
+</div>
+<p class="text-gray-600 mb-2">The Student Government Association represents student interests in university decision-making and manages student activities and organizations.</p>
+<div id="student-government" class="hidden mt-4 bg-gray-50 p-4 rounded-lg">
+<h5 class="font-medium text-gray-800 mb-3">Student Government Officers</h5>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20young%20asian%20student%20leader%2C%20college%20student%20in%20business%20casual&width=48&height=48&seq=23&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Student Government">
+<div>
+<p class="font-medium text-gray-800">Michael Zhang</p>
+<p class="text-sm text-gray-600">Student Body President</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20african%20american%20female%20student%20leader&width=48&height=48&seq=34&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Student Government">
+<div>
+<p class="font-medium text-gray-800">Jasmine Washington</p>
+<p class="text-sm text-gray-600">Vice President</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20latino%20student%20leader%2C%20young%20man%20in%20casual%20professional%20attire&width=48&height=48&seq=35&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Student Government">
+<div>
+<p class="font-medium text-gray-800">Diego Hernandez</p>
+<p class="text-sm text-gray-600">Secretary</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20indian%20female%20student%20leader&width=48&height=48&seq=36&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Student Government">
+<div>
+<p class="font-medium text-gray-800">Priya Sharma</p>
+<p class="text-sm text-gray-600">Treasurer</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20white%20male%20student%20leader%2C%20casual%20professional&width=48&height=48&seq=37&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Student Government">
+<div>
+<p class="font-medium text-gray-800">Ryan O'Connor</p>
+<p class="text-sm text-gray-600">Academic Affairs</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20middle%20eastern%20female%20student%20leader%20with%20hijab&width=48&height=48&seq=38&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Student Government">
+<div>
+<p class="font-medium text-gray-800">Noor Abdullah</p>
+<p class="text-sm text-gray-600">Diversity Chair</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20asian%20female%20student%20leader%2C%20casual%20professional&width=48&height=48&seq=39&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Student Government">
+<div>
+<p class="font-medium text-gray-800">Emily Chen</p>
+<p class="text-sm text-gray-600">Events Coordinator</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20african%20american%20male%20student%20leader&width=48&height=48&seq=40&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Student Government">
+<div>
+<p class="font-medium text-gray-800">Marcus Johnson</p>
+<p class="text-sm text-gray-600">Athletics Liaison</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20white%20female%20student%20leader%2C%20business%20casual&width=48&height=48&seq=41&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Student Government">
+<div>
+<p class="font-medium text-gray-800">Sophie Anderson</p>
+<p class="text-sm text-gray-600">Communications</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20latino%20female%20student%20leader&width=48&height=48&seq=42&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Student Government">
+<div>
+<p class="font-medium text-gray-800">Isabella Martinez</p>
+<p class="text-sm text-gray-600">Student Services</p>
+</div>
+</div>
+<div class="flex items-center space-x-3">
+<img src="https://readdy.ai/api/search-image?query=professional%20headshot%20of%20pacific%20islander%20male%20student%20leader&width=48&height=48&seq=43&orientation=squarish" class="w-12 h-12 rounded-full object-cover" alt="Student Government">
+<div>
+<p class="font-medium text-gray-800">Kai Kalani</p>
+<p class="text-sm text-gray-600">Sustainability Chair</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-12">
+      <!-- Branding Section -->
+      <div>
+        <div class="flex items-center mb-4 space-x-3">
+          <!-- Rounded Logo Container with no background -->
+          <div class="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden shadow-md">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/9327c65e-8968-48a3-9ce0-738e618d6785.jpg-8fSA3dxFbbGnYKQePNkjDxV5nNEDfU.jpeg" alt="Logo" class="w-full h-full object-contain">
+          </div>
+          <!-- Text Branding -->
+          <div>
+            <span class="text-sm">Padre Garcia Polytechnic College</span>
+          </div>
+        </div>
+        <p class="text-gray-400">Brgy. Castillo, Padre Garcia, Batangas, Philippines</p>
+        <p class="text-gray-400 mt-2">+63 (2) 8524-4611</p>
+      </div>
+  
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+        <ul class="space-y-2 text-gray-400">
+          <li><a href="#" class="hover:text-white">Home</a></li>
+          <li><a href="#" class="hover:text-white">Programs</a></li>
+          <li><a href="#" class="hover:text-white">Admissions</a></li>
+          <li><a href="#" class="hover:text-white">Campus Life</a></li>
+          <li><a href="#" class="hover:text-white">Contact Us</a></li>
+        </ul>
+      </div>
+  
+      <!-- Social & Newsletter -->
+      <div>
+        <h3 class="text-lg font-bold mb-4">Connect With Us</h3>
+        <div class="flex space-x-4 mb-4">
+          <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+            <i class="ri-facebook-fill"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+            <i class="ri-twitter-x-fill"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+            <i class="ri-instagram-fill"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+            <i class="ri-youtube-fill"></i>
+          </a>
+        </div>
+        <p class="text-gray-400">Subscribe to our newsletter for updates</p>
+      </div>
+    </div>
+  
+    <!-- Footer Bottom -->
+    <div class="text-center text-sm text-gray-500 mt-8">
+      <p>© 2025 Padre Garcia Polytechnic. All rights reserved.</p>
+      <div class="mt-2 flex justify-center gap-4">
+        <a href="#" class="hover:text-white">Privacy Policy</a>
+        <a href="#" class="hover:text-white">Terms of Service</a>
+        <a href="#" class="hover:text-white">Help Center</a>
+      </div>
+    </div>
+  </footer>
+  
+
+<div class="section-indicator hidden md:block">
+<a href="#university-history" class="indicator-dot" data-section="university-history"></a>
+<a href="#mission-vision" class="indicator-dot" data-section="mission-vision"></a>
+<a href="#campus-locations" class="indicator-dot" data-section="campus-locations"></a>
+<a href="#administration" class="indicator-dot" data-section="administration"></a>
+</div>
+<script>
+function toggleSection(sectionId) {
+const section = document.getElementById(sectionId);
+const icon = document.getElementById(sectionId + '-icon');
+if (section.classList.contains('hidden')) {
+section.classList.remove('hidden');
+icon.style.transform = 'rotate(180deg)';
+} else {
+section.classList.add('hidden');
+icon.style.transform = 'rotate(0deg)';
+}
+}
+document.addEventListener('DOMContentLoaded', function() {
+// Section indicator functionality
+const sections = document.querySelectorAll('section[id]');
+const indicatorDots = document.querySelectorAll('.indicator-dot');
+function highlightCurrentSection() {
+let scrollPosition = window.scrollY;
+sections.forEach(section => {
+const sectionTop = section.offsetTop - 100;
+const sectionHeight = section.offsetHeight;
+const sectionId = section.getAttribute('id');
+if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+indicatorDots.forEach(dot => {
+if (dot.getAttribute('data-section') === sectionId) {
+dot.classList.add('active');
+} else {
+dot.classList.remove('active');
+}
+});
+}
+});
+}
+window.addEventListener('scroll', highlightCurrentSection);
+highlightCurrentSection(); // Initial check
+});
+document.addEventListener('DOMContentLoaded', function() {
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function(e) {
+e.preventDefault();
+const targetId = this.getAttribute('href');
+if (targetId !== '#') {
+const targetElement = document.querySelector(targetId);
+if (targetElement) {
+window.scrollTo({
+top: targetElement.offsetTop - 80,
+behavior: 'smooth'
+});
+}
+}
+});
+});
+});
+</script>
+</body>
+</html>
+
+
+{% endblock %}

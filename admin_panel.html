@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#29006f',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+        .sidebar-collapsed {
+            width: 80px;
+        }
+        .sidebar-collapsed .sidebar-item-text,
+        .sidebar-collapsed .sidebar-header-text,
+        .sidebar-collapsed .user-info-text {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+        }
+        .sidebar-item.active {
+            background-color: rgba(41, 0, 111, 0.1);
+            color: #29006f;
+        }
+        .sidebar-item:hover:not(.active) {
+            background-color: rgba(41, 0, 111, 0.05);
+        }
+        .stat-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .action-card {
+            transition: transform 0.2s ease;
+        }
+        .action-card:hover {
+            transform: scale(1.02);
+        }
+        .notification-dot {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 12px;
+            height: 12px;
+            background-color: #ef4444;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+        }
+        .avatar-initials {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #64748b;
+        }
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.2s ease;
+        }
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .flash-message {
+            padding: 15px 20px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            position: relative;
+            animation: slide-in 0.5s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+                
+        .flash-content {
+            flex-grow: 1;
+        }
+                
+        .flash-message .close-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: inherit;
+            padding: 0 0 0 10px;
+            line-height: 1;
+        }
+                
+        @keyframes slide-in {
+            from {
+                    transform: translateY(-20px);
+                    opacity: 0;
+            }
+            to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+        }
+                
+        /* Match the Tailwind classes you're using with our custom animations */
+        .flash-container {
+            width: 100%;
+            max-width: 28rem; /* max-w-md */
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 1rem;
+        }
+                
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar bg-white w-64 border-r border-gray-200 flex flex-col h-full shadow-sm">
+            <div class="p-4 flex items-center justify-between border-b border-gray-200 h-16">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-md bg-primary flex items-center justify-center mr-3">
+                        <span class="text-white font-bold text-sm">SMS</span>
+                    </div>
+                    <h1 class="sidebar-header-text text-lg font-semibold text-gray-800">School Management</h1>
+                </div>
+                <button id="toggle-sidebar" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded-md hover:bg-gray-100">
+                    <i class="ri-menu-fold-line"></i>
+                </button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto py-2">
+                <div class="px-2">
+                    <div class="sidebar-item active flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                        <div class="w-8 h-8 flex items-center justify-center mr-3 text-primary">
+                            <i class="ri-dashboard-line"></i>
+                        </div>
+                        <span class="sidebar-item-text text-sm font-medium">Dashboard</span>
+                    </div>
+                    
+                    <!-- Student Management -->
+                    <div class="mt-4">
+                        <div class="px-2 py-1 flex items-center justify-between">
+                            <span class="sidebar-header-text text-xs font-semibold text-gray-500 uppercase tracking-wider">Students</span>
+                            <i class="ri-arrow-down-s-line text-gray-400"></i>
+                        </div>
+                        <div class="mt-1">
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-user-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Student Records</span>
+                            </div>
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-file-list-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Enrollment</span>
+                            </div>
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-group-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Class Lists</span>
+                            </div>
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-medal-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Grades</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Administration -->
+                    <div class="mt-4">
+                        <div class="px-2 py-1 flex items-center justify-between">
+                            <span class="sidebar-header-text text-xs font-semibold text-gray-500 uppercase tracking-wider">Administration</span>
+                            <i class="ri-arrow-down-s-line text-gray-400"></i>
+                        </div>
+                        <div class="mt-1">
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-file-chart-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Reports</span>
+                            </div>
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-settings-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Settings</span>
+                            </div>
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-user-settings-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Users</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-4 border-t border-gray-200">
+                <div class="flex items-center">
+                    <div class="avatar-initials w-10 h-10 rounded-full mr-3">
+                        {{ user.firstname[0] }}{{ user.lastname[0] }}
+                    </div>
+                    <div class="user-info-text">
+                        <div class="text-sm font-medium text-gray-800">{{ user.firstname }} {{ user.lastname }}</div>
+                        <div class="text-xs text-gray-500">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <div class="bg-white border-b border-gray-200 p-4 flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <button id="mobile-menu-button" class="mr-4 lg:hidden w-10 h-10 flex items-center justify-center rounded-md hover:bg-gray-100">
+                        <i class="ri-menu-line text-gray-500"></i>
+                    </button>
+                    <div class="relative max-w-md w-full">
+                        <input type="text" placeholder="Search..." class="pl-10 pr-4 py-2 bg-gray-100 rounded-md text-sm w-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent border-none">
+                        <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                            <i class="ri-search-line"></i>
+                        </div>
+                    </div>
+                </div>               
+                
+                <div class="flex items-center space-x-3">
+                    <button class="relative w-9 h-9 flex items-center justify-center rounded-md hover:bg-gray-100 text-gray-600">
+                        <i class="ri-notification-3-line"></i>
+                        {% if notifications|length > 0 %}
+                        <span class="notification-dot"></span>
+                        {% endif %}
+                    </button>
+                    <button class="relative w-9 h-9 flex items-center justify-center rounded-md hover:bg-gray-100 text-gray-600">
+                        <i class="ri-mail-line"></i>
+                    </button>
+                    
+                    <div class="relative">
+                        <button id="user-menu-button" class="flex items-center space-x-2 focus:outline-none">
+                            <div class="avatar-initials w-9 h-9 rounded-full text-sm">
+                                {{ user.firstname[0] }}{{ user.lastname[0] }}
+                            </div>
+                            <span class="hidden md:inline text-sm font-medium text-gray-700">{{ user.firstname }}</span>
+                            <i class="ri-arrow-down-s-line text-gray-500 hidden md:inline"></i>
+                        </button>
+                        
+                        <div id="user-menu" class="dropdown-menu absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 border border-gray-200">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your Profile</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                            <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Flash Messages -->
+            <div class="container mt-3 content-wrapper">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                  <div class="flash-container w-full max-w-md mx-auto mt-4 space-y-2">
+                    {% for category, message in messages %}
+                      <div id="flash-{{ loop.index }}" class="flash-message rounded-lg px-4 py-3 text-sm font-medium border
+                                  {% if category == 'success' %}
+                                    bg-green-100 text-green-800 border-green-300
+                                  {% elif category == 'error' %}
+                                    bg-red-100 text-red-800 border-red-300
+                                  {% elif category == 'info' %}
+                                    bg-blue-100 text-blue-800 border-blue-300
+                                  {% elif category == 'warning' %}
+                                    bg-yellow-100 text-yellow-800 border-yellow-300
+                                  {% else %}
+                                    bg-gray-100 text-gray-800 border-gray-300
+                                  {% endif %}">
+                        <div class="flash-content">{{ message }}</div>
+                        <button class="close-btn" onclick="closeFlash('flash-{{ loop.index }}')">&times;</button>
+                      </div>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              {% endwith %}
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="flex-1 overflow-y-auto p-6">
+                <div class="mb-8">
+                    <h1 class="text-2xl font-bold text-gray-800">Dashboard Overview</h1>
+                    <p class="text-gray-600 mt-1">Welcome back, {{ user.firstname }}! Here's what's happening today.</p>
+                </div>
+                
+                <!-- Key Metrics -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+                    <div class="stat-card bg-white rounded-lg shadow p-5 border border-gray-100">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium">Total Students</p>
+                                <h3 class="text-2xl font-bold text-gray-800 mt-1">{{ approved_count }}</h3>
+                                <p class="text-xs text-gray-500 mt-2">All enrolled students</p>
+                            </div>
+                            <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-primary/10 text-primary">
+                                <i class="ri-user-line text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card bg-white rounded-lg shadow p-5 border border-gray-100">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium">New Enrollees</p>
+                                <h3 class="text-2xl font-bold text-gray-800 mt-1">{{ new_enrollees }}</h3>
+                                <p class="text-xs text-gray-500 mt-2">Pending review</p>
+                            </div>
+                            <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-green-50 text-green-600">
+                                <i class="ri-user-add-line text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card bg-white rounded-lg shadow p-5 border border-gray-100">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium">Active Classes</p>
+                                <h3 class="text-2xl font-bold text-gray-800 mt-1">24</h3>
+                                <p class="text-xs text-gray-500 mt-2">This semester</p>
+                            </div>
+                            <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-blue-50 text-blue-600">
+                                <i class="ri-book-line text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card bg-white rounded-lg shadow p-5 border border-gray-100">
+                        <div class="flex justify-between">
+                            <div>
+                                <p class="text-sm text-gray-500 font-medium">Pending Applications</p>
+                                <h3 class="text-2xl font-bold text-gray-800 mt-1">{{ pending_count }}</h3>
+                                <p class="text-xs text-gray-500 mt-2">Require action</p>
+                            </div>
+                            <div class="w-12 h-12 flex items-center justify-center rounded-lg bg-amber-50 text-amber-600">
+                                <i class="ri-file-list-line text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="mb-8">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <a href="/add_student" class="action-card bg-white rounded-lg shadow p-4 flex flex-col items-center justify-center border border-gray-100 hover:border-primary/30">
+                            <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary/10 text-primary mb-2">
+                                <i class="ri-user-add-line"></i>
+                            </div>
+                            <span class="text-sm font-medium text-center text-gray-700">Add Student</span>
+                        </a>
+                        
+                        <a href="/unapproved" class="action-card bg-white rounded-lg shadow p-4 flex flex-col items-center justify-center border border-gray-100 hover:border-primary/30">
+                            <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary/10 text-primary mb-2">
+                                <i class="ri-file-list-line"></i>
+                            </div>
+                            <span class="text-sm font-medium text-center text-gray-700">Process Enrollment</span>
+                        </a>
+                        
+                        <a href="#" class="action-card bg-white rounded-lg shadow p-4 flex flex-col items-center justify-center border border-gray-100 hover:border-primary/30">
+                            <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary/10 text-primary mb-2">
+                                <i class="ri-file-chart-line"></i>
+                            </div>
+                            <span class="text-sm font-medium text-center text-gray-700">Generate Reports</span>
+                        </a>
+                        
+                        <a href="/announcement" class="action-card bg-white rounded-lg shadow p-4 flex flex-col items-center justify-center border border-gray-100 hover:border-primary/30">
+                            <div class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary/10 text-primary mb-2">
+                                <i class="ri-megaphone-line"></i>
+                            </div>
+                            <span class="text-sm font-medium text-center text-gray-700">Send Announcement</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity and Pending Applications -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Recent Activity -->
+                    <div class="bg-white rounded-lg shadow border border-gray-100">
+                        <div class="p-4 border-b border-gray-200">
+                            <h3 class="font-semibold text-gray-800">Recent Activity</h3>
+                        </div>
+                        <div class="p-4">
+                            <div class="space-y-4">
+                                <div class="flex items-start">
+                                    <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-3 mt-1">
+                                        <i class="ri-user-add-line"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">New student enrolled</p>
+                                        <p class="text-xs text-gray-500 mt-1">John Doe registered for Grade 10</p>
+                                        <p class="text-xs text-gray-400 mt-1">2 hours ago</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center text-green-600 mr-3 mt-1">
+                                        <i class="ri-file-edit-line"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">Grade updated</p>
+                                        <p class="text-xs text-gray-500 mt-1">Math grades for Class 10A updated</p>
+                                        <p class="text-xs text-gray-400 mt-1">5 hours ago</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start">
+                                    <div class="w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center text-amber-600 mr-3 mt-1">
+                                        <i class="ri-alarm-warning-line"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-800">New application</p>
+                                        <p class="text-xs text-gray-500 mt-1">Jane Smith applied for enrollment</p>
+                                        <p class="text-xs text-gray-400 mt-1">1 day ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#" class="text-sm text-primary font-medium mt-4 inline-block hover:text-primary/80">View all activity</a>
+                        </div>
+                    </div>
+                    
+
+    <script>
+
+        // Initialize all flash messages with auto-dismiss
+        document.addEventListener('DOMContentLoaded', function() {
+                    const flashMessages = document.querySelectorAll('.flash-message');
+                    flashMessages.forEach(function(flash, index) {
+                        setTimeout(function() {
+                            closeFlash(flash.id);
+                        }, 5000 + (index * 300)); // Stagger the disappearance a bit
+                    });
+                });
+                
+                function closeFlash(id) {
+                    const flashElement = document.getElementById(id);
+                    if (flashElement) {
+                        flashElement.style.opacity = '0';
+                        flashElement.style.transform = 'translateY(-20px)';
+                        flashElement.style.transition = 'all 0.5s ease';
+                        
+                        setTimeout(() => {
+                            flashElement.remove();
+                        }, 500);
+                    }
+                }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle sidebar
+            const toggleSidebar = document.getElementById('toggle-sidebar');
+            const sidebar = document.getElementById('sidebar');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            
+            toggleSidebar.addEventListener('click', function() {
+                sidebar.classList.toggle('sidebar-collapsed');
+                const icon = this.querySelector('i');
+                if (sidebar.classList.contains('sidebar-collapsed')) {
+                    icon.classList.remove('ri-menu-fold-line');
+                    icon.classList.add('ri-menu-unfold-line');
+                } else {
+                    icon.classList.remove('ri-menu-unfold-line');
+                    icon.classList.add('ri-menu-fold-line');
+                }
+            });
+            
+            mobileMenuButton.addEventListener('click', function() {
+                sidebar.classList.toggle('-translate-x-full');
+            });
+            
+            // User dropdown menu
+            const userMenuButton = document.getElementById('user-menu-button');
+            const userMenu = document.getElementById('user-menu');
+            
+            userMenuButton.addEventListener('click', function() {
+                userMenu.classList.toggle('show');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!userMenuButton.contains(event.target)) {
+                    userMenu.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

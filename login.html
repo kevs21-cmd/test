@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+
+{% block title %}LOGIN{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#29006f',
+            secondary: '#29006f'
+          },
+          borderRadius: {
+            button: '8px'
+          },
+          fontFamily: {
+            pacifico: ['Pacifico', 'cursive'],
+            roboto: ['Roboto', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+    }
+    .input-container {
+      position: relative;
+    }
+    .input-container i {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6B7280;
+    }
+    .input-field {
+      padding-left: 40px;
+    }
+    .input-field:focus {
+      border-color: #090069;
+      box-shadow: 0 0 0 3px rgba(0, 105, 55, 0.1);
+    }
+    input[type="checkbox"] {
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 1px solid #D1D5DB;
+      border-radius: 4px;
+      position: relative;
+      cursor: pointer;
+    }
+    input[type="checkbox"]:checked {
+      background-color: #070069;
+      border-color: #190069;
+    }
+    input[type="checkbox"]:checked::after {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 2px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+    }
+  </style>
+<div class="invisible h-8"></div>
+
+</head>
+<body class="bg-secondary">
+  <div class="flex h-screen">
+    <!-- Left Side -->
+    <div class="hidden md:block w-1/2 relative">
+      <div style="background-image: url('https://scontent.fmnl17-3.fna.fbcdn.net/v/t39.30808-6/472737986_122197015682051122_2480124085652136128_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_eui2=AeG4zYF3kcNxF4L94oX4KR4KzPEPKF0bo93M8Q8oXRuj3QUy5RzJ4Me568Xqr97T-ob8-1NXU2JFTVX0iTyIGEq0&_nc_ohc=K-ckPKkA1xMQ7kNvwE0OpBx&_nc_oc=AdnNxTqw_FnlnhYfn00246c4LfcfR9zyFqJ027rdTF8L1bk2YCPZcrywlZANPN90Mqs&_nc_zt=23&_nc_ht=scontent.fmnl17-3.fna&_nc_gid=XhiH8pwyhymSu7s_IPe5kA&oh=00_AfHoD_PEfJdc14FUywq9_k1SgFdapAOIuQ8X9LsGJkTKtA&oe=67FEAACB'); background-size: cover; background-position: center;" class="h-full w-full">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/40 to-black/20 flex flex-col justify-end p-12">
+          <h2 class="text-white text-3xl font-bold mb-2">Welcome to Padre Garcia Polytechnic College</h2>
+          <p class="text-white text-xl mb-8">Be a PGPC'cian!</p>
+          <p class="text-white/80 text-sm">© 2025 Padre Garcia Polytechnic College. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side - Login Form -->
+    <div class="w-full md:w-1/2 bg-white flex flex-col">
+      <div class="flex-1 flex flex-col p-8 md:p-16 lg:p-20">
+        <div class="mb-12">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden shadow-md">
+              <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/9327c65e-8968-48a3-9ce0-738e618d6785.jpg-8fSA3dxFbbGnYKQePNkjDxV5nNEDfU.jpeg" alt="Logo" class="w-full h-full object-contain">
+            </div>
+            <div>
+              <h1 class="text-2xl font-bold text-gray-800">Padre Garcia Polytechnic College</h1>
+              <p class="text-gray-500">Padre Garcia, Batangas, Philippines</p>
+            </div>
+          </div>
+          <div class="h-1 w-16 bg-primary rounded-full"></div>
+        </div>
+
+        <div class="mb-10">
+          <h2 class="text-3xl font-bold text-gray-800 mb-2">Sign in</h2>
+          <p class="text-gray-500">Welcome back! Please enter your details.</p>
+        </div>
+
+        <form method="POST" action="/login" class="space-y-6">
+          <div class="space-y-4">
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <div class="input-container">
+                <i class="ri-user-line text-gray-400"></i>
+                <input name="email" type="email" required class="input-field w-full h-12 px-4 rounded border border-gray-300 focus:outline-none" placeholder="Enter your email">
+              </div>
+            </div>
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <a href="#" class="text-sm text-primary hover:text-primary/80">Forgot password?</a>
+              </div>
+              <div class="input-container">
+                <i class="ri-lock-line text-gray-400"></i>
+                <input name="password" type="password" required class="input-field w-full h-12 px-4 rounded border border-gray-300 focus:outline-none" placeholder="Enter your password">
+              </div>
+            </div>
+          </div>
+
+          <div class="flex items-center">
+            <input id="remember" type="checkbox" class="mr-2">
+            <label for="remember" class="text-sm text-gray-600">Remember me for 30 days</label>
+          </div>
+
+          <div class="pt-4">
+            <button type="submit" class="w-full h-12 bg-primary text-white font-medium rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">Sign in</button>
+          </div>
+        </form>
+
+        <div class="mt-8 text-center">
+          <p class="text-gray-600">
+            Be a PGPCian!
+            <a href="/apply_now" class="text-primary font-medium hover:underline"> Apply Now</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="p-8 text-center text-gray-500 text-sm">
+        <div class="invisible h-8"></div>
+        <div class="invisible h-8"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12">
+  <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-12">
+    <!-- Branding Section -->
+    <div>
+      <div class="flex items-center mb-4 space-x-3">
+        <!-- Rounded Logo Container with no background -->
+        <div class="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden shadow-md">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/9327c65e-8968-48a3-9ce0-738e618d6785.jpg-8fSA3dxFbbGnYKQePNkjDxV5nNEDfU.jpeg" alt="Logo" class="w-full h-full object-contain">
+        </div>
+        <!-- Text Branding -->
+        <div>
+          <span class="text-sm">Padre Garcia Polytechnic College</span>
+        </div>
+      </div>
+      <p class="text-gray-400">Brgy. Castillo, Padre Garcia, Batangas, Philippines</p>
+      <p class="text-gray-400 mt-2">+63 (2) 8524-4611</p>
+    </div>
+
+    <!-- Quick Links -->
+    <div>
+      <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+      <ul class="space-y-2 text-gray-400">
+        <li><a href="#" class="hover:text-white">Home</a></li>
+        <li><a href="#" class="hover:text-white">Programs</a></li>
+        <li><a href="#" class="hover:text-white">Admissions</a></li>
+        <li><a href="#" class="hover:text-white">Campus Life</a></li>
+        <li><a href="#" class="hover:text-white">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <!-- Social & Newsletter -->
+    <div>
+      <h3 class="text-lg font-bold mb-4">Connect With Us</h3>
+      <div class="flex space-x-4 mb-4">
+        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+          <i class="ri-facebook-fill"></i>
+        </a>
+        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+          <i class="ri-twitter-x-fill"></i>
+        </a>
+        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+          <i class="ri-instagram-fill"></i>
+        </a>
+        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+          <i class="ri-youtube-fill"></i>
+        </a>
+      </div>
+      <p class="text-gray-400">Subscribe to our newsletter for updates</p>
+    </div>
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="text-center text-sm text-gray-500 mt-8">
+    <p>© 2025 Padre Garcia Polytechnic. All rights reserved.</p>
+    <div class="mt-2 flex justify-center gap-4">
+      <a href="#" class="hover:text-white">Privacy Policy</a>
+      <a href="#" class="hover:text-white">Terms of Service</a>
+      <a href="#" class="hover:text-white">Help Center</a>
+    </div>
+  </div>
+</footer>
+
+
+
+{% endblock %}

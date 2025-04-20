@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add_student</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#29006f',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+        .sidebar-collapsed {
+            width: 80px;
+        }
+        .sidebar-collapsed .sidebar-item-text,
+        .sidebar-collapsed .sidebar-header-text,
+        .sidebar-collapsed .user-info-text {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+        }
+        .sidebar-item.active {
+            background-color: rgba(41, 0, 111, 0.1);
+            color: #29006f;
+        }
+        .sidebar-item:hover:not(.active) {
+            background-color: rgba(41, 0, 111, 0.05);
+        }
+        .stat-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .action-card {
+            transition: transform 0.2s ease;
+        }
+        .action-card:hover {
+            transform: scale(1.02);
+        }
+        .notification-dot {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 12px;
+            height: 12px;
+            background-color: #ef4444;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+        }
+        .avatar-initials {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #64748b;
+        }
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.2s ease;
+        }
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar bg-white w-64 border-r border-gray-200 flex flex-col h-full shadow-sm">
+            <div class="p-4 flex items-center justify-between border-b border-gray-200 h-16">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-md bg-primary flex items-center justify-center mr-3">
+                        <span class="text-white font-bold text-sm">SMS</span>
+                    </div>
+                    <h1 class="sidebar-header-text text-lg font-semibold text-gray-800">School Management</h1>
+                </div>
+                <button id="toggle-sidebar" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded-md hover:bg-gray-100">
+                    <i class="ri-menu-fold-line"></i>
+                </button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto py-2">
+                <div class="px-2">
+                    <div class="sidebar-item active flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                        <div class="w-8 h-8 flex items-center justify-center mr-3 text-primary">
+                            <i class="ri-dashboard-line"></i>
+                        </div>
+                        <span class="sidebar-item-text text-sm font-medium">Dashboard</span>
+                    </div>
+                    
+                    <!-- Student Management -->
+                    <div class="mt-4">
+                        <div class="px-2 py-1 flex items-center justify-between">
+                            <span class="sidebar-header-text text-xs font-semibold text-gray-500 uppercase tracking-wider">Students</span>
+                            <i class="ri-arrow-down-s-line text-gray-400"></i>
+                        </div>
+                        <div class="mt-1">
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-user-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Student Records</span>
+                            </div>
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-file-list-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Enrollment</span>
+                            </div>
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-group-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Class Lists</span>
+                            </div>
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-medal-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Grades</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Administration -->
+                    <div class="mt-4">
+                        <div class="px-2 py-1 flex items-center justify-between">
+                            <span class="sidebar-header-text text-xs font-semibold text-gray-500 uppercase tracking-wider">Administration</span>
+                            <i class="ri-arrow-down-s-line text-gray-400"></i>
+                        </div>
+                        <div class="mt-1">
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-file-chart-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Reports</span>
+                            </div>
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-settings-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Settings</span>
+                            </div>
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-user-settings-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Users</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-4 border-t border-gray-200">
+                <div class="flex items-center">
+                    <div class="avatar-initials w-10 h-10 rounded-full mr-3">
+                        {{ user.firstname[0] }}{{ user.lastname[0] }}
+                    </div>
+                    <div class="user-info-text">
+                        <div class="text-sm font-medium text-gray-800">{{ user.firstname }} {{ user.lastname }}</div>
+                        <div class="text-xs text-gray-500">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <div class="bg-white border-b border-gray-200 p-4 flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <button id="mobile-menu-button" class="mr-4 lg:hidden w-10 h-10 flex items-center justify-center rounded-md hover:bg-gray-100">
+                        <i class="ri-menu-line text-gray-500"></i>
+                    </button>
+                    <div class="relative max-w-md w-full">
+                        <input type="text" placeholder="Search..." class="pl-10 pr-4 py-2 bg-gray-100 rounded-md text-sm w-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent border-none">
+                        <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                            <i class="ri-search-line"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-3">
+                    <button class="relative w-9 h-9 flex items-center justify-center rounded-md hover:bg-gray-100 text-gray-600">
+                        <i class="ri-notification-3-line"></i>
+                        {% if notifications|length > 0 %}
+                        <span class="notification-dot"></span>
+                        {% endif %}
+                    </button>
+                    <button class="relative w-9 h-9 flex items-center justify-center rounded-md hover:bg-gray-100 text-gray-600">
+                        <i class="ri-mail-line"></i>
+                    </button>
+                    
+                    <div class="relative">
+                        <button id="user-menu-button" class="flex items-center space-x-2 focus:outline-none">
+                            <div class="avatar-initials w-9 h-9 rounded-full text-sm">
+                                {{ user.firstname[0] }}{{ user.lastname[0] }}
+                            </div>
+                            <span class="hidden md:inline text-sm font-medium text-gray-700">{{ user.firstname }}</span>
+                            <i class="ri-arrow-down-s-line text-gray-500 hidden md:inline"></i>
+                        </button>
+                        
+                        <div id="user-menu" class="dropdown-menu absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 border border-gray-200">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your Profile</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                            <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>Admin Panel - Add Student</title>
+                <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+                <style>
+                    .sidebar {
+                        transition: all 0.3s;
+                    }
+                    .form-input {
+                        border: 1px solid #e2e8f0;
+                        padding: 0.75rem;
+                        border-radius: 0.5rem;
+                        width: 100%;
+                        transition: all 0.3s;
+                    }
+                    .form-input:focus {
+                        border-color: #29006f;
+                        box-shadow: 0 0 0 3px rgba(41, 0, 111, 0.1);
+                    }
+                    .flash-message {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        animation: slide-in 0.5s ease-out;
+                    }
+                    @keyframes slide-in {
+                        from { opacity: 0; transform: translateY(-20px); }
+                        to { opacity: 1; transform: translateY(0); }
+                    }
+                    .close-btn {
+                        background: none;
+                        font-size: 18px;
+                        cursor: pointer;
+                        padding-left: 1rem;
+                    }
+                    .card-hover:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+                    }
+                    .password-match {
+                        color: green;
+                        display: none;
+                    }
+                    .password-mismatch {
+                        color: red;
+                        display: none;
+                    }
+                </style>
+
+            
+                    <!-- Main Content -->
+                    <div class="flex-1 overflow-auto">
+                        <!-- Top Navigation -->
+                        <header class="bg-white shadow-sm">
+                            <div class="flex justify-between items-center p-4">
+                                <h2 class="text-xl font-semibold text-gray-800">Add New Student</h2>
+                        </header>
+            
+                        <!-- Main Content Area -->
+                        <main class="p-6">
+                            <!-- Breadcrumbs -->
+                            <div class="flex items-center text-sm text-gray-600 mb-6">
+                                <a href="/admin" class="hover:text-[#29006f]">Dashboard</a>
+                                <span class="mx-2">/</span>
+                                <a href="/unapproved" class="hover:text-[#29006f]">Approve Student</a>
+                                <span class="mx-2">/</span>
+                                <a href="#" class="hover:text-[#29006f]">Announcement</a>
+                                <span class="mx-2">/</span>
+                                <span class="text-[#29006f] font-medium">Add New</span>
+                            </div>
+            
+                            <style>
+                                .flash-message {
+                                    padding: 15px 20px;
+                                    border-radius: 5px;
+                                    margin-bottom: 10px;
+                                    position: relative;
+                                    animation: slide-in 0.5s ease-out;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: space-between;
+                                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                                }
+                                
+                                .flash-content {
+                                    flex-grow: 1;
+                                }
+                                
+                                .flash-message .close-btn {
+                                    background: none;
+                                    border: none;
+                                    font-size: 20px;
+                                    cursor: pointer;
+                                    color: inherit;
+                                    padding: 0 0 0 10px;
+                                    line-height: 1;
+                                }
+                                
+                                @keyframes slide-in {
+                                    from {
+                                        transform: translateY(-20px);
+                                        opacity: 0;
+                                    }
+                                    to {
+                                        transform: translateY(0);
+                                        opacity: 1;
+                                    }
+                                }
+                                
+                                /* Match the Tailwind classes you're using with our custom animations */
+                                .flash-container {
+                                    width: 100%;
+                                    max-width: 28rem; /* max-w-md */
+                                    margin-left: auto;
+                                    margin-right: auto;
+                                    margin-top: 1rem;
+                                }
+                                
+                                .space-y-2 > * + * {
+                                    margin-top: 0.5rem;
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            <!-- Flash Messages -->
+                            <div class="container mt-3 content-wrapper">
+                                {% with messages = get_flashed_messages(with_categories=true) %}
+                                {% if messages %}
+                                  <div class="flash-container w-full max-w-md mx-auto mt-4 space-y-2">
+                                    {% for category, message in messages %}
+                                      <div id="flash-{{ loop.index }}" class="flash-message rounded-lg px-4 py-3 text-sm font-medium border
+                                                  {% if category == 'success' %}
+                                                    bg-green-100 text-green-800 border-green-300
+                                                  {% elif category == 'error' %}
+                                                    bg-red-100 text-red-800 border-red-300
+                                                  {% elif category == 'info' %}
+                                                    bg-blue-100 text-blue-800 border-blue-300
+                                                  {% elif category == 'warning' %}
+                                                    bg-yellow-100 text-yellow-800 border-yellow-300
+                                                  {% else %}
+                                                    bg-gray-100 text-gray-800 border-gray-300
+                                                  {% endif %}">
+                                        <div class="flash-content">{{ message }}</div>
+                                        <button class="close-btn" onclick="closeFlash('flash-{{ loop.index }}')">&times;</button>
+                                      </div>
+                                    {% endfor %}
+                                  </div>
+                                {% endif %}
+                              {% endwith %}
+                            </div>
+                        
+                            <script>
+                                // Initialize all flash messages with auto-dismiss
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    const flashMessages = document.querySelectorAll('.flash-message');
+                                    flashMessages.forEach(function(flash, index) {
+                                        setTimeout(function() {
+                                            closeFlash(flash.id);
+                                        }, 5000 + (index * 300)); // Stagger the disappearance a bit
+                                    });
+                                });
+                                
+                                function closeFlash(id) {
+                                    const flashElement = document.getElementById(id);
+                                    if (flashElement) {
+                                        flashElement.style.opacity = '0';
+                                        flashElement.style.transform = 'translateY(-20px)';
+                                        flashElement.style.transition = 'all 0.5s ease';
+                                        
+                                        setTimeout(() => {
+                                            flashElement.remove();
+                                        }, 500);
+                                    }
+                                }
+                            </script>
+                        </body>
+                        </html>
+                        
+                                    <!-- Form Card -->
+                                    <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 card-hover">
+                                        <div class="p-6">
+                                            <div class="flex justify-between items-center mb-6">
+                                                <h3 class="text-2xl font-bold text-[#29006f]">Student Information</h3>
+                                                <span class="bg-[#29006f] text-white text-xs px-3 py-1 rounded-full">Required fields *</span>
+                                            </div>
+                        
+                                            <!-- Progress Bar -->
+                                            <div class="w-full bg-gray-200 rounded-full h-2.5 mb-8">
+                                                <div id="progress-bar" class="bg-[#29006f] h-2.5 rounded-full transition-all duration-300" style="width: 33%"></div>
+                                            </div>
+                        
+                                            <!-- Form -->
+                                            <form id="add-student-form" method="POST" enctype="multipart/form-data">
+                                                <!-- Step 1: Personal Info -->
+                                                <div class="form-step" data-step="1">
+                                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="firstname">First Name <span class="text-red-500">*</span></label>
+                                                            <input id="firstname" type="text" name="firstname" class="form-input" placeholder="Enter first name" required>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="middlename">Middle Name</label>
+                                                            <input id="middlename" type="text" name="middlename" class="form-input" placeholder="Enter middle name">
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="lastname">Last Name <span class="text-red-500">*</span></label>
+                                                            <input id="lastname" type="text" name="lastname" class="form-input" placeholder="Enter last name" required>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="student_id">Student ID</label>
+                                                            <input id="student_id" type="text" name="student_id" class="form-input" placeholder="Enter student ID">
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="dob">Date of Birth <span class="text-red-500">*</span></label>
+                                                            <input id="dob" type="date" name="dob" class="form-input" required>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="gender">Gender <span class="text-red-500">*</span></label>
+                                                            <select id="gender" name="gender" class="form-input" required>
+                                                                <option value="" disabled selected>Select Gender</option>
+                                                                <option value="Male">Male</option>
+                                                                <option value="Female">Female</option>
+                                                                <option value="Other">Other</option>
+                                                            </select>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="nationality">Nationality <span class="text-red-500">*</span></label>
+                                                            <input id="nationality" type="text" name="nationality" class="form-input" placeholder="Enter nationality" required>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="email">Email <span class="text-red-500">*</span></label>
+                                                            <input id="email" type="email" name="email" class="form-input" placeholder="student@example.com" required>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="contact">Contact Number <span class="text-red-500">*</span></label>
+                                                            <input id="contact" type="tel" name="contact" class="form-input" placeholder="+63 912 345 6789" required>
+                                                        </div>
+                                                        <div class="md:col-span-2">
+                                                            <label class="block text-gray-700 mb-2" for="address">Address <span class="text-red-500">*</span></label>
+                                                            <textarea id="address" name="address" class="form-input" rows="3" placeholder="Enter complete address" required></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex justify-end mt-8">
+                                                        <button type="button" class="next-step bg-[#29006f] hover:bg-[#3a0a95] text-white px-6 py-2 rounded-lg transition-colors duration-200">
+                                                            Next <i class="fas fa-arrow-right ml-2"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                        
+                                                <!-- Step 2: Academic Info -->
+                                                <div class="form-step hidden" data-step="2">
+                                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="college">College <span class="text-red-500">*</span></label>
+                                                            <select id="college" name="college" class="form-input" required>
+                                                                <option value="" disabled selected>Select College</option>
+                                                                <option value="CCBA">College of Computing and Business Administration</option>
+                                                                <option value="COC">College of Criminology</option>
+                                                            </select>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="program">Program <span class="text-red-500">*</span></label>
+                                                            <select id="program" name="program" class="form-input" required>
+                                                                <option value="" disabled selected>Select Program</option>
+                                                                <option value="BSCS">Bachelor of Science in Computer Science</option>
+                                                                <option value="BSCRIM">Bachelor of Science in Criminology</option>
+                                                                <option value="BSMA">Bachelor of Science in Management Accounting</option>
+                                                                <option value="BPA">Bachelor of Public Administration</option>
+                                                            </select>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="degree_program">Degree Program <span class="text-red-500">*</span></label>
+                                                            <select id="degree_program" name="degree_program" class="form-input" required>
+                                                                <option value="" disabled selected>Select Degree Program</option>
+                                                                <option value="Bachelor of Science in Computer Science">Bachelor of Science in Computer Science</option>
+                                                                <option value="Bachelor of Science in Criminology">Bachelor of Science in Criminology</option>
+                                                                <option value="Bachelor of Science in Management Accounting">Bachelor of Science in Management Accounting</option>
+                                                                <option value="Bachelor of Public Administration">Bachelor of Public Administration</option>
+                                                            </select>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="academic_year">Academic Year <span class="text-red-500">*</span></label>
+                                                            <select id="academic_year" name="academic_year" class="form-input" required>
+                                                                <option value="" disabled selected>Select Academic Year</option>
+                                                                <option value="2023-2024">2023-2024</option>
+                                                                <option value="2024-2025">2024-2025</option>
+                                                                <option value="2025-2026">2025-2026</option>
+                                                            </select>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="term">Term <span class="text-red-500">*</span></label>
+                                                            <select id="term" name="term" class="form-input" required>
+                                                                <option value="" disabled selected>Select Term</option>
+                                                                <option value="1">First Semester</option>
+                                                                <option value="2">Second Semester</option>
+                                                                <option value="Summer">Summer</option>
+                                                            </select>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="previous_school">Previous School</label>
+                                                            <input id="previous_school" type="text" name="previous_school" class="form-input" placeholder="Enter previous school">
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex justify-between mt-8">
+                                                        <button type="button" class="prev-step bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-2 rounded-lg transition-colors duration-200">
+                                                            <i class="fas fa-arrow-left mr-2"></i> Back
+                                                        </button>
+                                                        <button type="button" class="next-step bg-[#29006f] hover:bg-[#3a0a95] text-white px-6 py-2 rounded-lg transition-colors duration-200">
+                                                            Next <i class="fas fa-arrow-right ml-2"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                        
+                                                <!-- Step 3: Documents & Account Setup -->
+                                                <div class="form-step hidden" data-step="3">
+                                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="profile_pic">Profile Picture</label>
+                                                            <div class="flex items-center">
+                                                                <label for="profile_pic" class="cursor-pointer">
+                                                                    <div class="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-2 border-dashed border-gray-300 hover:border-[#29006f] transition-colors duration-200">
+                                                                        <img id="profile-preview" src="#" alt="Preview" class="hidden w-full h-full object-cover">
+                                                                        <div id="upload-text" class="text-center p-2">
+                                                                            <i class="fas fa-camera text-gray-400 text-2xl mb-1"></i>
+                                                                            <p class="text-xs text-gray-500">Upload Photo</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <input id="profile_pic" type="file" name="profile_pic" accept="image/*" class="hidden">
+                                                                </label>
+                                                                <div class="ml-4 text-sm text-gray-600">
+                                                                    <p>Recommended size: 300x300px</p>
+                                                                    <p>Max file size: 2MB</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="password">Password <span class="text-red-500">*</span></label>
+                                                            <input id="password" type="password" name="password" class="form-input" placeholder="Enter password" required>
+                                                            <div class="mt-2 text-sm text-gray-600">
+                                                                <p class="flex items-center"><i class="fas fa-info-circle mr-1"></i> Minimum 8 characters</p>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="confirm_password">Confirm Password <span class="text-red-500">*</span></label>
+                                                            <input id="confirm_password" type="password" name="confirm_password" class="form-input" placeholder="Confirm password" required>
+                                                            <div class="mt-1">
+                                                                <span id="password-match" class="password-match text-sm">
+                                                                    <i class="fas fa-check-circle mr-1"></i> Passwords match
+                                                                </span>
+                                                                <span id="password-mismatch" class="password-mismatch text-sm">
+                                                                    <i class="fas fa-times-circle mr-1"></i> Passwords don't match
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="form138">Form 138 (SHS Report Card)</label>
+                                                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-[#29006f] transition-colors duration-200">
+                                                                <label for="form138" class="cursor-pointer">
+                                                                    <i class="fas fa-file-pdf text-3xl text-red-500 mb-2"></i>
+                                                                    <p class="text-sm text-gray-600">Drag & drop or click to upload</p>
+                                                                    <input id="form138" type="file" name="form138" accept=".pdf,.jpg,.jpeg,.png" class="hidden">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="birth_cert">Birth Certificate</label>
+                                                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-[#29006f] transition-colors duration-200">
+                                                                <label for="birth_cert" class="cursor-pointer">
+                                                                    <i class="fas fa-file-pdf text-3xl text-red-500 mb-2"></i>
+                                                                    <p class="text-sm text-gray-600">Drag & drop or click to upload</p>
+                                                                    <input id="birth_cert" type="file" name="birth_cert" accept=".pdf,.jpg,.jpeg,.png" class="hidden">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="good_moral">Good Moral Certificate</label>
+                                                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-[#29006f] transition-colors duration-200">
+                                                                <label for="good_moral" class="cursor-pointer">
+                                                                    <i class="fas fa-file-pdf text-3xl text-red-500 mb-2"></i>
+                                                                    <p class="text-sm text-gray-600">Drag & drop or click to upload</p>
+                                                                    <input id="good_moral" type="file" name="good_moral" accept=".pdf,.jpg,.jpeg,.png" class="hidden">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div>
+                                                            <label class="block text-gray-700 mb-2" for="id_photos">ID Photos (2x2)</label>
+                                                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-[#29006f] transition-colors duration-200">
+                                                                <label for="id_photos" class="cursor-pointer">
+                                                                    <i class="fas fa-file-image text-3xl text-blue-500 mb-2"></i>
+                                                                    <p class="text-sm text-gray-600">Drag & drop or click to upload</p>
+                                                                    <input id="id_photos" type="file" name="id_photos" accept=".jpg,.jpeg,.png" class="hidden">
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-8 p-4 bg-blue-50 rounded-lg">
+                                                        <h4 class="font-semibold text-blue-800 mb-2 flex items-center">
+                                                            <i class="fas fa-info-circle mr-2"></i> Final Confirmation
+                                                        </h4>
+                                                        <p class="text-sm text-blue-700">
+                                                            Please review all information before submitting. Once submitted, the student account will be created immediately.
+                                                        </p>
+                                                    </div>
+                                                    <div class="flex justify-between mt-8">
+                                                        <button type="button" class="prev-step bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-2 rounded-lg transition-colors duration-200">
+                                                            <i class="fas fa-arrow-left mr-2"></i> Back
+                                                        </button>
+                                                        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors duration-200 flex items-center">
+                                                            <i class="fas fa-save mr-2"></i> Save Student
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </main>
+                            </div>
+                        
+                            <!-- JavaScript with password validation -->
+                            <script>
+                                // Form multi-step functionality
+                                let currentStep = 1;
+                                const steps = document.querySelectorAll(".form-step");
+                                const progressBar = document.getElementById("progress-bar");
+                        
+                                function showStep(step) {
+                                    steps.forEach((s, i) => s.classList.toggle("hidden", i + 1 !== step));
+                                    progressBar.style.width = `${(step / steps.length) * 100}%`;
+                                }
+                        
+                                document.querySelectorAll(".next-step").forEach(btn => {
+                                    btn.addEventListener("click", () => {
+                                        // Validate current step before proceeding
+                                        let isValid = true;
+                                        const currentStepFields = steps[currentStep-1].querySelectorAll("[required]");
+                                        
+                                        currentStepFields.forEach(field => {
+                                            if (!field.value) {
+                                                field.classList.add("border-red-500");
+                                                isValid = false;
+                                            } else {
+                                                field.classList.remove("border-red-500");
+                                            }
+                                        });
+                        
+                                        if (isValid && currentStep < steps.length) {
+                                            currentStep++;
+                                            showStep(currentStep);
+                                        }
+                                    });
+                                });
+                        
+                                document.querySelectorAll(".prev-step").forEach(btn => {
+                                    btn.addEventListener("click", () => {
+                                        if (currentStep > 1) {
+                                            currentStep--;
+                                            showStep(currentStep);
+                                        }
+                                    });
+                                });
+                        
+                                // Initialize
+                                showStep(currentStep);
+                        
+                                // Profile picture preview
+                                document.getElementById('profile_pic').addEventListener('change', function(e) {
+                                    const file = e.target.files[0];
+                                    if (file) {
+                                        const reader = new FileReader();
+                                        reader.onload = function(event) {
+                                            document.getElementById('profile-preview').src = event.target.result;
+                                            document.getElementById('profile-preview').classList.remove('hidden');
+                                            document.getElementById('upload-text').classList.add('hidden');
+                                        }
+                                        reader.readAsDataURL(file);
+                                    }
+                                });
+                        
+                                // Password matching validation
+                                const password = document.getElementById('password');
+                                const confirmPassword = document.getElementById('confirm_password');
+                                const passwordMatch = document.getElementById('password-match');
+                                const passwordMismatch = document.getElementById('password-mismatch');
+                        
+                                function checkPasswordMatch() {
+                                    if (password.value && confirmPassword.value) {
+                                        if (password.value === confirmPassword.value) {
+                                            passwordMatch.style.display = 'block';
+                                            passwordMismatch.style.display = 'none';
+                                            confirmPassword.classList.remove('border-red-500');
+                                            confirmPassword.classList.add('border-green-500');
+                                        } else {
+                                            passwordMatch.style.display = 'none';
+                                            passwordMismatch.style.display = 'block';
+                                            confirmPassword.classList.remove('border-green-500');
+                                            confirmPassword.classList.add('border-red-500');
+                                        }
+                                    } else {
+                                        passwordMatch.style.display = 'none';
+                                        passwordMismatch.style.display = 'none';
+                                        confirmPassword.classList.remove('border-red-500', 'border-green-500');
+                                    }
+                                }
+                        
+                                password.addEventListener('input', checkPasswordMatch);
+                                confirmPassword.addEventListener('input', checkPasswordMatch);
+                        
+                                // Form submission validation
+                                document.getElementById('add-student-form').addEventListener('submit', function(e) {
+                                    // Check password match before submission
+                                    if (password.value !== confirmPassword.value) {
+                                        e.preventDefault();
+                                        passwordMismatch.style.display = 'block';
+                                        confirmPassword.classList.add('border-red-500');
+                                        confirmPassword.focus();
+                                        return;
+                                    }
+                        
+                                    // Check all required fields
+                                    const requiredFields = document.querySelectorAll('[required]');
+                                    let isValid = true;
+                        
+                                    requiredFields.forEach(field => {
+                                        if (!field.value) {
+                                            field.classList.add('border-red-500');
+                                            isValid = false;
+                                        }
+                                    });
+                        
+                                    if (!isValid) {
+                                        e.preventDefault();
+                                        alert('Please fill in all required fields');
+                                    }
+                                });
+                        
+                                // Sync program and degree program selections
+                                const programSelect = document.getElementById('program');
+                                const degreeProgramSelect = document.getElementById('degree_program');
+                        
+                                programSelect.addEventListener('change', function() {
+                                    const selectedProgram = this.value;
+                                    let degreeProgram = '';
+                                    
+                                    switch(selectedProgram) {
+                                        case 'BSCS':
+                                            degreeProgram = 'Bachelor of Science in Computer Science';
+                                            break;
+                                        case 'BSCRIM':
+                                            degreeProgram = 'Bachelor of Science in Criminology';
+                                            break;
+                                        case 'BSMA':
+                                            degreeProgram = 'Bachelor of Science in Management Accounting';
+                                            break;
+                                        case 'BPA':
+                                            degreeProgram = 'Bachelor of Public Administration';
+                                            break;
+                                        default:
+                                            degreeProgram = '';
+                                    }
+                                    
+                                    degreeProgramSelect.value = degreeProgram;
+                                });
+                        
+                                // Auto-hide flash messages after 5 seconds
+                                document.addEventListener("DOMContentLoaded", () => {
+                                    document.querySelectorAll(".flash-message").forEach((flash, i) => {
+                                        setTimeout(() => closeFlash(flash.id), 5000 + i * 200);
+                                    });
+                                });
+                        
+                                function closeFlash(id) {
+                                    const flashElement = document.getElementById(id);
+                                    if (flashElement) {
+                                        flashElement.style.opacity = '0';
+                                        flashElement.style.transform = 'translateY(-20px)';
+                                        flashElement.style.transition = 'all 0.5s ease';
+                                        
+                                        setTimeout(() => {
+                                            flashElement.remove();
+                                        }, 500);
+                                    }
+                                }
+                            </script>
+                        </body>
+                        </html>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle sidebar
+            const toggleSidebar = document.getElementById('toggle-sidebar');
+            const sidebar = document.getElementById('sidebar');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            
+            toggleSidebar.addEventListener('click', function() {
+                sidebar.classList.toggle('sidebar-collapsed');
+                const icon = this.querySelector('i');
+                if (sidebar.classList.contains('sidebar-collapsed')) {
+                    icon.classList.remove('ri-menu-fold-line');
+                    icon.classList.add('ri-menu-unfold-line');
+                } else {
+                    icon.classList.remove('ri-menu-unfold-line');
+                    icon.classList.add('ri-menu-fold-line');
+                }
+            });
+            
+            mobileMenuButton.addEventListener('click', function() {
+                sidebar.classList.toggle('-translate-x-full');
+            });
+            
+            // User dropdown menu
+            const userMenuButton = document.getElementById('user-menu-button');
+            const userMenu = document.getElementById('user-menu');
+            
+            userMenuButton.addEventListener('click', function() {
+                userMenu.classList.toggle('show');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!userMenuButton.contains(event.target)) {
+                    userMenu.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

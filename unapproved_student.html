@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approve Student</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#29006f',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+        .sidebar-collapsed {
+            width: 80px;
+        }
+        .sidebar-collapsed .sidebar-item-text,
+        .sidebar-collapsed .sidebar-header-text,
+        .sidebar-collapsed .user-info-text {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+        }
+        .sidebar-item.active {
+            background-color: rgba(41, 0, 111, 0.1);
+            color: #29006f;
+        }
+        .sidebar-item:hover:not(.active) {
+            background-color: rgba(41, 0, 111, 0.05);
+        }
+        .stat-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .action-card {
+            transition: transform 0.2s ease;
+        }
+        .action-card:hover {
+            transform: scale(1.02);
+        }
+        .notification-dot {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 12px;
+            height: 12px;
+            background-color: #ef4444;
+            border-radius: 50%;
+            border: 2px solid #ffffff;
+        }
+        .avatar-initials {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #64748b;
+        }
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.2s ease;
+        }
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .flash-message {
+            padding: 15px 20px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            position: relative;
+            animation: slide-in 0.5s ease-out;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+                    
+        .flash-content {
+            flex-grow: 1;
+        }
+                    
+        .flash-message .close-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: inherit;
+            padding: 0 0 0 10px;
+            line-height: 1;
+        }
+                    
+        @keyframes slide-in {
+          from {
+                transform: translateY(-20px);
+                opacity: 0;
+              }
+              to {
+                transform: translateY(0);
+                opacity: 1;
+              }
+        }
+                    
+        /* Flash container will not affect other content */
+        .flash-container {
+            position: fixed;
+            top: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 28rem; /* max-w-md */
+            z-index: 9999; /* Ensures flash messages appear above other elements */
+            pointer-events: none; /* Prevents interaction with other content */
+          }
+                    
+          /* Flash message block itself */
+          .flash-message {
+              pointer-events: all; /* Re-enable interaction within the flash message */
+          }
+                    
+          /* Space between flash messages */
+          .space-y-2 > * + * {
+              margin-top: 0.5rem;
+          }
+          :root {
+              --primary: #3498db;
+              --success: #2ecc71;
+              --danger: #e74c3c;
+              --warning: #f39c12;
+              --light: #f8f9fa;
+              --dark: #343a40;
+              --border: #dee2e6;
+          }
+                    
+          body {
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+              line-height: 1.6;
+              background-color: #f5f5f5;
+              color: #333;
+          }
+                    
+          .container {
+              max-width: 1400px;
+              margin: 0 auto;
+              padding: 20px;
+          }
+                    
+          header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+          }
+                    
+          h1, h2, h3 {
+            margin-bottom: 1rem;
+          }
+                    
+          .approval-grid {
+              display: grid;
+              grid-template-columns: 300px 1fr;
+              gap: 20px;
+          }
+                    
+          .student-list {
+              background: white;
+              border-radius: 5px;
+              box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+              padding: 20px;
+              max-height: 80vh;
+              overflow-y: auto;
+          }
+                    
+          .student-card {
+              padding: 15px;
+              border: 1px solid var(--border);
+              border-radius: 5px;
+              margin-bottom: 15px;
+              cursor: pointer;
+          }
+                    
+          .student-card:hover {
+              border-color: var(--primary);
+              background-color: #f0f8ff;
+          }
+                    
+          .student-card.active {
+              border-color: var(--primary);
+              background-color: #e3f2fd;
+          }
+                    
+          .badge {
+                display: inline-block;
+                padding: 3px 8px;
+                border-radius: 12px;
+                font-size: 12px;
+                font-weight: bold;
+                margin-left: 5px;
+          }
+                    
+          .badge-warning {
+                background-color: var(--warning);
+                color: white;
+          }
+                    
+          .student-details {
+                background: white;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                padding: 20px;
+          }
+                    
+          .detail-section {
+                  margin-bottom: 30px;
+                  border-bottom: 1px solid var(--border);
+                  padding-bottom: 20px;
+          }
+                    
+          .detail-row {
+              display: flex;
+              flex-wrap: wrap;
+              margin-bottom: 15px;
+          }
+                    
+          .detail-item {
+                flex: 1 1 200px;
+                margin-right: 20px;
+                margin-bottom: 10px;
+          }
+                    
+          .detail-item label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 5px;
+                color: #555;
+          }
+                    
+          .detail-item p {
+              background-color: #f8f9fa;
+              padding: 8px 12px;
+              border-radius: 4px;
+              border-left: 3px solid var(--primary);
+          }
+          .documents-grid {
+              display: grid;
+              grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+              gap: 15px;
+          }
+                    
+          .document-card {
+              border: 1px solid var(--border);
+              border-radius: 5px;
+              padding: 15px;
+              text-align: center;
+          }
+                    
+          .document-card img {
+              max-width: 100%;
+              height: auto;
+              max-height: 200px;
+              margin-bottom: 10px;
+              border: 1px solid #eee;
+          }
+                    
+          .validation-box {
+                background-color: #fff8e1;
+                padding: 15px;
+                border-radius: 5px;
+                margin-bottom: 20px;
+                border-left: 4px solid var(--warning);
+                }
+                    
+          .validation-box.valid {
+                background-color: #e8f5e9;
+                border-left: 4px solid var(--success);
+          }
+                    
+          .check-item {
+                margin-bottom: 8px;
+          }
+                    
+          .action-buttons {
+              display: flex;
+              justify-content: flex-end;
+              gap: 15px;
+              margin-top: 30px;
+              padding-top: 20px;
+              border-top: 1px solid var(--border);
+          }
+                    
+          .btn {
+              padding: 10px 20px;
+              border: none;
+              border-radius: 5px;
+              cursor: pointer;
+              font-weight: bold;
+              text-decoration: none;
+              display: inline-block;
+              text-align: center;
+          }
+                    
+          .btn-success {
+              background-color: var(--success);
+              color: white;
+          }
+                    
+          .btn-danger {
+              background-color: var(--danger);
+              color: white;
+          }
+                    
+          .btn-secondary {
+              background-color: #6c757d;
+              color: white;
+          }
+                    
+          .btn:disabled {
+              opacity: 0.65;
+              cursor: not-allowed;
+          }
+                    
+          .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: #6c757d;
+          }
+                    
+          .empty-state i {
+          font-size: 48px;
+          margin-bottom: 15px;
+          color: #adb5bd;
+          }
+                    
+          .search-box {
+              margin-bottom: 20px;
+          }
+                    
+          .search-box input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+          }
+          .student-details {
+            max-height: 80vh;
+            overflow-y: auto;
+            padding-right: 1rem;
+          }
+                    
+          @media (max-width: 992px) {
+              .approval-grid {
+                grid-template-columns: 1fr;
+              }
+                        
+              .student-list {
+                  max-height: none;
+              }
+          }  
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar bg-white w-64 border-r border-gray-200 flex flex-col h-full shadow-sm">
+            <div class="p-4 flex items-center justify-between border-b border-gray-200 h-16">
+                <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-md bg-primary flex items-center justify-center mr-3">
+                        <span class="text-white font-bold text-sm">SMS</span>
+                    </div>
+                    <h1 class="sidebar-header-text text-lg font-semibold text-gray-800">School Management</h1>
+                </div>
+                <button id="toggle-sidebar" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded-md hover:bg-gray-100">
+                    <i class="ri-menu-fold-line"></i>
+                </button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto py-2">
+                <div class="px-2">
+                    <div class="sidebar-item active flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                        <div class="w-8 h-8 flex items-center justify-center mr-3 text-primary">
+                            <i class="ri-dashboard-line"></i>
+                        </div>
+                        <span class="sidebar-item-text text-sm font-medium">Dashboard</span>
+                    </div>
+                    
+                    <!-- Student Management -->
+                    <div class="mt-4">
+                        <div class="px-2 py-1 flex items-center justify-between">
+                            <span class="sidebar-header-text text-xs font-semibold text-gray-500 uppercase tracking-wider">Students</span>
+                            <i class="ri-arrow-down-s-line text-gray-400"></i>
+                        </div>
+                        <div class="mt-1">
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-user-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Student Records</span>
+                            </div>
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-file-list-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Enrollment</span>
+                            </div>
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-group-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Class Lists</span>
+                            </div>
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-medal-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Grades</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Administration -->
+                    <div class="mt-4">
+                        <div class="px-2 py-1 flex items-center justify-between">
+                            <span class="sidebar-header-text text-xs font-semibold text-gray-500 uppercase tracking-wider">Administration</span>
+                            <i class="ri-arrow-down-s-line text-gray-400"></i>
+                        </div>
+                        <div class="mt-1">
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-file-chart-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Reports</span>
+                            </div>
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-settings-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Settings</span>
+                            </div>
+                            <div class="sidebar-item flex items-center p-2 rounded-lg mb-1 cursor-pointer">
+                                <div class="w-8 h-8 flex items-center justify-center mr-3 text-gray-500">
+                                    <i class="ri-user-settings-line"></i>
+                                </div>
+                                <span class="sidebar-item-text text-sm font-medium">Users</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-4 border-t border-gray-200">
+                <div class="flex items-center">
+                    <div class="avatar-initials w-10 h-10 rounded-full mr-3">
+                        {{ user.firstname[0] }}{{ user.lastname[0] }}
+                    </div>
+                    <div class="user-info-text">
+                        <div class="text-sm font-medium text-gray-800">{{ user.firstname }} {{ user.lastname }}</div>
+                        <div class="text-xs text-gray-500">Administrator</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <div class="bg-white border-b border-gray-200 p-4 flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <button id="mobile-menu-button" class="mr-4 lg:hidden w-10 h-10 flex items-center justify-center rounded-md hover:bg-gray-100">
+                        <i class="ri-menu-line text-gray-500"></i>
+                    </button>
+                    <div class="relative max-w-md w-full">
+                        <input type="text" placeholder="Search..." class="pl-10 pr-4 py-2 bg-gray-100 rounded-md text-sm w-full focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent border-none">
+                        <div class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                            <i class="ri-search-line"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-3">
+                    <button class="relative w-9 h-9 flex items-center justify-center rounded-md hover:bg-gray-100 text-gray-600">
+                        <i class="ri-notification-3-line"></i>
+                        {% if notifications|length > 0 %}
+                        <span class="notification-dot"></span>
+                        {% endif %}
+                    </button>
+                    <button class="relative w-9 h-9 flex items-center justify-center rounded-md hover:bg-gray-100 text-gray-600">
+                        <i class="ri-mail-line"></i>
+                    </button>
+
+                    <style>
+
+                    </style>            
+              </head>
+              <body>
+                  <!-- Flash Messages -->
+                  <div class="container mt-3 content-wrapper">
+                      {% with messages = get_flashed_messages(with_categories=true) %}
+                      {% if messages %}
+                        <div class="flash-container w-full max-w-md mx-auto mt-4 space-y-2">
+                          {% for category, message in messages %}
+                            <div id="flash-{{ loop.index }}" class="flash-message rounded-lg px-4 py-3 text-sm font-medium border
+                                        {% if category == 'success' %}
+                                          bg-green-100 text-green-800 border-green-300
+                                        {% elif category == 'error' %}
+                                          bg-red-100 text-red-800 border-red-300
+                                        {% elif category == 'info' %}
+                                          bg-blue-100 text-blue-800 border-blue-300
+                                        {% elif category == 'warning' %}
+                                          bg-yellow-100 text-yellow-800 border-yellow-300
+                                        {% else %}
+                                          bg-gray-100 text-gray-800 border-gray-300
+                                        {% endif %}">
+                              <div class="flash-content">{{ message }}</div>
+                              <button class="close-btn" onclick="closeFlash('flash-{{ loop.index }}')">&times;</button>
+                            </div>
+                          {% endfor %}
+                        </div>
+                      {% endif %}
+                    {% endwith %}
+                  </div>
+                
+                    <div class="relative">
+                        <button id="user-menu-button" class="flex items-center space-x-2 focus:outline-none">
+                            <div class="avatar-initials w-9 h-9 rounded-full text-sm">
+                                {{ user.firstname[0] }}{{ user.lastname[0] }}
+                            </div>
+                            <span class="hidden md:inline text-sm font-medium text-gray-700">{{ user.firstname }}</span>
+                            <i class="ri-arrow-down-s-line text-gray-500 hidden md:inline"></i>
+                        </button>
+                        
+                        <div id="user-menu" class="dropdown-menu absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 border border-gray-200">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your Profile</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+                            <a href="/logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <!-- Main Content Area -->
+             <main class="p-6">
+              <!-- Breadcrumbs -->
+              <div class="flex items-center text-sm text-gray-600 mb-6">
+                  <a href="/admin" class="hover:text-[#29006f]">Dashboard</a>
+                  <span class="mx-2">/</span>
+                  <a href="/add_student" class="hover:text-[#29006f]"> Add Student</a>
+                  <span class="mx-2">/</span>
+                  <a href="#" class="hover:text-[#29006f]">Announcement</a>
+                  <span class="mx-2">/</span>
+                  <span class="text-[#29006f] font-medium">Approve student</span>
+              </div>            
+                    <div class="approval-grid">
+                        <div class="student-list">
+                            <h2>Pending Approvals</h2>
+                            
+                            <div class="search-box">
+                                <form method="GET" action="{{ url_for('auth.unapproved') }}">
+                                    <input type="text" name="search" placeholder="Search students..." 
+                                           value="{{ request.args.get('search', '') }}">
+                                </form>
+                            </div>
+                            
+                            {% if students %}
+                                {% for student in students %}
+                                <div class="student-card {% if student.id == selected_student.id %}active{% endif %}">
+                                    <a href="{{ url_for('auth.unapproved', selected=student.id, search=request.args.get('search', '')) }}" 
+                                       style="text-decoration: none; color: inherit;">
+                                        <h3>{{ student.firstname }} {{ student.lastname }} 
+                                            <span class="badge badge-warning">Pending</span></h3>
+                                        <p><strong>ID:</strong> {{ student.student_id or 'N/A' }}</p>
+                                        <p><strong>Program:</strong> {{ student.degree_program }}</p>
+                                        <p><small>Submitted: {{ student.created_at.strftime('%Y-%m-%d') }}</small></p>
+                                    </a>
+                                </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="empty-state">
+                                    <p>No students pending approval</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="student-details">
+                            {% if selected_student %}
+                                <div class="validation-box {% if all_valid %}valid{% endif %}">
+                                    <h3>Validation Checklist</h3>
+                                    <form method="POST" action="{{ url_for('auth.approve_student', student_id=selected_student.id) }}">
+                                        <div class="check-item">
+                                            <input type="checkbox" id="check-personal" name="valid_personal" 
+                                                   {% if valid_personal %}checked{% endif %}>
+                                            <label for="check-personal">Personal information is complete and valid</label>
+                                        </div>
+                                        <div class="check-item">
+                                            <input type="checkbox" id="check-academic" name="valid_academic" 
+                                                   {% if valid_academic %}checked{% endif %}>
+                                            <label for="check-academic">Academic information matches requirements</label>
+                                        </div>
+                                        <div class="check-item">
+                                            <input type="checkbox" id="check-documents" name="valid_documents" 
+                                                   {% if valid_documents %}checked{% endif %}>
+                                            <label for="check-documents">All required documents are uploaded and valid</label>
+                                        </div>
+                                        <div class="check-item">
+                                            <input type="checkbox" id="check-photos" name="valid_photos" 
+                                                   {% if valid_photos %}checked{% endif %}>
+                                            <label for="check-photos">ID photos meet requirements</label>
+                                        </div>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h2>Personal Information</h2>
+                                    <div class="detail-row">
+                                        <div class="detail-item">
+                                            <label>First Name</label>
+                                            <p>{{ selected_student.firstname }}</p>
+                                        </div>
+                                        <div class="detail-item">
+                                            <label>Middle Name</label>
+                                            <p>{{ selected_student.middlename or '-' }}</p>
+                                        </div>
+                                        <div class="detail-item">
+                                            <label>Last Name</label>
+                                            <p>{{ selected_student.lastname }}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="detail-row">
+                                        <div class="detail-item">
+                                            <label>Date of Birth</label>
+                                            <p>{{ selected_student.dob.strftime('%Y-%m-%d') if selected_student.dob else '-' }}</p>
+                                        </div>
+                                        <div class="detail-item">
+                                            <label>Gender</label>
+                                            <p>{{ selected_student.gender or '-' }}</p>
+                                        </div>
+                                        <div class="detail-item">
+                                            <label>Nationality</label>
+                                            <p>{{ selected_student.nationality or '-' }}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="detail-row">
+                                        <div class="detail-item">
+                                            <label>Contact Number</label>
+                                            <p>{{ selected_student.contact or '-' }}</p>
+                                        </div>
+                                        <div class="detail-item">
+                                            <label>Email Address</label>
+                                            <p>{{ selected_student.email }}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="detail-row">
+                                        <div class="detail-item" style="flex: 1 1 100%;">
+                                            <label>Complete Address</label>
+                                            <p>{{ selected_student.address or '-' }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h2>Academic Information</h2>
+                                    <div class="detail-row">
+                                        <div class="detail-item">
+                                            <label>College/Faculty</label>
+                                            <p>{{ selected_student.college or '-' }}</p>
+                                        </div>
+                                        <div class="detail-item">
+                                            <label>Academic Year</label>
+                                            <p>{{ selected_student.academic_year or '-' }}</p>
+                                        </div>
+                                        <div class="detail-item">
+                                            <label>Term / Semester</label>
+                                            <p>{{ selected_student.term or '-' }}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="detail-row">
+                                        <div class="detail-item">
+                                            <label>Program</label>
+                                            <p>{{ selected_student.program or '-' }}</p>
+                                        </div>
+                                        <div class="detail-item">
+                                            <label>Degree Program</label>
+                                            <p>{{ selected_student.degree_program or '-' }}</p>
+                                        </div>
+                                        <div class="detail-item">
+                                            <label>Student ID</label>
+                                            <p>{{ selected_student.student_id or '-' }}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="detail-row">
+                                        <div class="detail-item" style="flex: 1 1 100%;">
+                                            <label>Previous School Attended</label>
+                                            <p>{{ selected_student.previous_school or '-' }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h2>Required Document Uploads</h2>
+                                    <div class="documents-grid">
+                                        <div class="document-card">
+                                            {% if selected_student.form138 %}
+                                            <img src="{{ url_for('static', filename='uploads/' + selected_student.form138) }}" alt="Form 138">
+                                            <h4>Form 138</h4>
+                                            <p>High School Report Card</p>
+                                            <a href="{{ url_for('static', filename='uploads/' + selected_student.form138) }}" 
+                                               class="btn btn-secondary" download>Download</a>
+                                            {% else %}
+                                            <img src="https://via.placeholder.com/300x400.png?text=Missing+Form+138" alt="Form 138">
+                                            <h4>Form 138</h4>
+                                            <p class="text-danger">Not submitted</p>
+                                            {% endif %}
+                                        </div>
+                                        
+                                        <div class="document-card">
+                                            {% if selected_student.birth_cert %}
+                                            <img src="{{ url_for('static', filename='uploads/' + selected_student.birth_cert) }}" alt="Birth Certificate">
+                                            <h4>Birth Certificate</h4>
+                                            <p>PSA Certified</p>
+                                            <a href="{{ url_for('static', filename='uploads/' + selected_student.birth_cert) }}" 
+                                               class="btn btn-secondary" download>Download</a>
+                                            {% else %}
+                                            <img src="https://via.placeholder.com/300x400.png?text=Missing+Birth+Cert" alt="Birth Certificate">
+                                            <h4>Birth Certificate</h4>
+                                            <p class="text-danger">Not submitted</p>
+                                            {% endif %}
+                                        </div>
+                                        
+                                        <div class="document-card">
+                                            {% if selected_student.good_moral %}
+                                            <img src="{{ url_for('static', filename='uploads/' + selected_student.good_moral) }}" alt="Good Moral Certificate">
+                                            <h4>Good Moral Certificate</h4>
+                                            <p>Issued by previous school</p>
+                                            <a href="{{ url_for('static', filename='uploads/' + selected_student.good_moral) }}" 
+                                               class="btn btn-secondary" download>Download</a>
+                                            {% else %}
+                                            <img src="https://via.placeholder.com/300x400.png?text=Missing+Good+Moral" alt="Good Moral Certificate">
+                                            <h4>Good Moral Certificate</h4>
+                                            <p class="text-danger">Not submitted</p>
+                                            {% endif %}
+                                        </div>
+                                        
+                                        <div class="document-card">
+                                            {% if selected_student.id_photos %}
+                                            <img src="{{ url_for('static', filename='uploads/' + selected_student.id_photos) }}" alt="2x2 ID Photo">
+                                            <h4>2x2 ID Photos</h4>
+                                            <p>White background</p>
+                                            <a href="{{ url_for('static', filename='uploads/' + selected_student.id_photos) }}" 
+                                               class="btn btn-secondary" download>Download</a>
+                                            {% else %}
+                                            <img src="https://via.placeholder.com/300x300.png?text=Missing+ID+Photo" alt="2x2 ID Photo">
+                                            <h4>2x2 ID Photos</h4>
+                                            <p class="text-danger">Not submitted</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="action-buttons">
+                                    <a href="{{ url_for('auth.reject_student', student_id=selected_student.id) }}" 
+                                       class="btn btn-danger" 
+                                       onclick="return confirm('Are you sure you want to reject this application?')">Reject Application</a>
+                                    
+                                    <button type="submit" class="btn btn-success">
+                                        Approve Student
+                                    </button>
+                                    </form>
+                                </div>
+                            {% else %}
+                                <div class="empty-state">
+                                    <p>Select a student from the list to view details</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </body>
+            </html>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle sidebar
+            const toggleSidebar = document.getElementById('toggle-sidebar');
+            const sidebar = document.getElementById('sidebar');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            
+            toggleSidebar.addEventListener('click', function() {
+                sidebar.classList.toggle('sidebar-collapsed');
+                const icon = this.querySelector('i');
+                if (sidebar.classList.contains('sidebar-collapsed')) {
+                    icon.classList.remove('ri-menu-fold-line');
+                    icon.classList.add('ri-menu-unfold-line');
+                } else {
+                    icon.classList.remove('ri-menu-unfold-line');
+                    icon.classList.add('ri-menu-fold-line');
+                }
+            });
+            
+            mobileMenuButton.addEventListener('click', function() {
+                sidebar.classList.toggle('-translate-x-full');
+            });
+            
+            // User dropdown menu
+            const userMenuButton = document.getElementById('user-menu-button');
+            const userMenu = document.getElementById('user-menu');
+            
+            userMenuButton.addEventListener('click', function() {
+                userMenu.classList.toggle('show');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!userMenuButton.contains(event.target)) {
+                    userMenu.classList.remove('show');
+                }
+            });
+        });
+
+         // Initialize all flash messages with auto-dismiss
+         document.addEventListener('DOMContentLoaded', function() {
+                          const flashMessages = document.querySelectorAll('.flash-message');
+                          flashMessages.forEach(function(flash, index) {
+                              setTimeout(function() {
+                                  closeFlash(flash.id);
+                              }, 5000 + (index * 300)); // Stagger the disappearance a bit
+                          });
+                      });
+                      
+                      function closeFlash(id) {
+                          const flashElement = document.getElementById(id);
+                          if (flashElement) {
+                              flashElement.style.opacity = '0';
+                              flashElement.style.transform = 'translateY(-20px)';
+                              flashElement.style.transition = 'all 0.5s ease';
+                              
+                              setTimeout(() => {
+                                  flashElement.remove();
+                              }, 500);
+                          }
+                      }
+
+    </script>
+</body>
+</html>

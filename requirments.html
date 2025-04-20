@@ -1,0 +1,377 @@
+{% extends "base.html" %}
+
+{% block title %}Requirments{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enrollment Form</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>
+tailwind.config={
+theme:{
+extend:{
+colors:{
+primary:'#29006f',
+secondary:'#29006f'
+},
+borderRadius:{
+'none':'0px',
+'sm':'4px',
+DEFAULT:'8px',
+'md':'12px',
+'lg':'16px',
+'xl':'20px',
+'2xl':'24px',
+'3xl':'32px',
+'full':'9999px',
+'button':'8px'
+}
+}
+}
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+background-color: #f9fafb;
+font-family: 'Inter', sans-serif;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+cursor: pointer;
+}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+.form-input:focus {
+outline: none;
+border-color: #29006f;
+}
+.custom-checkbox {
+appearance: none;
+-webkit-appearance: none;
+width: 18px;
+height: 18px;
+border: 2px solid #E5E5E5;
+border-radius: 4px;
+cursor: pointer;
+position: relative;
+margin-right: 8px;
+}
+.custom-checkbox:checked {
+background-color:#29006f;
+border-color: #29006f;
+}
+.custom-checkbox:checked::after {
+content: "";
+position: absolute;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+top: 1px;
+left: 5px;
+transform: rotate(45deg);
+}
+</style>
+
+<div class="invisible h-8"></div>
+
+</head>
+<body class="min-h-screen bg-gray-50">
+<div class="max-w-[1200px] w-full mx-auto bg-white shadow-lg rounded-lg p-8 my-10">
+<div class="mb-8 text-center">
+<h1 class="text-3xl font-bold text-gray-800">Enrollment Requirements</h1>
+<p class="text-gray-600 mt-2">Academic Year 2025-2026</p>
+</div>
+<div class="space-y-8">
+<!-- General Requirements -->
+<section>
+<h2 class="text-xl font-bold text-gray-800 border-b border-gray-200 pb-2 mb-4">General Requirements</h2>
+<ul class="space-y-3 text-gray-700">
+<li class="flex items-start">
+<i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+<span>Duly accomplished Application Form</span>
+</li>
+<li class="flex items-start">
+<i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+<span>Original Report Card (Form 138) / Transcript of Records with good academic standing</span>
+</li>
+<li class="flex items-start">
+<i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+<span>Original PSA Birth Certificate</span>
+</li>
+<li class="flex items-start">
+<i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+<span>Certificate of Good Moral Character (issued within the last 6 months)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+<span>4 pieces of recent 2x2 ID pictures with white background</span>
+</li>
+<li class="flex items-start">
+<i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+<span>Medical Certificate with complete physical examination results</span>
+</li>
+</ul>
+</section>
+<!-- Additional Requirements for Specific Cases -->
+<section>
+<h2 class="text-xl font-bold text-gray-800 border-b border-gray-200 pb-2 mb-4">Additional Requirements</h2>
+<h3 class="font-semibold text-gray-800 mb-2">For Transfer Students:</h3>
+<ul class="space-y-3 text-gray-700 mb-6">
+<li class="flex items-start">
+<i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+<span>Official Transcript of Records from previous school</span>
+</li>
+<li class="flex items-start">
+<i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+<span>Certificate of Transfer Credential / Honorable Dismissal</span>
+</li>
+<li class="flex items-start">
+<i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+<span>Course description of all subjects taken</span>
+</li>
+</ul>
+<h3 class="font-semibold text-gray-800 mb-2">For International Students:</h3>
+<ul class="space-y-3 text-gray-700">
+<li class="flex items-start">
+<i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+<span>Alien Certificate of Registration (ACR)</span>
+</li>
+<li class="flex items-start">
+<i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+<span>Student Visa or appropriate visa</span>
+</li>
+<li class="flex items-start">
+<i class="ri-checkbox-circle-line text-primary mr-2 mt-1"></i>
+<span>Passport copy with valid visa</span>
+</li>
+</ul>
+</section>
+<!-- Important Notes -->
+<section>
+<h2 class="text-xl font-bold text-gray-800 border-b border-gray-200 pb-2 mb-4">Important Notes</h2>
+<ul class="space-y-3 text-gray-700">
+<li class="flex items-start">
+<i class="ri-information-line text-blue-500 mr-2 mt-1"></i>
+<span>All documents must be original or certified true copies</span>
+</li>
+<li class="flex items-start">
+<i class="ri-information-line text-blue-500 mr-2 mt-1"></i>
+<span>Documents in foreign languages must be accompanied by an English translation from an accredited translator</span>
+</li>
+<li class="flex items-start">
+<i class="ri-information-line text-blue-500 mr-2 mt-1"></i>
+<span>Incomplete requirements will not be processed</span>
+</li>
+<li class="flex items-start">
+<i class="ri-information-line text-blue-500 mr-2 mt-1"></i>
+<span>Submission deadline: July 31, 2025</span>
+</li>
+</ul>
+</section>
+<!-- Contact Information -->
+<section>
+<h2 class="text-xl font-bold text-gray-800 border-b border-gray-200 pb-2 mb-4">For Inquiries</h2>
+<div class="space-y-2 text-gray-700">
+<p class="flex items-center">
+<i class="ri-phone-line mr-2"></i>
+<span>Contact Number: +1 (555) 123-4567</span>
+</p>
+<p class="flex items-center">
+<i class="ri-mail-line mr-2"></i>
+<span>Email: admissions@university.edu</span>
+</p>
+<p class="flex items-center">
+<i class="ri-map-pin-line mr-2"></i>
+<span>Address: 123 University Avenue, Academic District, State 12345</span>
+</p>
+<p class="flex items-center">
+<i class="ri-time-line mr-2"></i>
+<span>Office Hours: Monday to Friday, 8:00 AM to 5:00 PM</span>
+</p>
+</div>
+</section>
+<!-- Progress Tracker -->
+<section class="mt-8">
+  <h2 class="text-xl font-bold text-gray-800 border-b border-gray-200 pb-2 mb-4">Application Progress</h2>
+  <div class="flex justify-between items-center mb-2">
+    <span class="text-sm text-gray-600">Document Collection Progress</span>
+    <span class="text-sm font-semibold text-primary">0%</span>
+  </div>
+  <div class="w-full bg-gray-200 rounded-full h-2.5">
+    <div class="bg-primary h-2.5 rounded-full" style="width: 0%"></div>
+  </div>
+  
+  <div class="mt-6 space-y-3">
+    <div class="flex items-center">
+      <input type="checkbox" class="custom-checkbox" id="doc1">
+      <label for="doc1" class="text-gray-700 ml-2">Application Form</label>
+    </div>
+    <div class="flex items-center">
+      <input type="checkbox" class="custom-checkbox" id="doc2">
+      <label for="doc2" class="text-gray-700 ml-2">Report Card/Transcript</label>
+    </div>
+    <div class="flex items-center">
+      <input type="checkbox" class="custom-checkbox" id="doc3">
+      <label for="doc3" class="text-gray-700 ml-2">Birth Certificate</label>
+    </div>
+    <div class="flex items-center">
+      <input type="checkbox" class="custom-checkbox" id="doc4">
+      <label for="doc4" class="text-gray-700 ml-2">Good Moral Certificate</label>
+    </div>
+  </div>
+</section>
+<!-- Submission Timeline -->
+<section class="mt-8">
+  <h2 class="text-xl font-bold text-gray-800 border-b border-gray-200 pb-2 mb-4">Submission Timeline</h2>
+  <div class="relative">
+    <div class="absolute left-4 h-full w-0.5 bg-gray-200"></div>
+    <div class="space-y-6 relative">
+      <div class="flex items-start">
+        <div class="flex items-center justify-center w-8 h-8 bg-primary rounded-full -ml-4 mr-4 relative z-10">
+          <i class="ri-file-list-line text-white"></i>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-800">Document Submission</h3>
+          <p class="text-sm text-gray-600">Deadline: July 31, 2025</p>
+        </div>
+      </div>
+      <div class="flex items-start">
+        <div class="flex items-center justify-center w-8 h-8 bg-gray-200 rounded-full -ml-4 mr-4 relative z-10">
+          <i class="ri-team-line text-gray-600"></i>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-800">Interview Process</h3>
+          <p class="text-sm text-gray-600">August 1-15, 2025</p>
+        </div>
+      </div>
+      <div class="flex items-start">
+        <div class="flex items-center justify-center w-8 h-8 bg-gray-200 rounded-full -ml-4 mr-4 relative z-10">
+          <i class="ri-check-line text-gray-600"></i>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-800">Final Enrollment</h3>
+          <p class="text-sm text-gray-600">August 20, 2025</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Action Buttons -->
+<div class="mt-12 flex justify-between items-center">
+    <a href="/save-progress">
+      <button class="px-6 py-2 border border-gray-300 rounded-button text-gray-700 hover:bg-gray-50 transition-colors">
+        Save Progress
+      </button>
+    </a>
+    
+    <a href="/create_account">
+      <button class="px-8 py-2 bg-primary text-white rounded-button hover:bg-primary/90 transition-colors flex items-center">
+        Proceed to Next Step
+        <i class="ri-arrow-right-line ml-2"></i>
+      </button>
+    </a>
+  </div>
+  
+</div>
+</div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12">
+  <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-12">
+    <!-- Branding Section -->
+    <div>
+      <div class="flex items-center mb-4 space-x-3">
+        <!-- Rounded Logo Container with no background -->
+        <div class="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden shadow-md">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/9327c65e-8968-48a3-9ce0-738e618d6785.jpg-8fSA3dxFbbGnYKQePNkjDxV5nNEDfU.jpeg" alt="Logo" class="w-full h-full object-contain">
+        </div>
+        <!-- Text Branding -->
+        <div>
+          <span class="text-sm">Padre Garcia Polytechnic College</span>
+        </div>
+      </div>
+      <p class="text-gray-400">Brgy. Castillo, Padre Garcia, Batangas, Philippines</p>
+      <p class="text-gray-400 mt-2">+63 (2) 8524-4611</p>
+    </div>
+
+    <!-- Quick Links -->
+    <div>
+      <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+      <ul class="space-y-2 text-gray-400">
+        <li><a href="#" class="hover:text-white">Home</a></li>
+        <li><a href="#" class="hover:text-white">Programs</a></li>
+        <li><a href="#" class="hover:text-white">Admissions</a></li>
+        <li><a href="#" class="hover:text-white">Campus Life</a></li>
+        <li><a href="#" class="hover:text-white">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <!-- Social & Newsletter -->
+    <div>
+      <h3 class="text-lg font-bold mb-4">Connect With Us</h3>
+      <div class="flex space-x-4 mb-4">
+        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+          <i class="ri-facebook-fill"></i>
+        </a>
+        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+          <i class="ri-twitter-x-fill"></i>
+        </a>
+        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+          <i class="ri-instagram-fill"></i>
+        </a>
+        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+          <i class="ri-youtube-fill"></i>
+        </a>
+      </div>
+      <p class="text-gray-400">Subscribe to our newsletter for updates</p>
+    </div>
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="text-center text-sm text-gray-500 mt-8">
+    <p>© 2025 Padre Garcia Polytechnic. All rights reserved.</p>
+    <div class="mt-2 flex justify-center gap-4">
+      <a href="#" class="hover:text-white">Privacy Policy</a>
+      <a href="#" class="hover:text-white">Terms of Service</a>
+      <a href="#" class="hover:text-white">Help Center</a>
+    </div>
+  </div>
+</footer>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const checkboxes = document.querySelectorAll('.custom-checkbox');
+  const progressBar = document.querySelector('.bg-primary');
+  
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', updateProgress);
+  });
+  
+  function updateProgress() {
+    const total = checkboxes.length;
+    const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+    const percentage = (checked / total) * 100;
+    progressBar.style.width = percentage + '%';
+    document.querySelector('.text-primary').textContent = Math.round(percentage) + '%';
+  }
+});
+</script>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,999 @@
+{% extends "base.html" %}
+
+{% block title %}Academics{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>University Website</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#29006f',secondary:'#29006f'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+html {
+scroll-behavior: smooth;
+}
+body {
+font-family: 'Inter', sans-serif;
+}
+.nav-dropdown {
+display: none;
+position: absolute;
+top: 100%;
+left: 0;
+z-index: 50;
+}
+.nav-item:hover .nav-dropdown {
+display: block;
+}
+.section-indicator {
+position: fixed;
+right: 20px;
+top: 50%;
+transform: translateY(-50%);
+z-index: 40;
+}
+.section-indicator a {
+display: block;
+width: 10px;
+height: 10px;
+border-radius: 50%;
+background-color: #d1d5db;
+margin: 10px 0;
+transition: all 0.3s ease;
+}
+.section-indicator a.active {
+background-color: #4f0e9e;
+transform: scale(1.3);
+}
+custom-checkbox {
+          position: relative;
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+      }
+      .custom-checkbox input {
+          position: absolute;
+          opacity: 0;
+          cursor: pointer;
+          height: 0;
+          width: 0;
+      }
+      .checkmark {
+          height: 20px;
+          width: 20px;
+          background-color: #fff;
+          border: 2px solid #e2e8f0;
+          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.2s ease;
+      }
+      .custom-checkbox input:checked ~ .checkmark {
+          background-color: #3b82f6;
+          border-color: #3b82f6;
+      }
+      .checkmark:after {
+          content: "";
+          display: none;
+          width: 5px;
+          height: 10px;
+          border: solid white;
+          border-width: 0 2px 2px 0;
+          transform: rotate(45deg);
+      }
+      .custom-checkbox input:checked ~ .checkmark:after {
+          display: block;
+      }
+      .custom-switch {
+          position: relative;
+          display: inline-block;
+          width: 48px;
+          height: 24px;
+      }
+      .custom-switch input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+      }
+      .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #e2e8f0;
+          transition: .4s;
+          border-radius: 24px;
+      }
+      .slider:before {
+          position: absolute;
+          content: "";
+          height: 18px;
+          width: 18px;
+          left: 3px;
+          bottom: 3px;
+          background-color: white;
+          transition: .4s;
+          border-radius: 50%;
+      }
+      input:checked + .slider {
+          background-color: #3b82f6;
+      }
+      input:checked + .slider:before {
+          transform: translateX(24px);
+      }
+      .custom-range {
+
+          width: 100%;
+          height: 6px;
+          border-radius: 3px;
+          background: #e2e8f0;
+          outline: none;
+      }
+      .custom-range::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          background: #3b82f6;
+          cursor: pointer;
+      }
+      .custom-range::-moz-range-thumb {
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          background: #3b82f6;
+          cursor: pointer;
+          border: none;
+      }
+      .custom-radio {
+          position: relative;
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+      }
+      .custom-radio input {
+          position: absolute;
+          opacity: 0;
+          cursor: pointer;
+          height: 0;
+          width: 0;
+      }
+      .radio-mark {
+          height: 20px;
+          width: 20px;
+          background-color: #fff;
+          border: 2px solid #e2e8f0;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.2s ease;
+      }
+      .custom-radio input:checked ~ .radio-mark {
+          border-color: #3b82f6;
+      }
+      .radio-mark:after {
+          content: "";
+          display: none;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background-color: #3b82f6;
+      }
+      .custom-radio input:checked ~ .radio-mark:after {
+          display: block;
+      }
+      .program-card {
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .program-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+      .resource-card {
+          transition: transform 0.3s ease;
+      }
+      .resource-card:hover {
+          transform: translateY(-5px);
+      }
+      .tab-button {
+          transition: all 0.3s ease;
+      }
+      .tab-button.active {
+          background-color: #3b82f6;
+          color: white;
+      }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9fafb;
+      color: #111827;
+    }
+
+    .academic-calendar {
+      padding: 4rem 1rem;
+    }
+
+    .calendar-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .calendar-header h2 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .calendar-header p {
+      color: #6b7280;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .calendar-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .calendar-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .calendar-card {
+      background: #ffffff;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+      text-align: left;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .calendar-card:hover {
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .calendar-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .calendar-card .date {
+      font-size: 0.875rem;
+      color: #4b5563;
+      margin-bottom: 0.75rem;
+    }
+
+    .calendar-card p {
+      color: #374151;
+      font-size: 0.95rem;
+    }
+
+    .calendar-footer {
+      margin-top: 3rem;
+    }
+
+    .calendar-btn {
+      background-color: #2563eb;
+      color: white;
+      padding: 0.75rem 2rem;
+      font-weight: 500;
+      border-radius: 9999px;
+      text-decoration: none;
+      
+    }
+
+    .calendar-btn:hover {
+      background-color: #1d4ed8;
+    }
+  
+
+</style>
+</head>
+<body class="bg-white">
+    <div class="invisible h-8"></div>
+    <div class="invisible h-8"></div>
+
+<main>
+<!-- Hero Section -->
+      <!-- Hero Section -->
+      <section
+        class="relative h-[500px] flex items-center justify-center overflow-hidden"
+      >
+        <div class="absolute inset-0 z-0">
+          <img
+            src="https://readdy.ai/api/search-image?query=A%20beautiful%20university%20campus%20with%20modern%20architecture%2C%20green%20spaces%2C%20and%20students%20walking%20around.%20The%20image%20has%20a%20soft%2C%20natural%20lighting%20with%20a%20blue%20sky%20and%20some%20clouds.%20The%20left%20side%20of%20the%20image%20has%20a%20gradient%20that%20fades%20to%20a%20clean%20white%20background%2C%20creating%20a%20perfect%20space%20for%20text%20overlay.%20The%20transition%20is%20subtle%20and%20natural%2C%20making%20the%20image%20ideal%20for%20a%20hero%20section%20with%20text%20on%20the%20left.&width=1920&height=1080&seq=1&orientation=landscape"
+            alt="University Campus"
+            class="w-full h-full object-cover object-top"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-800/40"
+          ></div>
+        </div>
+        <div class="container mx-auto px-4 relative z-10 w-full">
+          <div class="max-w-2xl text-white">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">
+              Academic Programs
+            </h1>
+            <p class="text-xl md:text-2xl mb-8">
+              Shape your future with our world-class education and discover your
+              potential in a supportive academic environment.
+            </p>
+            <div class="flex flex-wrap gap-4">
+              <button
+                class="bg-primary text-white px-6 py-3 font-medium !rounded-button whitespace-nowrap hover:bg-primary/90 transition-colors"
+              >
+                Request Information
+              </button>
+              <button
+                class="bg-white/10 backdrop-blur-sm border border-white/30 text-white px-6 py-3 font-medium !rounded-button whitespace-nowrap hover:bg-white/20 transition-colors"
+              >
+                Schedule a Visit
+              </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<!-- Page Navigation -->
+<section class="bg-gray-50 border-b">
+<div class="container mx-auto px-4">
+<div class="flex overflow-x-auto py-4 space-x-6">
+<a href="#undergraduate" class="text-gray-600 hover:text-primary whitespace-nowrap pb-2 border-b-2 border-transparent hover:border-primary transition-colors">Undergraduate Programs</a>
+<a href="#graduate" class="text-gray-600 hover:text-primary whitespace-nowrap pb-2 border-b-2 border-transparent hover:border-primary transition-colors">Graduate Programs</a>
+<a href="#colleges-schools" class="text-gray-600 hover:text-primary whitespace-nowrap pb-2 border-b-2 border-transparent hover:border-primary transition-colors">Colleges & Schools</a>
+<a href="#academic-calendar" class="text-gray-600 hover:text-primary whitespace-nowrap pb-2 border-b-2 border-transparent hover:border-primary transition-colors">Academic Calendar</a>
+</div>
+</div>
+</section>
+<!-- Undergraduate Section -->
+<section id="undergraduate" class="py-16">
+<!-- Program Categories -->
+<section class="py-16 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold mb-4">Explore Our Programs</h2>
+      <p class="text-gray-600 max-w-3xl mx-auto">
+        Discover the perfect program to match your interests and career
+        aspirations.
+      </p>
+    </div>
+
+    <div class="flex justify-center mb-8">
+      <div class="inline-flex bg-gray-200 p-1 rounded-full">
+        <button
+          class="tab-button active px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap"
+        >
+          All Programs
+        </button>
+        <button
+          class="tab-button px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap"
+        >
+          Arts & Humanities
+        </button>
+        <button
+          class="tab-button px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap"
+        >
+          STEM
+        </button>
+        <button
+          class="tab-button px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap"
+        >
+          Business
+        </button>
+        <button
+          class="tab-button px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap"
+        >
+          Social Sciences
+        </button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div
+        class="program-card bg-white rounded-lg overflow-hidden shadow-md"
+      >
+        <div class="h-48 overflow-hidden">
+          <img
+            src="https://readdy.ai/api/search-image?query=A%20modern%20computer%20science%20classroom%20with%20students%20working%20on%20computers%2C%20programming%20code%20visible%20on%20screens%2C%20in%20a%20university%20setting%20with%20clean%20modern%20design%2C%20soft%20natural%20lighting&width=600&height=400&seq=2&orientation=landscape"
+            alt="Computer Science"
+            class="w-full h-full object-cover object-top"
+          />
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-xl font-semibold">Computer Science</h3>
+            <span
+              class="bg-blue-100 text-primary text-xs px-2 py-1 rounded-full"
+              >STEM</span
+            >
+          </div>
+          <p class="text-gray-600 mb-4">
+            Develop cutting-edge skills in programming, artificial
+            intelligence, data science, and cybersecurity.
+          </p>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-gray-500"
+              >120 Credits • 4 Years</span
+            >
+            <a href="#" class="text-primary font-medium hover:underline"
+              >Learn More</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="program-card bg-white rounded-lg overflow-hidden shadow-md"
+      >
+        <div class="h-48 overflow-hidden">
+          <img
+            src="https://readdy.ai/api/search-image?query=A%20business%20classroom%20with%20students%20engaged%20in%20a%20presentation%2C%20professional%20attire%2C%20modern%20university%20setting%20with%20clean%20design%2C%20soft%20natural%20lighting&width=600&height=400&seq=3&orientation=landscape"
+            alt="Business Administration"
+            class="w-full h-full object-cover object-top"
+          />
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-xl font-semibold">Business Administration</h3>
+            <span
+              class="bg-blue-100 text-primary text-xs px-2 py-1 rounded-full"
+              >Business</span
+            >
+          </div>
+          <p class="text-gray-600 mb-4">
+            Gain expertise in management, marketing, finance, and
+            entrepreneurship for today's global economy.
+          </p>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-gray-500"
+              >120 Credits • 4 Years</span
+            >
+            <a href="#" class="text-primary font-medium hover:underline"
+              >Learn More</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="program-card bg-white rounded-lg overflow-hidden shadow-md"
+      >
+        <div class="h-48 overflow-hidden">
+          <img
+            src="https://readdy.ai/api/search-image?query=A%20psychology%20classroom%20with%20students%20engaged%20in%20discussion%2C%20brain%20models%20visible%2C%20modern%20university%20setting%20with%20clean%20design%2C%20soft%20natural%20lighting&width=600&height=400&seq=4&orientation=landscape"
+            alt="Psychology"
+            class="w-full h-full object-cover object-top"
+          />
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-xl font-semibold">Psychology</h3>
+            <span
+              class="bg-blue-100 text-primary text-xs px-2 py-1 rounded-full"
+              >Social Sciences</span
+            >
+          </div>
+          <p class="text-gray-600 mb-4">
+            Explore human behavior, mental processes, and therapeutic
+            approaches with hands-on clinical experience.
+          </p>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-gray-500"
+              >120 Credits • 4 Years</span
+            >
+            <a href="#" class="text-primary font-medium hover:underline"
+              >Learn More</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="program-card bg-white rounded-lg overflow-hidden shadow-md"
+      >
+        <div class="h-48 overflow-hidden">
+          <img
+            src="https://readdy.ai/api/search-image?query=An%20English%20literature%20classroom%20with%20students%20discussing%20books%2C%20bookshelves%20visible%2C%20modern%20university%20setting%20with%20clean%20design%2C%20soft%20natural%20lighting&width=600&height=400&seq=5&orientation=landscape"
+            alt="English Literature"
+            class="w-full h-full object-cover object-top"
+          />
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-xl font-semibold">English Literature</h3>
+            <span
+              class="bg-blue-100 text-primary text-xs px-2 py-1 rounded-full"
+              >Arts & Humanities</span
+            >
+          </div>
+          <p class="text-gray-600 mb-4">
+            Analyze classic and contemporary works while developing
+            critical thinking and communication skills.
+          </p>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-gray-500"
+              >120 Credits • 4 Years</span
+            >
+            <a href="#" class="text-primary font-medium hover:underline"
+              >Learn More</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="program-card bg-white rounded-lg overflow-hidden shadow-md"
+      >
+        <div class="h-48 overflow-hidden">
+          <img
+            src="https://readdy.ai/api/search-image?query=A%20biomedical%20engineering%20laboratory%20with%20students%20working%20with%20equipment%2C%20microscopes%20visible%2C%20modern%20university%20setting%20with%20clean%20design%2C%20soft%20natural%20lighting&width=600&height=400&seq=6&orientation=landscape"
+            alt="Biomedical Engineering"
+            class="w-full h-full object-cover object-top"
+          />
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-xl font-semibold">Biomedical Engineering</h3>
+            <span
+              class="bg-blue-100 text-primary text-xs px-2 py-1 rounded-full"
+              >STEM</span
+            >
+          </div>
+          <p class="text-gray-600 mb-4">
+            Combine engineering principles with medical sciences to
+            develop innovative healthcare solutions.
+          </p>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-gray-500"
+              >128 Credits • 4 Years</span
+            >
+            <a href="#" class="text-primary font-medium hover:underline"
+              >Learn More</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="program-card bg-white rounded-lg overflow-hidden shadow-md"
+      >
+        <div class="h-48 overflow-hidden">
+          <img
+            src="https://readdy.ai/api/search-image?query=An%20international%20relations%20classroom%20with%20students%20in%20discussion%2C%20world%20maps%20visible%2C%20modern%20university%20setting%20with%20clean%20design%2C%20soft%20natural%20lighting&width=600&height=400&seq=7&orientation=landscape"
+            alt="International Relations"
+            class="w-full h-full object-cover object-top"
+          />
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-xl font-semibold">International Relations</h3>
+            <span
+              class="bg-blue-100 text-primary text-xs px-2 py-1 rounded-full"
+              >Social Sciences</span
+            >
+          </div>
+          <p class="text-gray-600 mb-4">
+            Study global politics, diplomacy, and cross-cultural
+            communication for careers in government and NGOs.
+          </p>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-gray-500"
+              >120 Credits • 4 Years</span
+            >
+            <a href="#" class="text-primary font-medium hover:underline"
+              >Learn More</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-10">
+      <button
+        class="bg-white border border-gray-300 text-gray-700 px-6 py-3 font-medium !rounded-button whitespace-nowrap hover:bg-gray-50 transition-colors"
+      >
+        View All Programs
+      </button>
+    </div>
+  </div>
+</section>
+
+</section>
+<!-- Graduate Program Categories -->
+<section id="graduate" class="py-16 bg-gray-50">
+<section class="py-16 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-8">
+      <h2 class="text-3xl font-bold mb-4">Graduate Programs</h2>
+      <p class="text-gray-600 max-w-3xl mx-auto">
+        Advance your career with specialized, industry-relevant graduate degrees designed for future leaders.
+      </p>
+    </div>
+
+    <div class="flex justify-center mb-8">
+      <div class="inline-flex bg-gray-200 p-1 rounded-full">
+        <button class="tab-button active px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">
+          All Graduate Programs
+        </button>
+        <button class="tab-button px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">
+          MBA
+        </button>
+        <button class="tab-button px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">
+          Science & Tech
+        </button>
+        <button class="tab-button px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap">
+          Humanities
+        </button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- MBA -->
+      <div class="program-card bg-white rounded-lg overflow-hidden shadow-md">
+        <div class="h-48 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=graduate%20students%20in%20a%20modern%20MBA%20classroom%20with%20presentations%20and%20business%20discussion&width=600&height=400&orientation=landscape"
+            alt="MBA" class="w-full h-full object-cover object-top" />
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-xl font-semibold">Master of Business Administration (MBA)</h3>
+            <span class="bg-blue-100 text-primary text-xs px-2 py-1 rounded-full">MBA</span>
+          </div>
+          <p class="text-gray-600 mb-4">
+            Prepare for leadership roles with skills in management, strategy, and innovation in global business.
+          </p>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-gray-500">60 Credits • 2 Years</span>
+            <a href="#" class="text-primary font-medium hover:underline">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- MS Data Science -->
+      <div class="program-card bg-white rounded-lg overflow-hidden shadow-md">
+        <div class="h-48 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=graduate%20students%20in%20data%20science%20lab%20with%20code%20and%20analytics%20on%20screens&width=600&height=400&orientation=landscape"
+            alt="MS Data Science" class="w-full h-full object-cover object-top" />
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-xl font-semibold">MS in Data Science</h3>
+            <span class="bg-blue-100 text-primary text-xs px-2 py-1 rounded-full">Science & Tech</span>
+          </div>
+          <p class="text-gray-600 mb-4">
+            Master data analytics, machine learning, and AI to become a data-driven decision-maker.
+          </p>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-gray-500">48 Credits • 2 Years</span>
+            <a href="#" class="text-primary font-medium hover:underline">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- MA Communication -->
+      <div class="program-card bg-white rounded-lg overflow-hidden shadow-md">
+        <div class="h-48 overflow-hidden">
+          <img src="https://readdy.ai/api/search-image?query=graduate%20students%20discussing%20media%20theory%20in%20a%20communication%20studies%20classroom&width=600&height=400&orientation=landscape"
+            alt="MA Communication" class="w-full h-full object-cover object-top" />
+        </div>
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-xl font-semibold">MA in Communication</h3>
+            <span class="bg-blue-100 text-primary text-xs px-2 py-1 rounded-full">Humanities</span>
+          </div>
+          <p class="text-gray-600 mb-4">
+            Explore media, culture, and strategic communication with real-world applications in today's society.
+          </p>
+          <div class="flex justify-between items-center">
+            <span class="text-sm text-gray-500">42 Credits • 1.5 Years</span>
+            <a href="#" class="text-primary font-medium hover:underline">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-10">
+      <button
+        class="bg-white border border-gray-300 text-gray-700 px-6 py-3 font-medium !rounded-button whitespace-nowrap hover:bg-gray-50 transition-colors">
+        View All Graduate Programs
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Colleges and Schools Section -->
+<section id="colleges-schools" class="py-16">
+<section id="colleges-schools" class="py-20 bg-gradient-to-b from-gray-50 to-white">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold text-gray-800">Colleges & Schools</h2>
+      <p class="text-gray-600 mt-4 max-w-2xl mx-auto">
+        Learn more about our academic divisions that prepare students for success in a wide range of fields.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <!-- CCBA -->
+      <div class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-8">
+        <div class="flex items-center justify-center mb-6">
+          <div class="bg-blue-100 text-blue-600 rounded-full p-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M3 10h18M3 6h18M3 14h18M3 18h18"></path>
+            </svg>
+          </div>
+        </div>
+        <h3 class="text-xl font-semibold text-center mb-2">College of Commerce & Business Administration</h3>
+        <p class="text-gray-600 text-sm text-center">
+          Focused on innovation and leadership, CCBA empowers students in business, finance, marketing, and entrepreneurship.
+        </p>
+        <div class="mt-6 text-center">
+          <a href="#" class="text-blue-600 font-medium hover:underline">Explore CCBA &rarr;</a>
+        </div>
+      </div>
+
+      <!-- CoC -->
+      <div class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-8">
+        <div class="flex items-center justify-center mb-6">
+          <div class="bg-green-100 text-green-600 rounded-full p-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 20h9M12 4h9m-9 8h9M3 4h.01M3 12h.01M3 20h.01"></path>
+            </svg>
+          </div>
+        </div>
+        <h3 class="text-xl font-semibold text-center mb-2">College of Computing</h3>
+        <p class="text-gray-600 text-sm text-center">
+          A hub for innovation in computer science, software engineering, cybersecurity, and data analytics.
+        </p>
+        <div class="mt-6 text-center">
+          <a href="#" class="text-green-600 font-medium hover:underline">Explore CoC &rarr;</a>
+        </div>
+      </div>
+
+      <!-- Other Schools -->
+      <div class="bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 p-8">
+        <div class="flex items-center justify-center mb-6">
+          <div class="bg-yellow-100 text-yellow-600 rounded-full p-4">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2"
+              viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M8 17l4 4 4-4m0-5l-4-4-4 4"></path>
+            </svg>
+          </div>
+        </div>
+        <h3 class="text-xl font-semibold text-center mb-2">Other Schools & Institutes</h3>
+        <p class="text-gray-600 text-sm text-center">
+          Encompassing humanities, social sciences, engineering, and health sciences — offering a wide academic spectrum.
+        </p>
+        <div class="mt-6 text-center">
+          <a href="#" class="text-yellow-600 font-medium hover:underline">View All Schools &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-16 text-center">
+      <button class="bg-primary text-white px-6 py-3 rounded-full font-medium hover:bg-primary-dark transition">
+        Browse All Programs
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Administration Section -->
+<section id="academic-calendar" class="py-16 bg-gray-50">
+  <section class="academic-calendar">
+    <div class="calendar-container">
+      <div class="calendar-header">
+        <h2>Academic Calendar</h2>
+        <p>Stay updated with key academic events and milestones throughout the year.</p>
+      </div>
+
+      <div class="calendar-grid">
+        <div class="calendar-card">
+          <h3>Start of 1st Semester</h3>
+          <p class="date">August 12, 2025</p>
+          <p>Classes begin for the semester. Orientation sessions for new students also commence.</p>
+        </div>
+
+        <div class="calendar-card">
+          <h3>Midterm Exams</h3>
+          <p class="date">October 7–11, 2025</p>
+          <p>Mid-semester exams. Prepare for both written and project-based assessments.</p>
+        </div>
+
+        <div class="calendar-card">
+          <h3>Semestral Break</h3>
+          <p class="date">October 25 – November 3, 2025</p>
+          <p>A short academic break before classes resume for the second half of the semester.</p>
+        </div>
+
+        <div class="calendar-card">
+          <h3>Final Exams</h3>
+          <p class="date">December 10–16, 2025</p>
+          <p>Final examinations. Ensure you check your exam schedule and room assignments.</p>
+        </div>
+
+        <div class="calendar-card">
+          <h3>Start of 2nd Semester</h3>
+          <p class="date">January 13, 2026</p>
+          <p>Second semester officially starts. Enrollment and advising resume a week before.</p>
+        </div>
+
+        <div class="calendar-card">
+          <h3>Graduation & Recognition</h3>
+          <p class="date">June 2026 (TBA)</p>
+          <p>Commencement ceremonies and academic honors for graduating students.</p>
+        </div>
+      </div>
+
+      <div class="calendar-footer">
+        <a href="#" class="calendar-btn">Download Full Calendar (PDF)</a>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
+
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-12">
+      <!-- Branding Section -->
+      <div>
+        <div class="flex items-center mb-4 space-x-3">
+          <!-- Rounded Logo Container with no background -->
+          <div class="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden shadow-md">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/9327c65e-8968-48a3-9ce0-738e618d6785.jpg-8fSA3dxFbbGnYKQePNkjDxV5nNEDfU.jpeg" alt="Logo" class="w-full h-full object-contain">
+          </div>
+          <!-- Text Branding -->
+          <div>
+            <span class="text-sm">Padre Garcia Polytechnic College</span>
+          </div>
+        </div>
+        <p class="text-gray-400">Brgy. Castillo, Padre Garcia, Batangas, Philippines</p>
+        <p class="text-gray-400 mt-2">+63 (2) 8524-4611</p>
+      </div>
+  
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+        <ul class="space-y-2 text-gray-400">
+          <li><a href="#" class="hover:text-white">Home</a></li>
+          <li><a href="#" class="hover:text-white">Programs</a></li>
+          <li><a href="#" class="hover:text-white">Admissions</a></li>
+          <li><a href="#" class="hover:text-white">Campus Life</a></li>
+          <li><a href="#" class="hover:text-white">Contact Us</a></li>
+        </ul>
+      </div>
+  
+      <!-- Social & Newsletter -->
+      <div>
+        <h3 class="text-lg font-bold mb-4">Connect With Us</h3>
+        <div class="flex space-x-4 mb-4">
+          <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+            <i class="ri-facebook-fill"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+            <i class="ri-twitter-x-fill"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+            <i class="ri-instagram-fill"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+            <i class="ri-youtube-fill"></i>
+          </a>
+        </div>
+        <p class="text-gray-400">Subscribe to our newsletter for updates</p>
+      </div>
+    </div>
+  
+    <!-- Footer Bottom -->
+    <div class="text-center text-sm text-gray-500 mt-8">
+      <p>© 2025 Padre Garcia Polytechnic. All rights reserved.</p>
+      <div class="mt-2 flex justify-center gap-4">
+        <a href="#" class="hover:text-white">Privacy Policy</a>
+        <a href="#" class="hover:text-white">Terms of Service</a>
+        <a href="#" class="hover:text-white">Help Center</a>
+      </div>
+    </div>
+  </footer>
+  
+
+<div class="section-indicator hidden md:block">
+<a href="#undergraduate" class="indicator-dot" data-section="university-history"></a>
+<a href="#graduate" class="indicator-dot" data-section="mission-vision"></a>
+<a href="#colleges-schools" class="indicator-dot" data-section="campus-locations"></a>
+<a href="#academic-calendar" class="indicator-dot" data-section="administration"></a>
+</div>
+<script>
+function toggleSection(sectionId) {
+const section = document.getElementById(sectionId);
+const icon = document.getElementById(sectionId + '-icon');
+if (section.classList.contains('hidden')) {
+section.classList.remove('hidden');
+icon.style.transform = 'rotate(180deg)';
+} else {
+section.classList.add('hidden');
+icon.style.transform = 'rotate(0deg)';
+}
+}
+document.addEventListener('DOMContentLoaded', function() {
+// Section indicator functionality
+const sections = document.querySelectorAll('section[id]');
+const indicatorDots = document.querySelectorAll('.indicator-dot');
+function highlightCurrentSection() {
+let scrollPosition = window.scrollY;
+sections.forEach(section => {
+const sectionTop = section.offsetTop - 100;
+const sectionHeight = section.offsetHeight;
+const sectionId = section.getAttribute('id');
+if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+indicatorDots.forEach(dot => {
+if (dot.getAttribute('data-section') === sectionId) {
+dot.classList.add('active');
+} else {
+dot.classList.remove('active');
+}
+});
+}
+});
+}
+window.addEventListener('scroll', highlightCurrentSection);
+highlightCurrentSection(); // Initial check
+});
+document.addEventListener('DOMContentLoaded', function() {
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function(e) {
+e.preventDefault();
+const targetId = this.getAttribute('href');
+if (targetId !== '#') {
+const targetElement = document.querySelector(targetId);
+if (targetElement) {
+window.scrollTo({
+top: targetElement.offsetTop - 80,
+behavior: 'smooth'
+});
+}
+}
+});
+});
+});
+</script>
+</body>
+</html>
+
+
+{% endblock %}

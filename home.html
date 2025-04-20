@@ -1,0 +1,716 @@
+{% extends "base.html" %}
+
+{% block title %}HOME{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Padre Garcia Polytechnic Colle</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#29006f',secondary:'#29006f'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Poppins', sans-serif;
+scroll-behavior: smooth;
+}
+.nav-link {
+position: relative;
+}
+.nav-link::after {
+content: '';
+position: absolute;
+width: 0;
+height: 2px;
+bottom: -4px;
+left: 0;
+background-color: white;
+transition: width 0.3s ease;
+}
+.nav-link:hover::after {
+width: 100%;
+}
+.dropdown-menu {
+display: none;
+position: absolute;
+top: 100%;
+left: 0;
+background-color: white;
+min-width: 200px;
+box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+z-index: 10;
+border-radius: 8px;
+overflow: hidden;
+transform: translateY(10px);
+opacity: 0;
+transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.nav-item:hover .dropdown-menu {
+display: block;
+transform: translateY(0);
+opacity: 1;
+}
+.dropdown-item {
+padding: 12px 16px;
+color: #333;
+transition: all 0.2s ease;
+}
+.dropdown-item:hover {
+background-color: #f5f5f5;
+color: #12006f;
+padding-left: 20px;
+}
+.hero-section {
+background-image: linear-gradient(rgba(17, 0, 111, 0.8), rgba(33, 0, 111, 0.8)), url('https://public.readdy.ai/ai/img_res/d4a81943eb00ab06c41178cba9ac8333.jpg');
+background-size: cover;
+background-position: center;
+}
+.announcement-card {
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.announcement-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.program-card {
+transition: transform 0.3s ease;
+}
+.program-card:hover {
+transform: translateY(-5px);
+}
+.stats-item {
+transition: transform 0.3s ease;
+}
+.stats-item:hover {
+transform: scale(1.05);
+}
+.event-card {
+transition: all 0.3s ease;
+}
+.event-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+.search-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0,0,0,0.8);
+z-index: 100;
+display: flex;
+align-items: center;
+justify-content: center;
+opacity: 0;
+visibility: hidden;
+transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.search-overlay.active {
+opacity: 1;
+visibility: visible;
+}
+.login-modal {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0,0,0,0.5);
+z-index: 100;
+display: flex;
+align-items: center;
+justify-content: center;
+opacity: 0;
+visibility: hidden;
+transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.login-modal.active {
+opacity: 1;
+visibility: visible;
+}
+.login-form {
+transform: translateY(20px);
+transition: transform 0.3s ease;
+}
+.login-modal.active .login-form {
+transform: translateY(0);
+}
+@media (max-width: 768px) {
+.mobile-menu {
+position: fixed;
+top: 80px;
+left: 0;
+width: 100%;
+height: 0;
+background-color: #29006f;
+overflow: hidden;
+transition: height 0.3s ease;
+z-index: 9;
+}
+.mobile-menu.active {
+height: calc(100vh - 80px);
+overflow-y: auto;
+}
+}
+.back-to-top {
+position: fixed;
+bottom: 20px;
+right: 20px;
+width: 40px;
+height: 40px;
+background-color: #23006f;
+color: white;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+opacity: 0;
+visibility: hidden;
+transition: opacity 0.3s ease, visibility 0.3s ease;
+z-index: 90;
+}
+.back-to-top.visible {
+opacity: 1;
+visibility: visible;
+}
+.notification-badge {
+position: absolute;
+top: -5px;
+right: -5px;
+width: 18px;
+height: 18px;
+background-color: #FFB81C;
+color: #2b006f;
+border-radius: 50%;
+font-size: 10px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: bold;
+}
+</style>
+</head>
+<body class="min-h-screen bg-gray-50">
+<!-- Search Overlay -->
+<div id="search-overlay" class="search-overlay">
+<div class="container mx-auto px-4 max-w-3xl">
+<div class="bg-white rounded-lg p-6 relative">
+<button id="close-search" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+<i class="ri-close-line ri-lg w-6 h-6 flex items-center justify-center"></i>
+</button>
+<h3 class="text-2xl font-bold text-gray-800 mb-4">Search Padre Gracia Polytechnic College</h3>
+<div class="relative">
+<input type="text" placeholder="Search for programs, events, faculty..." class="w-full py-4 px-5 rounded-button border border-gray-300 outline-none text-gray-800 text-lg focus:border-primary">
+<button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-primary">
+<i class="ri-search-line ri-xl w-6 h-6 flex items-center justify-center"></i>
+</button>
+</div>
+<div class="mt-6">
+<h4 class="text-sm font-semibold text-gray-500 uppercase mb-3">Popular Searches</h4>
+<div class="flex flex-wrap gap-2">
+<a href="#" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-gray-200">Admission Requirements</a>
+<a href="#" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-gray-200">Tuition Fees</a>
+<a href="#" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-gray-200">Scholarship Programs</a>
+<a href="#" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-gray-200">Academic Calendar</a>
+<a href="#" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-gray-200">Campus Map</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Back to Top Button -->
+<div id="back-to-top" class="back-to-top">
+<i class="ri-arrow-up-line ri-lg"></i>
+</div>
+<!-- Main Content -->
+<main class="min-h-screen">
+<!-- Hero Section -->
+<section class="hero-section py-20 md:py-32">
+<div class="container mx-auto px-4">
+<div class="max-w-3xl text-white">
+<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">Discover Your Potential at Padre Garcia Polytechnic College</h1>
+<p class="text-lg md:text-xl mb-8 opacity-90">A premier Higher Learning College at Padre Gracia.</p>
+<div class="flex flex-wrap gap-4">
+<a href="/apply_now" class="bg-white text-primary px-6 py-3 rounded-button font-medium hover:bg-opacity-90 transition-all !rounded-button whitespace-nowrap">Apply Now</a>
+<a href="/login" class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-button font-medium hover:bg-white hover:bg-opacity-10 transition-all !rounded-button whitespace-nowrap">LOG IN</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Announcements Section -->
+<section class="py-16 bg-white">
+<div class="container mx-auto px-4">
+<div class="flex justify-between items-center mb-10">
+<h2 class="text-3xl font-bold text-gray-800">Latest Announcements</h2>
+<a href="#" class="text-primary flex items-center hover:underline">
+View All <i class="ri-arrow-right-line ml-1 w-5 h-5 flex items-center justify-center"></i>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Announcement 1 -->
+<div class="announcement-card bg-white rounded-lg shadow-md overflow-hidden">
+<div class="h-48 overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/50d10545fd6101553402c6fc7ba69f23.jpg" alt="Graduation Ceremony" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<div class="flex items-center text-sm text-gray-500 mb-3">
+<i class="ri-calendar-line mr-2 w-4 h-4 flex items-center justify-center"></i>
+April 5, 2025
+</div>
+<h3 class="text-xl font-bold text-gray-800 mb-3">Commencement Exercises for Batch 2025</h3>
+<p class="text-gray-600 mb-4">The university will hold its commencement exercises for the graduating class of 2025 on May 15 at the PGPC Sports Complex.</p>
+<a href="#" class="text-primary font-medium hover:underline">Read More</a>
+</div>
+</div>
+<!-- Announcement 2 -->
+<div class="announcement-card bg-white rounded-lg shadow-md overflow-hidden">
+<div class="h-48 overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/17edc6aa491052aea322c174ff54f5c6.jpg" alt="Research Conference" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<div class="flex items-center text-sm text-gray-500 mb-3">
+<i class="ri-calendar-line mr-2 w-4 h-4 flex items-center justify-center"></i>
+April 8, 2025
+</div>
+<h3 class="text-xl font-bold text-gray-800 mb-3">International Research Conference 2025</h3>
+<p class="text-gray-600 mb-4">PGPC will host the International Research Conference on Sustainable Development from June 10-12, 2025.</p>
+<a href="#" class="text-primary font-medium hover:underline">Read More</a>
+</div>
+</div>
+<!-- Announcement 3 -->
+<div class="announcement-card bg-white rounded-lg shadow-md overflow-hidden">
+<div class="h-48 overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/82b63789fc795609da3b09688f182084.jpg" alt="Scholarship Program" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<div class="flex items-center text-sm text-gray-500 mb-3">
+<i class="ri-calendar-line mr-2 w-4 h-4 flex items-center justify-center"></i>
+April 9, 2025
+</div>
+<h3 class="text-xl font-bold text-gray-800 mb-3">New Scholarship Programs for AY 2025-2026</h3>
+<p class="text-gray-600 mb-4">Applications for the new scholarship programs for the academic year 2025-2026 are now open until May 30, 2025.</p>
+<a href="#" class="text-primary font-medium hover:underline">Read More</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Academic Programs Section -->
+<section class="py-16 bg-gray-50">
+<div class="container mx-auto px-4">
+<div class="text-center max-w-3xl mx-auto mb-12">
+<h2 class="text-3xl font-bold text-gray-800 mb-4">Academic Excellence</h2>
+<p class="text-gray-600">Discover our comprehensive range of undergraduate and graduate programs designed to prepare you for success in your chosen field.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Program 1 -->
+<div class="program-card bg-white rounded-lg shadow-sm p-6 text-center">
+<div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+<i class="ri-building-line text-primary ri-xl"></i>
+</div>
+<h3 class="text-xl font-bold text-gray-800 mb-2">Bachelor of science in management accounting</h3>
+<p class="text-gray-600 mb-4">Develop skills in management, finance, marketing, and economics.</p>
+<a href="#" class="text-primary font-medium hover:underline">View Programs</a>
+</div>
+<!-- Program 2 -->
+<div class="program-card bg-white rounded-lg shadow-sm p-6 text-center">
+<div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+<i class="ri-code-s-slash-line text-primary ri-xl"></i>
+</div>
+<h3 class="text-xl font-bold text-gray-800 mb-2">Bachelor of Science of Computer Science</h3>
+<p class="text-gray-600 mb-4">Innovative programs in computer science, engineering, and technology.</p>
+<a href="#" class="text-primary font-medium hover:underline">View Programs</a>
+</div>
+<!-- Program 3 -->
+<div class="program-card bg-white rounded-lg shadow-sm p-6 text-center">
+<div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+<i class="ri-flask-line text-primary ri-xl"></i>
+</div>
+<h3 class="text-xl font-bold text-gray-800 mb-2">Bachelor of Science Of Criminology</h3>
+<p class="text-gray-600 mb-4">Explore the criminal world through our Criminology program and uncover the science behind justice..</p>
+<a href="#" class="text-primary font-medium hover:underline">View Programs</a>
+</div>
+<!-- Program 4 -->
+<div class="program-card bg-white rounded-lg shadow-sm p-6 text-center">
+<div class="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
+<i class="ri-book-open-line text-primary ri-xl"></i>
+</div>
+<h3 class="text-xl font-bold text-gray-800 mb-2">Bachelor Of Public Administration</h3>
+<p class="text-gray-600 mb-4">Build the leadership, communication, and analytical skills to serve and lead through Public Administration.</p>
+<a href="#" class="text-primary font-medium hover:underline">View Programs</a>
+</div>
+</div>
+<div class="text-center mt-10">
+<a href="{{ url_for('auth.academics') }}#undergraduate" class="inline-flex items-center bg-primary text-white px-6 py-3 rounded-button font-medium hover:bg-opacity-90 transition-all !rounded-button whitespace-nowrap">
+Explore All Programs <i class="ri-arrow-right-line ml-2 w-5 h-5 flex items-center justify-center"></i>
+</a>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="py-16 bg-primary text-white">
+<div class="container mx-auto px-4">
+<div class="text-center max-w-3xl mx-auto mb-12">
+<h2 class="text-3xl font-bold mb-4">PGPC by the Numbers</h2>
+<p class="opacity-90">Padre Gracia Polytechnic College has been committed to providing quality education.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+<!-- Stat 1 -->
+<div class="stats-item text-center">
+<div class="text-5xl font-bold mb-2">2024</div>
+<p class="text-lg opacity-90">Year Founded</p>
+</div>
+<!-- Stat 2 -->
+<div class="stats-item text-center">
+<div class="text-5xl font-bold mb-2">900+</div>
+<p class="text-lg opacity-90">Students</p>
+</div>
+<!-- Stat 3 -->
+<div class="stats-item text-center">
+<div class="text-5xl font-bold mb-2">30+</div>
+<p class="text-lg opacity-90">Faculty Members</p>
+</div>
+<!-- Stat 4 -->
+<div class="stats-item text-center">
+<div class="text-5xl font-bold mb-2">100+</div>
+<p class="text-lg opacity-90">Academic Programs</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Events Section -->
+<section class="py-16 bg-white">
+<div class="container mx-auto px-4">
+<div class="flex justify-between items-center mb-10">
+<h2 class="text-3xl font-bold text-gray-800">Upcoming Events</h2>
+<a href="#" class="text-primary flex items-center hover:underline">
+View Calendar <i class="ri-calendar-line ml-1 w-5 h-5 flex items-center justify-center"></i>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Event 1 -->
+<div class="event-card bg-white rounded-lg shadow-md overflow-hidden">
+<div class="p-6">
+<div class="flex items-start mb-4">
+<div class="bg-primary text-white text-center p-2 rounded-md mr-4">
+<div class="text-sm font-medium">APR</div>
+<div class="text-2xl font-bold">15</div>
+</div>
+<div>
+<h3 class="text-xl font-bold text-gray-800 mb-1">Open House for Prospective Students</h3>
+<p class="text-gray-500 text-sm">9:00 AM - 4:00 PM | Main Campus</p>
+</div>
+</div>
+<p class="text-gray-600 mb-4">Join us for a day of campus tours, program presentations, and meet our faculty and students.</p>
+<a href="#" class="text-primary font-medium hover:underline">Learn More</a>
+</div>
+</div>
+<!-- Event 2 -->
+<div class="event-card bg-white rounded-lg shadow-md overflow-hidden">
+<div class="p-6">
+<div class="flex items-start mb-4">
+<div class="bg-primary text-white text-center p-2 rounded-md mr-4">
+<div class="text-sm font-medium">APR</div>
+<div class="text-2xl font-bold">22</div>
+</div>
+<div>
+<h3 class="text-xl font-bold text-gray-800 mb-1">Research Symposium 2025</h3>
+<p class="text-gray-500 text-sm">1:00 PM - 5:00 PM | Science Building</p>
+</div>
+</div>
+<p class="text-gray-600 mb-4">A showcase of innovative research projects by our faculty and graduate students.</p>
+<a href="#" class="text-primary font-medium hover:underline">Learn More</a>
+</div>
+</div>
+<!-- Event 3 -->
+<div class="event-card bg-white rounded-lg shadow-md overflow-hidden">
+<div class="p-6">
+<div class="flex items-start mb-4">
+<div class="bg-primary text-white text-center p-2 rounded-md mr-4">
+<div class="text-sm font-medium">APR</div>
+<div class="text-2xl font-bold">30</div>
+</div>
+<div>
+<h3 class="text-xl font-bold text-gray-800 mb-1">Alumni Homecoming</h3>
+<p class="text-gray-500 text-sm">6:00 PM - 10:00 PM | University Grounds</p>
+</div>
+</div>
+<p class="text-gray-600 mb-4">Reconnect with fellow alumni and celebrate your Lasallian heritage at our annual homecoming.</p>
+<a href="#" class="text-primary font-medium hover:underline">Learn More</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Campus Life Section -->
+<section class="py-16 bg-gray-50">
+<div class="container mx-auto px-4">
+<div class="text-center max-w-3xl mx-auto mb-12">
+<h2 class="text-3xl font-bold text-gray-800 mb-4">Campus Life</h2>
+<p class="text-gray-600">Experience a vibrant campus community with diverse activities, organizations, and facilities.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/862a849561b923eda261591031d9c454.jpg" alt="Campus Life" class="w-full h-64 object-cover object-top">
+<div class="p-6">
+<h3 class="text-2xl font-bold text-gray-800 mb-4">Student Organizations</h3>
+<p class="text-gray-600 mb-4">With over 100 student organizations, there's something for everyone at DLSU. From academic clubs to cultural groups, sports teams to volunteer organizations, you'll find plenty of opportunities to pursue your interests and develop your leadership skills.</p>
+<a href="#" class="text-primary font-medium hover:underline">Explore Organizations</a>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/6966dd104cefdb6c094b9958f56f24ab.jpg" alt="Sports and Recreation" class="w-full h-64 object-cover object-top">
+<div class="p-6">
+<h3 class="text-2xl font-bold text-gray-800 mb-4">Sports and Recreation</h3>
+<p class="text-gray-600 mb-4">Stay active and healthy with our state-of-the-art sports facilities. Whether you're a competitive athlete or just looking to stay fit, PGPC offers a wide range of sports programs and recreational activities for all students.</p>
+<a href="#" class="text-primary font-medium hover:underline">Discover Facilities</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter Section -->
+<section class="py-16 bg-white">
+<div class="container mx-auto px-4">
+<div class="max-w-3xl mx-auto bg-primary bg-opacity-5 rounded-lg p-8 border border-primary border-opacity-20">
+<div class="text-center mb-8">
+<h2 class="text-3xl font-bold text-gray-800 mb-4">Stay Connected</h2>
+<p class="text-gray-600">Subscribe to our newsletter to receive the latest news and updates from Padre Garcia Polytechnic College.</p>
+</div>
+<form class="flex flex-col md:flex-row gap-4">
+<input type="email" placeholder="Your email address" class="flex-1 px-4 py-3 rounded-button border border-gray-300 focus:outline-none focus:border-primary">
+<button type="submit" class="bg-primary text-white px-6 py-3 rounded-button font-medium hover:bg-opacity-90 transition-all !rounded-button whitespace-nowrap">Subscribe</button>
+</form>
+<div class="mt-6 text-center text-sm text-gray-500">
+By subscribing, you agree to our <a href="#" class="text-primary hover:underline">Privacy Policy</a> and <a href="#" class="text-primary hover:underline">Terms of Service</a>.
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-12">
+      <!-- Branding Section -->
+      <div>
+        <div class="flex items-center mb-4 space-x-3">
+          <!-- Rounded Logo Container with no background -->
+          <div class="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden shadow-md">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/9327c65e-8968-48a3-9ce0-738e618d6785.jpg-8fSA3dxFbbGnYKQePNkjDxV5nNEDfU.jpeg" alt="Logo" class="w-full h-full object-contain">
+          </div>
+          <!-- Text Branding -->
+          <div>
+            <span class="text-sm">Padre Garcia Polytechnic College</span>
+          </div>
+        </div>
+        <p class="text-gray-400">Brgy. Castillo, Padre Garcia, Batangas, Philippines</p>
+        <p class="text-gray-400 mt-2">+63 (2) 8524-4611</p>
+      </div>
+  
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+        <ul class="space-y-2 text-gray-400">
+          <li><a href="#" class="hover:text-white">Home</a></li>
+          <li><a href="#" class="hover:text-white">Programs</a></li>
+          <li><a href="#" class="hover:text-white">Admissions</a></li>
+          <li><a href="#" class="hover:text-white">Campus Life</a></li>
+          <li><a href="#" class="hover:text-white">Contact Us</a></li>
+        </ul>
+      </div>
+  
+      <!-- Social & Newsletter -->
+      <div>
+        <h3 class="text-lg font-bold mb-4">Connect With Us</h3>
+        <div class="flex space-x-4 mb-4">
+          <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+            <i class="ri-facebook-fill"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+            <i class="ri-twitter-x-fill"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+            <i class="ri-instagram-fill"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+            <i class="ri-youtube-fill"></i>
+          </a>
+        </div>
+        <p class="text-gray-400">Subscribe to our newsletter for updates</p>
+      </div>
+    </div>
+  
+    <!-- Footer Bottom -->
+    <div class="text-center text-sm text-gray-500 mt-8">
+      <p>© 2025 Padre Garcia Polytechnic. All rights reserved.</p>
+      <div class="mt-2 flex justify-center gap-4">
+        <a href="#" class="hover:text-white">Privacy Policy</a>
+        <a href="#" class="hover:text-white">Terms of Service</a>
+        <a href="#" class="hover:text-white">Help Center</a>
+      </div>
+    </div>
+  </footer>
+
+  
+<script>
+// Mobile Menu Toggle
+const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+const mobileMenu = document.getElementById('mobile-menu');
+mobileMenuToggle.addEventListener('click', () => {
+mobileMenu.classList.toggle('active');
+// Change icon based on menu state
+const icon = mobileMenuToggle.querySelector('i');
+if (mobileMenu.classList.contains('active')) {
+icon.classList.remove('ri-menu-line');
+icon.classList.add('ri-close-line');
+} else {
+icon.classList.remove('ri-close-line');
+icon.classList.add('ri-menu-line');
+}
+});
+// Search Overlay
+const searchButton = document.getElementById('search-button');
+const searchOverlay = document.getElementById('search-overlay');
+const closeSearch = document.getElementById('close-search');
+searchButton.addEventListener('click', () => {
+searchOverlay.classList.add('active');
+document.body.style.overflow = 'hidden';
+});
+closeSearch.addEventListener('click', () => {
+searchOverlay.classList.remove('active');
+document.body.style.overflow = '';
+});
+// Login Modal
+const loginButton = document.getElementById('login-button');
+const loginModal = document.getElementById('login-modal');
+const closeLogin = document.getElementById('close-login');
+loginButton.addEventListener('click', () => {
+loginModal.classList.add('active');
+document.body.style.overflow = 'hidden';
+});
+closeLogin.addEventListener('click', () => {
+loginModal.classList.remove('active');
+document.body.style.overflow = '';
+});
+// Close modals when clicking outside
+window.addEventListener('click', (e) => {
+if (e.target === searchOverlay) {
+searchOverlay.classList.remove('active');
+document.body.style.overflow = '';
+}
+if (e.target === loginModal) {
+loginModal.classList.remove('active');
+document.body.style.overflow = '';
+}
+});
+// Back to Top Button
+const backToTopButton = document.getElementById('back-to-top');
+window.addEventListener('scroll', () => {
+if (window.pageYOffset > 300) {
+backToTopButton.classList.add('visible');
+} else {
+backToTopButton.classList.remove('visible');
+}
+});
+backToTopButton.addEventListener('click', () => {
+window.scrollTo({
+top: 0,
+behavior: 'smooth'
+});
+});
+// Notification Dropdown
+const notificationButton = document.getElementById('notification-button');
+notificationButton.addEventListener('click', () => {
+// Create notification dropdown
+const existingDropdown = document.getElementById('notification-dropdown');
+if (existingDropdown) {
+existingDropdown.remove();
+return;
+}
+const dropdown = document.createElement('div');
+dropdown.id = 'notification-dropdown';
+dropdown.className = 'absolute top-full right-0 mt-2 w-80 bg-white rounded-lg shadow-lg overflow-hidden z-50';
+dropdown.style.animation = 'fadeIn 0.2s ease-out';
+dropdown.innerHTML = `
+<div class="p-4 border-b border-gray-100">
+<div class="flex justify-between items-center">
+<h3 class="font-semibold text-gray-800">Notifications</h3>
+<span class="text-xs bg-primary text-white px-2 py-1 rounded-full">3 new</span>
+</div>
+</div>
+<div class="max-h-80 overflow-y-auto">
+<a href="#" class="block p-4 hover:bg-gray-50 border-b border-gray-100">
+<div class="flex">
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-500 mr-3">
+<i class="ri-calendar-event-line"></i>
+</div>
+<div class="flex-1">
+<p class="text-sm font-medium text-gray-800">Reminder: Open House tomorrow</p>
+<p class="text-xs text-gray-500 mt-1">Don't forget to attend the Open House for Prospective Students tomorrow at 9:00 AM.</p>
+<p class="text-xs text-gray-400 mt-2">10 minutes ago</p>
+</div>
+</div>
+</a>
+<a href="#" class="block p-4 hover:bg-gray-50 border-b border-gray-100">
+<div class="flex">
+<div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-500 mr-3">
+<i class="ri-file-list-line"></i>
+</div>
+<div class="flex-1">
+<p class="text-sm font-medium text-gray-800">Grades published</p>
+<p class="text-xs text-gray-500 mt-1">Your grades for the third quarter have been published. Check your student portal.</p>
+<p class="text-xs text-gray-400 mt-2">2 hours ago</p>
+</div>
+</div>
+</a>
+<a href="#" class="block p-4 hover:bg-gray-50">
+<div class="flex">
+<div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center text-yellow-500 mr-3">
+<i class="ri-notification-line"></i>
+</div>
+<div class="flex-1">
+<p class="text-sm font-medium text-gray-800">Enrollment period extended</p>
+<p class="text-xs text-gray-500 mt-1">The enrollment period for the next semester has been extended until April 20, 2025.</p>
+<p class="text-xs text-gray-400 mt-2">1 day ago</p>
+</div>
+</div>
+</a>
+</div>
+<div class="p-3 text-center border-t border-gray-100">
+<a href="#" class="text-sm text-primary hover:underline">View all notifications</a>
+</div>
+`;
+notificationButton.parentNode.style.position = 'relative';
+notificationButton.parentNode.appendChild(dropdown);
+// Close dropdown when clicking outside
+document.addEventListener('click', function closeDropdown(e) {
+if (!dropdown.contains(e.target) && e.target !== notificationButton) {
+dropdown.remove();
+document.removeEventListener('click', closeDropdown);
+}
+});
+});
+// Add animation style
+const style = document.createElement('style');
+style.textContent = `
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(10px); }
+to { opacity: 1; transform: translateY(0); }
+}
+`;
+document.head.appendChild(style);
+</script>
+</body>
+</html>
+{% endblock %}

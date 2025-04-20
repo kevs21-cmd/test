@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% block title %}Student Enrollment{% endblock %}
+
+{% block content %}
+<div class="invisible h-8"></div>
+<div class="flex min-h-screen">
+  <!-- Left Image Section with Bottom Text -->
+  <div class="hidden md:flex w-1/2 bg-cover bg-center relative" style="background-image: url('https://scontent.fmnl17-3.fna.fbcdn.net/v/t39.30808-6/472737986_122197015682051122_2480124085652136128_n.jpg?...');">
+    <div class="absolute inset-0 bg-[#2b1e72]/60"></div>
+    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#2b1e72]/80 to-transparent z-10 text-white p-10">
+      <h2 class="text-4xl font-bold mb-2">Welcome to PGPC</h2>
+      <p class="text-md max-w-md">Shape your future with our world-class education. Enroll now and be part of something greater!</p>
+    </div>
+  </div>
+
+  <!-- Right Form Section -->
+  <div class="w-full md:w-1/2 bg-white p-8 md:p-16 overflow-auto">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-container max-w-lg mx-auto space-y-2 mb-4">
+          {% for category, message in messages %}
+            <div id="flash-{{ loop.index }}" class="flash-message rounded-lg px-4 py-3 text-sm font-medium border
+              {% if category == 'success' %}
+                bg-green-100 text-green-800 border-green-300
+              {% elif category == 'error' %}
+                bg-red-100 text-red-800 border-red-300
+              {% else %}
+                bg-gray-100 text-gray-800 border-gray-300
+              {% endif %}">
+              <div class="flash-content">{{ message }}</div>
+              <button class="close-btn" onclick="closeFlash('flash-{{ loop.index }}')">&times;</button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-6">
+      <div id="progress-bar" class="bg-[#29006f] h-2.5 rounded-full transition-all duration-300" style="width: 33%"></div>
+    </div>
+
+    <h2 class="text-3xl font-extrabold text-[#29006f] mb-6 text-center">Student Enrollment Form</h2>
+
+    <!-- Form starts -->
+    <form id="multi-step-form" method="POST" enctype="multipart/form-data" action="{{ url_for('auth.enrollment') }}">
+      <!-- Step 1: Personal Info -->
+      <div class="form-step" data-step="1">
+        <h3 class="text-xl font-semibold mb-4 text-[#29006f]">Personal Information</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div><label for="firstname">First Name *</label><input id="firstname" type="text" name="firstname" class="form-input" required value="{{ student.firstname }}"></div>
+          <div><label for="middlename">Middle Name</label><input id="middlename" type="text" name="middlename" class="form-input" value="{{ student.middlename }}"></div>
+          <div><label for="lastname">Last Name *</label><input id="lastname" type="text" name="lastname" class="form-input" required value="{{ student.lastname }}"></div>
+          <div><label for="dob">Date of Birth *</label><input id="dob" type="date" name="dob" class="form-input" required value="{{ student.dob }}"></div>
+          <div><label for="gender">Gender *</label>
+            <select id="gender" name="gender" class="form-input" required>
+              <option value="" disabled>Select Gender *</option>
+              <option value="Male" {% if student.gender == 'Male' %}selected{% endif %}>Male</option>
+              <option value="Female" {% if student.gender == 'Female' %}selected{% endif %}>Female</option>
+              <option value="Other" {% if student.gender == 'Other' %}selected{% endif %}>Other</option>
+            </select>
+          </div>
+          <div><label for="nationality">Nationality *</label><input id="nationality" type="text" name="nationality" class="form-input" required value="{{ student.nationality }}"></div>
+          <div><label for="contact">Contact Number *</label><input id="contact" type="text" name="contact" class="form-input" required value="{{ student.contact }}"></div>
+          <div><label for="email">Email Address *</label><input id="email" type="email" name="email" class="form-input" required value="{{ student.email }}"></div>
+          <div class="md:col-span-3"><label for="address">Complete Address *</label><textarea id="address" name="address" class="form-input" rows="2" required>{{ student.address }}</textarea></div>
+        </div>
+        <div class="text-right mt-6">
+          <button type="button" class="next-step bg-[#29006f] text-white px-6 py-2 rounded-xl">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Academic Info -->
+      <div class="form-step hidden" data-step="2">
+        <h3 class="text-xl font-semibold mb-4 text-[#29006f]">Academic Information</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div><label for="college">College/Faculty *</label>
+            <select id="college" name="college" class="form-input" required>
+              <option value="" disabled>College/Faculty *</option>
+              <option value="CCBA" {% if student.college == 'CCBA' %}selected{% endif %}>CCBA</option>
+              <option value="COC" {% if student.college == 'COC' %}selected{% endif %}>COC</option>
+            </select>
+          </div>
+          <div><label for="academic_year">Academic Year *</label>
+            <select id="academic_year" name="academic_year" class="form-input" required>
+              <option value="" disabled>Academic Year *</option>
+              <option value="2025-2026" {% if student.academic_year == '2025-2026' %}selected{% endif %}>2025-2026</option>
+              <option value="2026-2027" {% if student.academic_year == '2026-2027' %}selected{% endif %}>2026-2027</option>
+            </select>
+          </div>
+          <div><label for="term">Term / Semester *</label>
+            <select id="term" name="term" class="form-input" required>
+              <option value="" disabled>Term / Semester *</option>
+              <option value="First Term" {% if student.term == 'First Term' %}selected{% endif %}>First Term</option>
+              <option value="Second Term" {% if student.term == 'Second Term' %}selected{% endif %}>Second Term</option>
+            </select>
+          </div>
+          <div><label for="program">Program *</label>
+            <select id="program" name="program" class="form-input" required>
+              <option value="" disabled>Program *</option>
+              <option value="BSCS" {% if student.program == 'BSCS' %}selected{% endif %}>BSCS</option>
+              <option value="BSCRIM" {% if student.program == 'BSCRIM' %}selected{% endif %}>BSCRIM</option>
+              <option value="BSMA" {% if student.program == 'BSMA' %}selected{% endif %}>BSMA</option>
+            </select>
+          </div>
+          <div><label for="degree_program">Degree Program *</label>
+            <select id="degree_program" name="degree_program" class="form-input" required>
+              <option {% if student.degree_program == 'Bachelor of Science in Computer Science' %}selected{% endif %}>Bachelor of Science in Computer Science</option>
+              <option {% if student.degree_program == 'Bachelor of Science in Criminology' %}selected{% endif %}>Bachelor of Science in Criminology</option>
+              <option {% if student.degree_program == 'Bachelor of Science in Management Accounting' %}selected{% endif %}>Bachelor of Science in Management Accounting</option>
+              <option {% if student.degree_program == 'Bachelor of Public Administration' %}selected{% endif %}>Bachelor of Science in Business Administration</option>
+            </select>
+          </div>
+          <div><label for="student_id">Student ID (optional)</label><input id="student_id" type="text" name="student_id" class="form-input" value="{{ student.student_id }}"></div>
+          <div><label for="previous_school">Previous School Attended</label><input id="previous_school" type="text" name="previous_school" class="form-input" value="{{ student.previous_school }}"></div>
+        </div>
+        <div class="flex justify-between mt-6">
+          <button type="button" class="prev-step bg-gray-300 text-gray-800 px-6 py-2 rounded-xl">Back</button>
+          <button type="button" class="next-step bg-[#29006f] text-white px-6 py-2 rounded-xl">Next</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Document Uploads -->
+      <div class="form-step hidden" data-step="3">
+        <h3 class="text-xl font-semibold mb-4 text-[#29006f]">Upload Required Documents</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div><label for="form138">Form 138 *</label><input id="form138" type="file" name="form138" accept=".pdf,.jpg,.jpeg,.png" {% if not student.form138 %}required{% endif %}></div>
+          <div><label for="birth_cert">Birth Certificate *</label><input id="birth_cert" type="file" name="birth_cert" accept=".pdf,.jpg,.jpeg,.png" {% if not student.birth_cert %}required{% endif %}></div>
+          <div><label for="good_moral">Good Moral Certificate *</label><input id="good_moral" type="file" name="good_moral" accept=".pdf,.jpg,.jpeg,.png" {% if not student.good_moral %}required{% endif %}></div>
+          <div><label for="id_photos">2x2 ID Photos *</label><input id="id_photos" type="file" name="id_photos" accept=".jpg,.jpeg,.png" multiple {% if not student.id_photos %}required{% endif %}></div>
+        </div>
+        <div class="flex justify-between mt-6">
+          <button type="button" class="prev-step bg-gray-300 text-gray-800 px-6 py-2 rounded-xl">Back</button>
+          <button type="submit" class="bg-[#29006f] hover:bg-[#3a0a95] text-white font-semibold px-8 py-3 rounded-xl transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105">
+            <i class="fas fa-check-circle mr-2"></i> Enroll Now
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  let currentStep = 1;
+  const steps = document.querySelectorAll(".form-step");
+  const progressBar = document.getElementById("progress-bar");
+
+  function showStep(step) {
+    steps.forEach((s, i) => s.classList.toggle("hidden", i + 1 !== step));
+    progressBar.style.width = `${(step / steps.length) * 100}%`;
+  }
+
+  document.querySelectorAll(".next-step").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (currentStep < steps.length) {
+        currentStep++;
+        showStep(currentStep);
+      }
+    });
+  });
+
+  document.querySelectorAll(".prev-step").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (currentStep > 1) {
+        currentStep--;
+        showStep(currentStep);
+      }
+    });
+  });
+
+  showStep(currentStep);
+
+  function closeFlash(id) {
+    const flash = document.getElementById(id);
+    if (flash) {
+      flash.style.opacity = "0";
+      flash.style.transform = "translateY(-20px)";
+      flash.style.transition = "all 0.5s ease";
+      setTimeout(() => flash.remove(), 500);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".flash-message").forEach((flash, i) => {
+      setTimeout(() => closeFlash(flash.id), 5000 + i * 200);
+    });
+  });
+</script>
+
+<style>
+  .form-input {
+    border: 1px solid #ccc;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    width: 100%;
+  }
+  .flash-message {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    animation: slide-in 0.5s ease-out;
+  }
+  @keyframes slide-in {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .close-btn {
+    background: none;
+    font-size: 18px;
+    cursor: pointer;
+    padding-left: 1rem;
+  }
+</style>
+{% endblock %}

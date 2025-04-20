@@ -1,0 +1,612 @@
+{% extends "base.html" %}
+
+{% block title %}APPLY NOW{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DLSU College Admission</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#29006f',secondary:'#8257d6'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+
+<div class="invisible h-8"></div>
+<div class="invisible h-8"></div>
+
+    <style>
+    :where([class^="ri-"])::before { content: "\f3c2"; }
+    body {
+    font-family: 'Montserrat', sans-serif;
+    scroll-behavior: smooth;
+    background-color: #f8f5ff;
+    }
+        ::-webkit-scrollbar
+    {
+    width: 10px;
+    }
+     ::-webkit-scrollbar-track
+    {
+    background: #e8e0ff;
+    }
+        ::-webkit-scrollbar-thumb 
+    {
+        background: #29006f;
+        border-radius: 8px;
+    }
+     ::-webkit-scrollbar-thumb:hover
+     {
+    background: #3a0087;
+    }
+    .gradient-bg 
+    {
+        background: linear-gradient(135deg, #29006f 0%, #1a004d 100%);
+    }
+    .btn-gradient 
+    {
+        background: linear-gradient(135deg, #3a0087 0%, #29006f 100%);
+        transition: all 0.3s ease;
+    }
+    .btn-gradient:hover
+     {
+        background: linear-gradient(135deg, #8257d6 0%, #3a0087 100%);
+        box-shadow: 0 0 15px rgba(130, 87, 214, 0.5);
+        transform: translateY(-2px);
+    }
+    .section-divider
+     {
+        height: 4px;
+        background: linear-gradient(90deg, #29006f, #8257d6, #29006f);
+    }
+    .card
+    {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover 
+    {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(41, 0, 111, 0.2);
+    }
+    .nav-link 
+    {
+        position: relative;
+    }
+
+    .nav-link::after 
+    {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -2px;
+        left: 0;
+        background-color: #8257d6;
+        transition: width 0.3s ease;
+    }
+    .nav-link:hover::after
+     {
+        width: 100%;
+    }
+    .active-nav::after
+     {
+        width: 100%;
+    }
+    .hero-pattern 
+    {
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%238257d6' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    </style>
+</head>
+    <body>
+    <!-- Hero Section -->
+    <section class="gradient-bg hero-pattern min-h-[80vh] flex items-center">
+        <div class="container mx-auto px-4 py-20">
+        <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-primary mb-6 leading-tight">WELCOME, FUTURE PGPCIANS!</h1>
+        <div class="w-24 h-1 bg-secondary mx-auto mb-8"></div>
+        <p class="text-lg md:text-xl #29006f mb-10 leading-relaxed">
+        In the coming months, you will be making one of the most important decisions of your life - choosing the right university for you. This is your opportunity to shape the kind of future you envision for yourself. This is your chance to be part of bigger things and discover the best in you.
+        </p>
+        <p class="text-xl font-medium mb-12">
+        Be part of the PGPC story and create a future that begins here.
+        </p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4 sm:gap-8">
+        <a href="#procedures" class="btn-gradient text-white font-semibold py-4 px-8 rounded-button whitespace-nowrap">
+        VIEW PROCEDURES
+        </a>
+        <a href="/requirments" class="btn-gradient text-white font-semibold py-4 px-8 rounded-button whitespace-nowrap">
+        APPLY NOW
+        </a>
+</div>
+</div>
+</div>
+</section>
+<!-- About Section -->
+<section id="about" class="py-20 bg-white">
+<div class="container mx-auto px-4">
+<div class="max-w-4xl mx-auto">
+<h2 class="text-3xl md:text-4xl font-bold text-primary mb-4 text-center">About PGPC</h2>
+<div class="w-20 h-1 bg-secondary mx-auto mb-12"></div>
+<div class="grid md:grid-cols-2 gap-12 items-center">
+<div>
+<p class="text-gray-700 mb-6 leading-relaxed">
+Padre Garcia Polytechnic College is a premier educational institution with a rich heritage of academic excellence, research, and service. Founded in 2024, PGPC has consistently been at the forefront of Philippine education, nurturing generations of leaders and innovators.
+</p>
+<p class="text-gray-700 mb-6 leading-relaxed">
+As a PGPCian institution, we are committed to providing transformative education that empowers students to become catalysts for positive change in society. Our world-class faculty, cutting-edge facilities, and innovative programs ensure that our students receive an education that is both globally competitive and locally relevant.
+</p>
+<div class="flex flex-wrap gap-4 mt-8">
+<div class="flex items-center bg-gray-100 px-4 py-2 rounded-lg">
+<div class="w-10 h-10 flex items-center justify-center text-primary">
+<i class="ri-medal-line ri-2x"></i>
+</div>
+<span class="ml-2 font-medium">Top-Ranked University</span>
+</div>
+<div class="flex items-center bg-gray-100 px-4 py-2 rounded-lg">
+<div class="w-10 h-10 flex items-center justify-center text-primary">
+<i class="ri-global-line ri-2x"></i>
+</div>
+<span class="ml-2 font-medium">International Recognition</span>
+</div>
+<div class="flex items-center bg-gray-100 px-4 py-2 rounded-lg">
+<div class="w-10 h-10 flex items-center justify-center text-primary">
+<i class="ri-book-open-line ri-2x"></i>
+</div>
+<span class="ml-2 font-medium">Research Excellence</span>
+</div>
+</div>
+</div>
+<div class="rounded-xl overflow-hidden shadow-xl">
+<img src="https://readdy.ai/api/search-image?query=modern%20university%20campus%20with%20beautiful%20architecture%2C%20purple%20and%20green%20accents%2C%20students%20walking%2C%20sunny%20day%2C%20professional%20photo%2C%20high%20quality&width=600&height=500&seq=dlsu1&orientation=landscape" alt="DLSU Campus" class="w-full h-full object-cover object-top">
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="gradient-bg py-16">
+<div class="container mx-auto px-4">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+<div class="p-6">
+<div class="text-4xl font-bold text-white mb-2">100+</div>
+<div class="text-gray-200">Years of Excellence</div>
+</div>
+<div class="p-6">
+<div class="text-4xl font-bold text-white mb-2">20,000+</div>
+<div class="text-gray-200">Students</div>
+</div>
+<div class="p-6">
+<div class="text-4xl font-bold text-white mb-2">100+</div>
+<div class="text-gray-200">Academic Programs</div>
+</div>
+<div class="p-6">
+<div class="text-4xl font-bold text-white mb-2">300+</div>
+<div class="text-gray-200">Partner Institutions</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Programs Section -->
+<section id="programs" class="py-20 bg-white">
+<div class="container mx-auto px-4">
+<h2 class="text-3xl md:text-4xl font-bold text-primary mb-4 text-center">Academic Programs</h2>
+<div class="w-20 h-1 bg-secondary mx-auto mb-12"></div>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="card bg-white rounded-xl shadow-lg overflow-hidden">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=business%20students%20in%20modern%20classroom%2C%20diverse%20group%2C%20professional%20setting%2C%20purple%20accents%2C%20high%20quality&width=400&height=300&seq=prog1&orientation=landscape" alt="College of Business" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold text-primary mb-2">College of Business</h3>
+<p class="text-gray-600 mb-4">Developing future business leaders with a strong foundation in management, entrepreneurship, and sustainable business practices.</p>
+<div class="flex justify-between items-center">
+<span class="text-sm text-gray-500">12 Programs</span>
+<a href="#" class="text-secondary hover:underline font-medium">Learn More</a>
+</div>
+</div>
+</div>
+<div class="card bg-white rounded-xl shadow-lg overflow-hidden">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=engineering%20students%20working%20on%20project%2C%20laboratory%20setting%2C%20technical%20equipment%2C%20purple%20accents%2C%20high%20quality&width=400&height=300&seq=prog2&orientation=landscape" alt="College of Engineering" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold text-primary mb-2">College of Engineering</h3>
+<p class="text-gray-600 mb-4">Fostering innovation and technical expertise through rigorous engineering programs and hands-on learning experiences.</p>
+<div class="flex justify-between items-center">
+<span class="text-sm text-gray-500">15 Programs</span>
+<a href="#" class="text-secondary hover:underline font-medium">Learn More</a>
+</div>
+</div>
+</div>
+<div class="card bg-white rounded-xl shadow-lg overflow-hidden">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=computer%20science%20students%20working%20with%20computers%2C%20modern%20tech%20lab%2C%20coding%2C%20purple%20accents%2C%20high%20quality&width=400&height=300&seq=prog3&orientation=landscape" alt="College of Computer Studies" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold text-primary mb-2">College of Computer Studies</h3>
+<p class="text-gray-600 mb-4">Preparing students for careers in technology through cutting-edge programs in computer science, IT, and digital innovation.</p>
+<div class="flex justify-between items-center">
+<span class="text-sm text-gray-500">8 Programs</span>
+<a href="#" class="text-secondary hover:underline font-medium">Learn More</a>
+</div>
+</div>
+</div>
+<div class="card bg-white rounded-xl shadow-lg overflow-hidden">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=science%20students%20in%20laboratory%2C%20chemistry%20experiment%2C%20scientific%20equipment%2C%20purple%20accents%2C%20high%20quality&width=400&height=300&seq=prog4&orientation=landscape" alt="College of Science" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold text-primary mb-2">College of Science</h3>
+<p class="text-gray-600 mb-4">Advancing scientific knowledge through research-oriented programs in biology, chemistry, physics, and mathematics.</p>
+<div class="flex justify-between items-center">
+<span class="text-sm text-gray-500">10 Programs</span>
+<a href="#" class="text-secondary hover:underline font-medium">Learn More</a>
+</div>
+</div>
+</div>
+<div class="card bg-white rounded-xl shadow-lg overflow-hidden">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=liberal%20arts%20classroom%20discussion%2C%20diverse%20students%2C%20humanities%2C%20purple%20accents%2C%20high%20quality&width=400&height=300&seq=prog5&orientation=landscape" alt="College of Liberal Arts" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold text-primary mb-2">College of Liberal Arts</h3>
+<p class="text-gray-600 mb-4">Cultivating critical thinking and creativity through programs in humanities, social sciences, and communication.</p>
+<div class="flex justify-between items-center">
+<span class="text-sm text-gray-500">14 Programs</span>
+<a href="#" class="text-secondary hover:underline font-medium">Learn More</a>
+</div>
+</div>
+</div>
+<div class="card bg-white rounded-xl shadow-lg overflow-hidden">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=education%20students%20teaching%20practice%2C%20classroom%20setting%2C%20teaching%20materials%2C%20purple%20accents%2C%20high%20quality&width=400&height=300&seq=prog6&orientation=landscape" alt="College of Education" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-bold text-primary mb-2">College of Education</h3>
+<p class="text-gray-600 mb-4">Shaping future educators through innovative teaching methodologies and educational research.</p>
+<div class="flex justify-between items-center">
+<span class="text-sm text-gray-500">7 Programs</span>
+<a href="#" class="text-secondary hover:underline font-medium">Learn More</a>
+</div>
+</div>
+</div>
+</div>
+<div class="text-center mt-12">
+<a href="#" class="btn-gradient text-white font-semibold py-3 px-8 rounded-button inline-block whitespace-nowrap">
+View All Programs
+</a>
+</div>
+</div>
+</section>
+<!-- Admission Procedures Section -->
+<section id="procedures" class="py-20 gradient-bg">
+<div class="container mx-auto px-4">
+<h2 class="text-3xl md:text-4xl font-bold text-white mb-4 text-center">Admission Procedures</h2>
+<div class="w-20 h-1 bg-white mx-auto mb-12"></div>
+<div class="max-w-4xl mx-auto">
+<div class="flex flex-col md:flex-row gap-8">
+<div class="md:w-1/2">
+<div class="bg-white rounded-xl p-8 h-full">
+<h3 class="text-2xl font-bold text-primary mb-6">Freshman Applicants</h3>
+<ul class="space-y-4">
+<li class="flex items-start">
+<div class="w-8 h-8 flex items-center justify-center bg-primary rounded-full text-white mr-3 flex-shrink-0 mt-1">1</div>
+<div>
+<p class="font-medium text-gray-800">Complete Online Application</p>
+<p class="text-gray-600 text-sm mt-1">Fill out the application form on the PGPC portal with your personal and academic information.</p>
+</div>
+</li>
+<li class="flex items-start">
+<div class="w-8 h-8 flex items-center justify-center bg-primary rounded-full text-white mr-3 flex-shrink-0 mt-1">2</div>
+<div>
+<p class="font-medium text-gray-800">Submit Required Documents</p>
+<p class="text-gray-600 text-sm mt-1">Upload high school transcripts, recommendation letters, and other required documents.</p>
+</div>
+</li>
+<li class="flex items-start">
+<div class="w-8 h-8 flex items-center justify-center bg-primary rounded-full text-white mr-3 flex-shrink-0 mt-1">3</div>
+<div>
+<p class="font-medium text-gray-800">Take Entrance Examination</p>
+<p class="text-gray-600 text-sm mt-1">Register and take the DLSU College Admission Test (DCAT) on your scheduled date.</p>
+</div>
+</li>
+<li class="flex items-start">
+<div class="w-8 h-8 flex items-center justify-center bg-primary rounded-full text-white mr-3 flex-shrink-0 mt-1">4</div>
+<div>
+<p class="font-medium text-gray-800">Await Results and Confirm Enrollment</p>
+<p class="text-gray-600 text-sm mt-1">Check admission results online and confirm your enrollment if accepted.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="md:w-1/2">
+<div class="bg-white rounded-xl p-8 h-full">
+<h3 class="text-2xl font-bold text-primary mb-6">Transfer Applicants</h3>
+<ul class="space-y-4">
+<li class="flex items-start">
+<div class="w-8 h-8 flex items-center justify-center bg-primary rounded-full text-white mr-3 flex-shrink-0 mt-1">1</div>
+<div>
+<p class="font-medium text-gray-800">Complete Transfer Application</p>
+<p class="text-gray-600 text-sm mt-1">Fill out the transfer application form on the DLSU portal with your academic history.</p>
+</div>
+</li>
+<li class="flex items-start">
+<div class="w-8 h-8 flex items-center justify-center bg-primary rounded-full text-white mr-3 flex-shrink-0 mt-1">2</div>
+<div>
+<p class="font-medium text-gray-800">Submit College Transcripts</p>
+<p class="text-gray-600 text-sm mt-1">Provide official transcripts from your previous college or university.</p>
+</div>
+</li>
+<li class="flex items-start">
+<div class="w-8 h-8 flex items-center justify-center bg-primary rounded-full text-white mr-3 flex-shrink-0 mt-1">3</div>
+<div>
+<p class="font-medium text-gray-800">Course Evaluation</p>
+<p class="text-gray-600 text-sm mt-1">Your previous coursework will be evaluated for potential credit transfer.</p>
+</div>
+</li>
+<li class="flex items-start">
+<div class="w-8 h-8 flex items-center justify-center bg-primary rounded-full text-white mr-3 flex-shrink-0 mt-1">4</div>
+<div>
+<p class="font-medium text-gray-800">Interview and Enrollment</p>
+<p class="text-gray-600 text-sm mt-1">Complete an interview with the department and confirm enrollment if accepted.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="mt-12 text-center">
+<a href="#" class="bg-white text-primary font-semibold py-3 px-8 rounded-button inline-block hover:bg-gray-100 transition duration-300 whitespace-nowrap">
+Download Admission Guide
+</a>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Campus Life Section -->
+<section id="campus" class="py-20 bg-gray-50">
+<div class="container mx-auto px-4">
+<h2 class="text-3xl md:text-4xl font-bold text-primary mb-4 text-center">Campus Life</h2>
+<div class="w-20 h-1 bg-secondary mx-auto mb-12"></div>
+<div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+<div>
+<div class="rounded-xl overflow-hidden shadow-lg mb-8">
+<img src="https://readdy.ai/api/search-image?query=university%20campus%20life%2C%20students%20studying%20in%20modern%20library%2C%20purple%20accents%2C%20bright%20and%20airy%20space%2C%20high%20quality&width=600&height=400&seq=campus1&orientation=landscape" alt="Campus Life" class="w-full h-64 object-cover object-top">
+</div>
+<h3 class="text-2xl font-bold text-primary mb-4">Student Experience</h3>
+<p class="text-gray-700 mb-6 leading-relaxed">
+Life at PGPC extends far beyond the classroom. Our vibrant campus community offers countless opportunities for personal growth, leadership development, and meaningful connections. With over 80 student organizations, sports teams, and cultural groups, there's something for everyone.
+</p>
+<p class="text-gray-700 mb-6 leading-relaxed">
+Our state-of-the-art facilities include modern libraries, research centers, sports complexes, and creative spaces that support both academic excellence and student life. The DLSU experience is designed to nurture well-rounded individuals who excel not just in their chosen fields, but as responsible global citizens.
+</p>
+<div class="grid grid-cols-2 gap-4 mt-8">
+<div class="flex items-center">
+<div class="w-10 h-10 flex items-center justify-center text-primary">
+<i class="ri-group-line ri-2x"></i>
+</div>
+<span class="ml-2 font-medium">80+ Student Organizations</span>
+</div>
+<div class="flex items-center">
+<div class="w-10 h-10 flex items-center justify-center text-primary">
+<i class="ri-basketball-line ri-2x"></i>
+</div>
+<span class="ml-2 font-medium">25+ Sports Teams</span>
+</div>
+<div class="flex items-center">
+<div class="w-10 h-10 flex items-center justify-center text-primary">
+<i class="ri-building-4-line ri-2x"></i>
+</div>
+<span class="ml-2 font-medium">Modern Facilities</span>
+</div>
+<div class="flex items-center">
+<div class="w-10 h-10 flex items-center justify-center text-primary">
+<i class="ri-calendar-event-line ri-2x"></i>
+</div>
+<span class="ml-2 font-medium">100+ Annual Events</span>
+</div>
+</div>
+</div>
+<div>
+<div class="rounded-xl overflow-hidden shadow-lg mb-8">
+<img src="https://readdy.ai/api/search-image?query=university%20students%20in%20extracurricular%20activities%2C%20diverse%20group%2C%20campus%20event%2C%20purple%20decorations%2C%20high%20quality&width=600&height=400&seq=campus2&orientation=landscape" alt="Student Activities" class="w-full h-64 object-cover object-top">
+</div>
+<h3 class="text-2xl font-bold text-primary mb-4">Student Support</h3>
+<p class="text-gray-700 mb-6 leading-relaxed">
+At PGPC, we are committed to supporting our students throughout their academic journey. Our comprehensive support services include academic advising, career counseling, health and wellness programs, and financial aid options to ensure that every student has the resources they need to succeed.
+</p>
+<p class="text-gray-700 mb-6 leading-relaxed">
+Our dedicated faculty and staff are always available to provide guidance and assistance, creating a nurturing environment where students can thrive. We believe in fostering a community of care that empowers students to overcome challenges and achieve their full potential.
+</p>
+<div class="bg-white rounded-xl shadow-md p-6 mt-8">
+<h4 class="font-bold text-lg text-primary mb-4">Student Testimonial</h4>
+<p class="text-gray-600 italic mb-4">
+"My experience at PGPC has been transformative. The supportive community, excellent professors, and countless opportunities have helped me grow not just academically, but as a person. I've discovered passions I never knew I had and made lifelong friendships."
+</p>
+<div class="flex items-center">
+<div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold">MR</div>
+<div class="ml-3">
+<div class="font-medium">Michael Rodriguez</div>
+<div class="text-sm text-gray-500">Computer Science, Class of 2024</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="text-center mt-12">
+<a href="#" class="btn-gradient text-white font-semibold py-3 px-8 rounded-button inline-block whitespace-nowrap">
+Explore Campus Life
+</a>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section id="contact" class="py-20 gradient-bg">
+<div class="container mx-auto px-4">
+<h2 class="text-3xl md:text-4xl font-bold text-white mb-4 text-center">Contact Us</h2>
+<div class="w-20 h-1 bg-white mx-auto mb-12"></div>
+<div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+<div class="grid md:grid-cols-2">
+<div class="p-8">
+<h3 class="text-2xl font-bold text-primary mb-6">Get in Touch</h3>
+<p class="text-gray-600 mb-8">
+Have questions about admission, programs, or campus life? Our admissions team is here to help. Reach out to us through any of the following channels:
+</p>
+<div class="space-y-4">
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center text-primary">
+<i class="ri-map-pin-line ri-2x"></i>
+</div>
+<div class="ml-4">
+<h4 class="font-medium text-gray-800">Address</h4>
+<p class="text-gray-600">Bry. Castillio, Padre Garcia, Batangas, Philippines 1004</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center text-primary">
+<i class="ri-phone-line ri-2x"></i>
+</div>
+<div class="ml-4">
+<h4 class="font-medium text-gray-800">Phone</h4>
+<p class="text-gray-600">+63 (2) 8524-4611</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center text-primary">
+<i class="ri-mail-line ri-2x"></i>
+</div>
+<div class="ml-4">
+<h4 class="font-medium text-gray-800">Email</h4>
+<p class="text-gray-600">admissions@PGPC.edu.ph</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center text-primary">
+<i class="ri-time-line ri-2x"></i>
+</div>
+<div class="ml-4">
+<h4 class="font-medium text-gray-800">Office Hours</h4>
+<p class="text-gray-600">Monday to Friday: 8:00 AM - 5:00 PM</p>
+</div>
+</div>
+</div>
+<div class="mt-8">
+<h4 class="font-medium text-gray-800 mb-3">Connect With Us</h4>
+<div class="flex space-x-4">
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-full hover:bg-secondary transition duration-300">
+<i class="ri-facebook-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-full hover:bg-secondary transition duration-300">
+<i class="ri-twitter-x-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-full hover:bg-secondary transition duration-300">
+<i class="ri-instagram-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-full hover:bg-secondary transition duration-300">
+<i class="ri-youtube-fill"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="p-8 bg-gray-50">
+<h3 class="text-2xl font-bold text-primary mb-6">Send a Message</h3>
+<form>
+<div class="mb-4">
+<label class="block text-gray-700 text-sm font-medium mb-2" for="name">Your Name</label>
+<input class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary" id="name" type="text" placeholder="Enter your name">
+</div>
+<div class="mb-4">
+<label class="block text-gray-700 text-sm font-medium mb-2" for="contact-email">Email Address</label>
+<input class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary" id="contact-email" type="email" placeholder="Enter your email">
+</div>
+<div class="mb-4">
+<label class="block text-gray-700 text-sm font-medium mb-2" for="subject">Subject</label>
+<input class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary" id="subject" type="text" placeholder="Enter subject">
+</div>
+<div class="mb-6">
+<label class="block text-gray-700 text-sm font-medium mb-2" for="message">Message</label>
+<textarea class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary h-32" id="message" placeholder="Enter your message"></textarea>
+</div>
+<button type="submit" class="btn-gradient text-white font-semibold py-3 px-6 rounded-button w-full whitespace-nowrap">
+Send Message
+</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-12">
+      <!-- Branding Section -->
+      <div>
+        <div class="flex items-center mb-4 space-x-3">
+          <!-- Rounded Logo Container with no background -->
+          <div class="w-12 h-12 rounded-full flex items-center justify-center overflow-hidden shadow-md">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/9327c65e-8968-48a3-9ce0-738e618d6785.jpg-8fSA3dxFbbGnYKQePNkjDxV5nNEDfU.jpeg" alt="Logo" class="w-full h-full object-contain">
+          </div>
+          <!-- Text Branding -->
+          <div>
+            <span class="text-sm">Padre Garcia Polytechnic College</span>
+          </div>
+        </div>
+        <p class="text-gray-400">Brgy. Castillo, Padre Garcia, Batangas, Philippines</p>
+        <p class="text-gray-400 mt-2">+63 (2) 8524-4611</p>
+      </div>
+  
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-lg font-bold mb-4">Quick Links</h3>
+        <ul class="space-y-2 text-gray-400">
+          <li><a href="#" class="hover:text-white">Home</a></li>
+          <li><a href="#" class="hover:text-white">Programs</a></li>
+          <li><a href="#" class="hover:text-white">Admissions</a></li>
+          <li><a href="#" class="hover:text-white">Campus Life</a></li>
+          <li><a href="#" class="hover:text-white">Contact Us</a></li>
+        </ul>
+      </div>
+  
+      <!-- Social & Newsletter -->
+      <div>
+        <h3 class="text-lg font-bold mb-4">Connect With Us</h3>
+        <div class="flex space-x-4 mb-4">
+          <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+            <i class="ri-facebook-fill"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+            <i class="ri-twitter-x-fill"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+            <i class="ri-instagram-fill"></i>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-green-500">
+            <i class="ri-youtube-fill"></i>
+          </a>
+        </div>
+        <p class="text-gray-400">Subscribe to our newsletter for updates</p>
+      </div>
+    </div>
+  
+    <!-- Footer Bottom -->
+    <div class="text-center text-sm text-gray-500 mt-8">
+      <p>© 2025 Padre Garcia Polytechnic College. All rights reserved.</p>
+      <div class="mt-2 flex justify-center gap-4">
+        <a href="#" class="hover:text-white">Privacy Policy</a>
+        <a href="#" class="hover:text-white">Terms of Service</a>
+        <a href="#" class="hover:text-white">Help Center</a>
+      </div>
+    </div>
+  </footer>
+  
+  {% endblock %}
+  
